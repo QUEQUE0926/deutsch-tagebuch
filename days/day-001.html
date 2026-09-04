@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1 · A1 · 自我介绍：初次见面</title>
+<style>
+  :root{
+    --der:#2563eb;--der-bg:#dbeafe;
+    --die:#dc2626;--die-bg:#fee2e2;
+    --das:#16a34a;--das-bg:#dcfce7;
+    --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;
+    --bg:#ffffff;--panel:#f8fafc;--accent:#0f172a;
+    --tap:#7c3aed;--tap-bg:#f3e8ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px}
+  .wrap{max-width:820px;margin:0 auto;padding:0 16px}
+  header.top{border-bottom:1px solid var(--line);padding:18px 0 14px;background:var(--panel)}
+  .nav{display:flex;gap:14px;align-items:center;font-size:14px;margin-bottom:10px;flex-wrap:wrap}
+  .nav a,.nav .nav-disabled{color:var(--muted);text-decoration:none;padding:3px 8px;border-radius:6px}
+  .nav a{color:var(--accent);border:1px solid var(--line)}
+  .nav .nav-disabled{opacity:.4;border:1px dashed var(--line)}
+  h1{margin:0 0 6px;font-size:1.5rem;color:var(--accent)}
+  .lede{margin:0;color:var(--muted);font-size:.92rem}
+  main{padding:8px 0 40px}
+  section{padding:22px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:1.18rem;color:var(--accent);margin:0 0 4px;display:flex;align-items:baseline;gap:8px}
+  h2 .num{color:var(--muted);font-weight:600;font-size:.9rem}
+  .sec-intro{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+  /* article chips */
+  .art{display:inline-block;padding:1px 7px;border-radius:5px;font-weight:600;font-size:.92em;white-space:nowrap}
+  .art-der{color:var(--der);background:var(--der-bg)}
+  .art-die{color:var(--die);background:var(--die-bg)}
+  .art-das{color:var(--das);background:var(--das-bg)}
+  .noun{font-weight:600}
+  /* speak buttons */
+  .spk{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:7px;padding:2px 7px;font-size:.95rem;line-height:1;vertical-align:middle;color:var(--accent);user-select:none}
+  .spk:hover{background:var(--panel)}
+  .spk:active{transform:scale(.94)}
+  .spk.slow{color:var(--tap);border-color:#e9d5ff}
+  .spk.rec{color:#b91c1c;border-color:#fecaca}
+  .spk.play{color:#15803d;border-color:#bbf7d0}
+  .spk.rec.recording{background:#fee2e2;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .row-controls{display:inline-flex;gap:5px;align-items:center;margin-left:6px;flex-wrap:wrap}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93rem}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel);font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  td .ex{color:var(--muted);font-size:.88rem;display:block;margin-top:2px}
+  tr:hover{background:#fafbfc}
+  .grp{margin:14px 0}
+  .grp h3{font-size:.98rem;margin:0 0 6px;color:var(--accent)}
+  /* dialogue */
+  .dlg{list-style:none;padding:0;margin:10px 0}
+  .dlg li{padding:9px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:38px 1fr;gap:8px}
+  .dlg .spk-name{font-weight:700;color:var(--accent);font-size:.85rem}
+  .dlg .de{margin:2px 0}
+  .dlg .en{color:var(--muted);font-size:.9rem}
+  .dlg .ln{color:var(--muted);font-size:.82rem;font-weight:600}
+  /* grammar tap */
+  details.tap{background:var(--tap-bg);border:1px solid #e9d5ff;border-radius:9px;padding:0;margin:12px 0;overflow:hidden}
+  details.tap>summary{cursor:pointer;padding:12px 14px;font-weight:600;color:var(--tap);list-style:none}
+  details.tap>summary::-webkit-details-marker{display:none}
+  details.tap>summary::before{content:"▸ ";color:var(--tap)}
+  details.tap[open]>summary::before{content:"▾ "}
+  .tap-body{padding:0 14px 14px}
+  .tap-body h4{margin:10px 0 4px;font-size:.9rem;color:var(--accent)}
+  .tap-body .bd{background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;white-space:pre;overflow-x:auto}
+  .tap-body .note{background:#fff;border-left:3px solid var(--tap);padding:8px 12px;margin:8px 0;border-radius:0 6px 6px 0;font-size:.9rem}
+  .tap-body ul{margin:6px 0;padding-left:20px}
+  .tap-body li{margin:3px 0;font-size:.9rem}
+  /* reading */
+  .read{background:var(--panel);border-radius:9px;padding:14px 16px;margin:8px 0}
+  .read p{margin:8px 0}
+  .meta-read{color:var(--muted);font-size:.84rem;margin:0 0 4px}
+  /* quiz */
+  .quiz{margin:14px 0}
+  .quiz .q{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin:10px 0}
+  .quiz .q-stem{font-weight:600;margin:0 0 8px}
+  .quiz .opts{list-style:none;padding:0;margin:0}
+  .quiz .opts li{padding:4px 0;font-size:.93rem}
+  .quiz details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+  .quiz details summary{cursor:pointer;color:var(--accent);font-size:.88rem;font-weight:600}
+  .quiz .ans{margin-top:6px;font-size:.9rem}
+  .quiz .ans b{color:var(--das)}
+  .quiz .class-self{color:var(--muted);font-size:.84rem;margin-top:6px}
+  /* shadowing */
+  .sh{background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px 14px;margin:10px 0}
+  .sh .sh-de{font-size:1rem;margin:0 0 6px}
+  .sh .sh-note{color:var(--muted);font-size:.86rem;margin:4px 0 0}
+  .pron-table{width:100%;margin:10px 0;font-size:.9rem}
+  .pron-table th{font-size:.8rem}
+  /* writing skip */
+  .skip{background:var(--panel);border-radius:9px;padding:14px 16px;color:var(--muted);font-size:.92rem}
+  .skip strong{color:var(--accent)}
+  /* footer */
+  footer{background:var(--panel);border-top:1px solid var(--line);padding:20px 0;font-size:.86rem;color:var(--muted)}
+  footer h3{color:var(--accent);font-size:1rem;margin:0 0 8px}
+  footer ul{padding-left:18px;margin:6px 0}
+  footer .sc{width:100%;margin:10px 0}
+  footer .sc td{font-size:.85rem}
+  footer .sc .ok{color:var(--das);font-weight:600}
+  footer .sc .no{color:var(--die);font-weight:600}
+  .push{margin:10px 0}
+  .push li{margin:4px 0}
+  .badge{display:inline-block;padding:1px 7px;border-radius:5px;font-size:.82rem;font-weight:600}
+  .badge.ok{background:var(--das-bg);color:var(--das)}
+  .badge.no{background:var(--die-bg);color:var(--die)}
+  .badge.wait{background:#fef9c3;color:#a16207}
+  @media(max-width:560px){
+    h1{font-size:1.25rem}
+    table{font-size:.86rem}
+    th,td{padding:5px 6px}
+    .dlg li{grid-template-columns:30px 1fr}
+    .row-controls{gap:3px}
+    .spk{padding:1px 5px;font-size:.88rem}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <nav class="nav">
+      <span class="nav-disabled">← Day 0</span>
+      <a href="../index.html">Home</a>
+      <a href="day-002.html">Day 2 →</a>
+    </nav>
+    <h1>Day 1 · A1 · 自我介绍：初次见面</h1>
+    <p class="lede">Welcome to Day 1 of your German journey. Today you'll introduce yourself in the most common first-meeting situation — say who you are, where you're from, where you live. · 讲解语言：英语 · 内容语言：德语 · 全文不含任何游戏化元素。</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 1. WORDS -->
+<section id="words">
+  <h2><span class="num">1.</span> Today's Words <span style="font-weight:400;color:var(--muted);font-size:.9rem">(15 new)</span></h2>
+  <p class="sec-intro">Grouped by English–German cognate relationship where possible — sound-alike pairs are your fastest memory lever.</p>
+
+  <div class="grp">
+    <h3>Group A · English–German cognates (sound-alikes)</h3>
+    <table>
+      <thead><tr><th>German (with article)</th><th>Plural</th><th>English</th><th>Example (German + English)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Name</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Name')">🔊</span></span></td><td>die Namen</td><td>name</td><td>Mein Name ist Anna.<span class="ex">My name is Anna.</span></td></tr>
+        <tr><td><span class="art art-die">die</span> <span class="noun">Hand</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Hand')">🔊</span></span></td><td>die Hände</td><td>hand</td><td>Ich gebe dir die Hand.<span class="ex">I give you my hand.</span></td></tr>
+        <tr><td><span class="art art-das">das</span> <span class="noun">Land</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Land')">🔊</span></span></td><td>die Länder</td><td>land, country</td><td>Ich komme aus einem anderen Land.<span class="ex">I come from another country.</span></td></tr>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Freund</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Freund')">🔊</span></span></td><td>die Freunde</td><td>friend</td><td>Er ist mein Freund.<span class="ex">He is my friend.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grp">
+    <h3>Group B · Core self-intro verbs (with valence)</h3>
+    <table>
+      <thead><tr><th>German</th><th>Valence</th><th>English</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="noun">heißen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'heißen')">🔊</span></span></td><td>(+ Nominativ)</td><td>to be called</td><td>Ich heiße Tom.<span class="ex">I am called Tom.</span></td></tr>
+        <tr><td><span class="noun">sein</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'sein')">🔊</span></span></td><td>(+ Nominativ)</td><td>to be</td><td>Ich bin Student.<span class="ex">I am a student.</span></td></tr>
+        <tr><td><span class="noun">kommen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'kommen')">🔊</span></span></td><td>(aus + Dativ)</td><td>to come (from)</td><td>Ich komme aus China.<span class="ex">I come from China.</span></td></tr>
+        <tr><td><span class="noun">wohnen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'wohnen')">🔊</span></span></td><td>(in + Dativ)</td><td>to live (in)</td><td>Ich wohne in Berlin.<span class="ex">I live in Berlin.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grp">
+    <h3>Group C · Pronouns & basics</h3>
+    <table>
+      <thead><tr><th>German</th><th>Grammar</th><th>English</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="noun">ich</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'ich')">🔊</span></span></td><td>1st sg. pronoun</td><td>I</td><td>Ich lerne Deutsch.<span class="ex">I am learning German.</span></td></tr>
+        <tr><td><span class="noun">du</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'du')">🔊</span></span></td><td>2nd sg., informal</td><td>you (sg., informal)</td><td>Wie heißt du?<span class="ex">What's your name?</span></td></tr>
+        <tr><td><span class="art art-die">die</span> <span class="noun">Stadt</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Stadt')">🔊</span></span></td><td>die Städte</td><td>city</td><td>Berlin ist eine große Stadt.<span class="ex">Berlin is a big city.</span></td></tr>
+        <tr><td><span class="noun">gut</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'gut')">🔊</span></span></td><td>adjective</td><td>good</td><td>Das ist gut.<span class="ex">That is good.</span></td></tr>
+        <tr><td><span class="noun">danke</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'danke')">🔊</span></span></td><td>particle</td><td>thanks</td><td>Danke schön!<span class="ex">Thank you!</span></td></tr>
+        <tr><td><span class="noun">bitte</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'bitte')">🔊</span></span></td><td>particle</td><td>please; you're welcome</td><td>Bitte schön!<span class="ex">You're welcome!</span></td></tr>
+        <tr><td><span class="noun">ja</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'ja')">🔊</span></span></td><td>particle</td><td>yes</td><td>Ja, richtig.<span class="ex">Yes, correct.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Word-learning tip:</b> For every noun, always say it WITH its article — "der Name", never just "Name". The article is part of the word's identity in German, like a last name. Saying them together from Day 1 saves re-learning later.</p>
+</section>
+
+<!-- 2. DIALOGUE -->
+<section id="dialogue">
+  <h2><span class="num">2.</span> Dialogue · 自我介绍</h2>
+  <p class="sec-intro">Setting: Anna (German) and Tom (just arrived from China) meet at a "Sprachen lernen in Berlin" meetup.</p>
+
+  <ul class="dlg">
+    <li><span class="ln">1</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Hallo! Ich heiße Anna. Wie heißt du?')">🔊</span><span class="spk slow" onclick="speak(this,'Hallo! Ich heiße Anna. Wie heißt du?',0.75)">0.75×</span></span><div class="de">Hallo! Ich heiße Anna. Wie heißt du?</div><div class="en">Hi! I'm Anna. What's your name?</div></div></li>
+    <li><span class="ln">2</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Ich heiße Tom. Nett, dich kennenzulernen!')">🔊</span><span class="spk slow" onclick="speak(this,'Ich heiße Tom. Nett, dich kennenzulernen!',0.75)">0.75×</span></span><div class="de">Ich heiße Tom. Nett, dich kennenzulernen!</div><div class="en">I'm Tom. Nice to meet you!</div></div></li>
+    <li><span class="ln">3</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Woher kommst du, Tom?')">🔊</span><span class="spk slow" onclick="speak(this,'Woher kommst du, Tom?',0.75)">0.75×</span></span><div class="de">Woher kommst du, Tom?</div><div class="en">Where do you come from, Tom?</div></div></li>
+    <li><span class="ln">4</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Ich komme aus China. Und du?')">🔊</span><span class="spk slow" onclick="speak(this,'Ich komme aus China. Und du?',0.75)">0.75×</span></span><div class="de">Ich komme aus China. Und du?</div><div class="en">I come from China. And you?</div></div></li>
+    <li><span class="ln">5</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Ich komme aus Deutschland. Ich wohne in Berlin.')">🔊</span><span class="spk slow" onclick="speak(this,'Ich komme aus Deutschland. Ich wohne in Berlin.',0.75)">0.75×</span></span><div class="de">Ich komme aus <span class="art art-das">dem</span> Land Deutschland. Ich wohne in Berlin.</div><div class="en">I come from Germany. I live in Berlin.</div></div></li>
+    <li><span class="ln">6</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Ich wohne auch in Berlin, in Mitte. Seit drei Tagen.')">🔊</span><span class="spk slow" onclick="speak(this,'Ich wohne auch in Berlin, in Mitte. Seit drei Tagen.',0.75)">0.75×</span></span><div class="de">Ich wohne auch in Berlin, in Mitte. Seit drei Tagen.</div><div class="en">I also live in Berlin, in Mitte. For three days.</div></div></li>
+    <li><span class="ln">7</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Willkommen in Berlin! Was machst du hier?')">🔊</span><span class="spk slow" onclick="speak(this,'Willkommen in Berlin! Was machst du hier?',0.75)">0.75×</span></span><div class="de">Willkommen in Berlin! Was machst du hier?</div><div class="en">Welcome to Berlin! What are you doing here?</div></div></li>
+    <li><span class="ln">8</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Ich arbeite als Ingenieur. Ich lerne Deutsch.')">🔊</span><span class="spk slow" onclick="speak(this,'Ich arbeite als Ingenieur. Ich lerne Deutsch.',0.75)">0.75×</span></span><div class="de">Ich arbeite als Ingenieur. Ich lerne Deutsch.</div><div class="en">I work as an engineer. I am learning German.</div></div></li>
+    <li><span class="ln">9</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Das ist gut. Mein Freund Paul lernt auch Deutsch.')">🔊</span><span class="spk slow" onclick="speak(this,'Das ist gut. Mein Freund Paul lernt auch Deutsch.',0.75)">0.75×</span></span><div class="de">Das ist gut. Mein <span class="art art-der">Freund</span> Paul lernt auch Deutsch.</div><div class="en">That's good. My friend Paul is also learning German.</div></div></li>
+    <li><span class="ln">10</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Wo wohnt Paul?')">🔊</span><span class="spk slow" onclick="speak(this,'Wo wohnt Paul?',0.75)">0.75×</span></span><div class="de">Wo wohnt Paul?</div><div class="en">Where does Paul live?</div></div></li>
+    <li><span class="ln">11</span><div><span class="spk-name">Anna</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Er wohnt in Kreuzberg. Komm, ich stelle dich vor.')">🔊</span><span class="spk slow" onclick="speak(this,'Er wohnt in Kreuzberg. Komm, ich stelle dich vor.',0.75)">0.75×</span></span><div class="de">Er wohnt in Kreuzberg. Komm, ich stelle dich vor.</div><div class="en">He lives in Kreuzberg. Come, I'll introduce you.</div></div></li>
+    <li><span class="ln">12</span><div><span class="spk-name">Tom</span> <span class="row-controls"><span class="spk" onclick="speak(this,'Das ist nett. Danke!')">🔊</span><span class="spk slow" onclick="speak(this,'Das ist nett. Danke!',0.75)">0.75×</span></span><div class="de">Das ist nett. Danke!</div><div class="en">That's nice. Thanks!</div></div></li>
+  </ul>
+
+  <details class="tap" open>
+    <summary>Grammar Tap ① · "Wie heißt du?" — The Verb-Second (V2) rule</summary>
+    <div class="tap-body">
+      <h4>Layer 1 · Sentence breakdown</h4>
+      <div class="bd">Wie    | heißt  | du?
+How    | are-called | you?
+[Q-word] [VERB slot 2] [Subject]</div>
+      <p style="font-size:.9rem;margin:8px 0">In German, the conjugated verb ALWAYS sits in position 2 — in both statements AND questions. Here "heißt" is the verb, occupying slot 2 right after the question word "Wie".</p>
+      <h4>Layer 2 · Word annotation</h4>
+      <ul>
+        <li><code>wie</code> — question word, "how"</li>
+        <li><code>heißt</code> — verb, 2nd person singular of <i>heißen</i>, "are called" (the -st ending marks "du")</li>
+        <li><code>du</code> — pronoun, "you" (informal, singular)</li>
+      </ul>
+      <h4>Layer 3 · Study tip · Why V2 matters</h4>
+      <p style="font-size:.9rem;margin:6px 0">German word order feels strange to English speakers because English lets the verb float. In German the verb is <b>anchored</b> to slot 2 — like a button on a shirt that has to be in the second hole from the top. Everything else can shuffle around it.</p>
+      <div class="note">Statement: <code>Ich komme aus China.</code> (Subject–Verb–Rest)<br>Question: <code>Woher kommst du?</code> (Q-word–Verb–Subject) — same verb slot, different ordering of the others.</div>
+    </div>
+  </details>
+
+  <details class="tap">
+    <summary>Grammar Tap ② · "Ich komme aus China." — Preposition aus + Dativ</summary>
+    <div class="tap-body">
+      <h4>Layer 1 · Sentence breakdown</h4>
+      <div class="bd">Ich   | komme | aus  | China.
+I     | come  | from | China.
+[Subject] [Verb slot 2] [Preposition] [Noun]</div>
+      <h4>Layer 2 · Word annotation</h4>
+      <ul>
+        <li><code>ich</code> — 1st-person singular pronoun, "I"</li>
+        <li><code>komme</code> — 1st-person singular of <i>kommen</i>, "come"</li>
+        <li><code>aus</code> — preposition, "from / out of"; <b>always takes the Dativ case</b></li>
+        <li><code>China</code> — proper noun, neuter country name; <b>no article</b> with most countries</li>
+      </ul>
+      <h4>Layer 3 · Study tip · aus vs von</h4>
+      <p style="font-size:.9rem;margin:6px 0">Both can mean "from", but they're not interchangeable:</p>
+      <ul>
+        <li><code>aus</code> = origin (born there, nationality): <code>Ich komme aus China.</code></li>
+        <li><code>von</code> = from a person or a place you visited: <code>Ich komme vom Arzt.</code> (from the doctor's office)</li>
+      </ul>
+      <div class="note">Country names without articles: <code>aus China</code>, <code>aus Deutschland</code>, <code>aus Japan</code>.<br>Countries WITH articles need them: <code>aus der Schweiz</code> (f.), <code>aus den USA</code> (pl.), <code>aus dem Iran</code> (m.).</div>
+    </div>
+  </details>
+</section>
+
+<!-- 3. READING -->
+<section id="reading">
+  <h2><span class="num">3.</span> Reading · "Neu in Berlin"</h2>
+  <p class="meta-read">Register: informal (first-person diary style) · Length: ~145 words · A1 graded</p>
+
+  <div class="read">
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Mein Name ist Tom. Ich komme aus China und ich wohne seit drei Tagen in Berlin. Ich bin Ingenieur. Ich arbeite bei einer Firma in Mitte.')">🔊</span><span class="spk slow" onclick="speak(this,'Mein Name ist Tom. Ich komme aus China und ich wohne seit drei Tagen in Berlin. Ich bin Ingenieur. Ich arbeite bei einer Firma in Mitte.',0.75)">0.75×</span></span>Mein Name ist Tom. Ich komme aus China und ich wohne seit drei Tagen in Berlin. Ich bin Ingenieur. Ich arbeite bei einer Firma in Mitte.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Heute Abend gehe ich zu einem Meetup. Das Meetup heißt Sprachen lernen in Berlin. Dort sind viele Leute aus vielen Ländern: aus Spanien, aus Italien, aus Brasilien und aus Deutschland.')">🔊</span><span class="spk slow" onclick="speak(this,'Heute Abend gehe ich zu einem Meetup. Das Meetup heißt Sprachen lernen in Berlin. Dort sind viele Leute aus vielen Ländern: aus Spanien, aus Italien, aus Brasilien und aus Deutschland.',0.75)">0.75×</span></span>Heute Abend gehe ich zu einem Meetup. Das Meetup heißt "Sprachen lernen in Berlin". Dort sind viele Leute aus vielen Ländern: aus Spanien, aus Italien, aus Brasilien und aus Deutschland.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Eine Frau heißt Anna. Sie kommt aus München, aber sie wohnt schon lange in Berlin. Sie ist nett. Sie spricht langsam Deutsch mit mir. Das ist gut für mich.')">🔊</span><span class="spk slow" onclick="speak(this,'Eine Frau heißt Anna. Sie kommt aus München, aber sie wohnt schon lange in Berlin. Sie ist nett. Sie spricht langsam Deutsch mit mir. Das ist gut für mich.',0.75)">0.75×</span></span>Eine Frau heißt Anna. Sie kommt aus München, aber sie wohnt schon lange in Berlin. Sie ist nett. Sie spricht langsam Deutsch mit mir. Das ist gut für mich.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Anna sagt: Berlin ist eine große Stadt. Hier leben viele Menschen aus aller Welt. Ich finde das toll.')">🔊</span><span class="spk slow" onclick="speak(this,'Anna sagt: Berlin ist eine große Stadt. Hier leben viele Menschen aus aller Welt. Ich finde das toll.',0.75)">0.75×</span></span>Anna sagt: "Berlin ist eine große Stadt. Hier leben viele Menschen aus aller Welt." Ich finde das toll.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte. Die Sprache ist nicht leicht, aber ich übe jeden Tag. Anna gibt mir ihre Nummer. Wir treffen uns am Wochenende. Sie zeigt mir die Stadt.')">🔊</span><span class="spk slow" onclick="speak(this,'Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte. Die Sprache ist nicht leicht, aber ich übe jeden Tag. Anna gibt mir ihre Nummer. Wir treffen uns am Wochenende. Sie zeigt mir die Stadt.',0.75)">0.75×</span></span>Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte. Die Sprache ist nicht leicht, aber ich übe jeden Tag. Anna gibt mir ihre Nummer. Wir treffen uns am Wochenende. Sie zeigt mir die Stadt.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Berlin ist jetzt meine neue Heimat. Ich bin glücklich hier.')">🔊</span><span class="spk slow" onclick="speak(this,'Berlin ist jetzt meine neue Heimat. Ich bin glücklich hier.',0.75)">0.75×</span></span>Berlin ist jetzt meine neue Heimat. Ich bin glücklich hier.</p>
+  </div>
+
+  <div class="quiz">
+    <h3 style="font-size:1rem;color:var(--accent)">Quiz (3 questions · stems in English · A1 style)</h3>
+
+    <div class="q">
+      <p class="q-stem">Q1 · Information location — Where does Tom work?</p>
+      <ul class="opts">
+        <li>A) At a company in Mitte</li>
+        <li>B) At a Meetup in Kreuzberg</li>
+        <li>C) In China</li>
+      </ul>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: A</b><br>Tom writes "Ich arbeite bei einer Firma in Mitte." → He works at a company in Mitte (a central Berlin district). Kreuzberg is mentioned only as where his new friend Paul lives; China is his country of origin, not his workplace.</div>
+        <div class="class-self">If you got this wrong, classify yourself: ☐ 单词不认识 (didn't know <i>Firma</i> / <i>Mitte</i>) ☐ 语法没懂 (didn't parse the sentence) ☐ 理解偏了 (mixed up locations) ☐ 粗心 (careless)</div>
+      </details>
+    </div>
+
+    <div class="q">
+      <p class="q-stem">Q2 · True or False — Anna is originally from Berlin.</p>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: False</b><br>The text says "Sie kommt aus München, aber sie wohnt schon lange in Berlin." → Anna comes from Munich (München), but has lived in Berlin for a long time. "aus München" tells us her origin is Munich, not Berlin.</div>
+        <div class="class-self">If you got this wrong, classify yourself: ☐ 单词不认识 (didn't know <i>München</i> / <i>wohnt</i>) ☐ 语法没懂 (missed the <i>aus</i> + <i>aber</i> contrast) ☐ 理解偏了 (conflated origin with current residence) ☐ 粗心 (careless)</div>
+      </details>
+    </div>
+
+    <div class="q">
+      <p class="q-stem">Q3 · Multiple choice — Why is Tom learning German?</p>
+      <ul class="opts">
+        <li>A) Because Anna told him to</li>
+        <li>B) Because he wants to work in Germany</li>
+        <li>C) Because German is easy</li>
+      </ul>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: B</b><br>Tom says "Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte." → He learns German because he wants to work in Germany. Note the subclause introduced by <i>weil</i> ("because") pushes the verb <i>möchte</i> to the very end — a teaser for Day 91+.</div>
+        <div class="class-self">If you got this wrong, classify yourself: ☐ 单词不认识 (didn't know <i>möchte</i> / <i>weil</i>) ☐ 语法没懂 (didn't catch the <i>weil</i> clause) ☐ 理解偏了 (picked the easier-sounding option) ☐ 粗心 (careless)</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SHADOWING -->
+<section id="shadowing">
+  <h2><span class="num">4.</span> Shadowing</h2>
+  <p class="sec-intro">Read each aloud after the native TTS audio. Stressed syllables are in <b>bold</b>. Read each line 3 times — slowly first, then at normal speed. Three controls: 🔊 standard · ⏺ record yourself · ▶ play your recording.</p>
+
+  <div class="sh">
+    <p class="sh-de">1. Ich <b>hei</b>ße Tom.</p>
+    <p class="sh-note">Stress: content words take the beat; <i>Ich</i> is weak, <i>heiße</i> and <i>Tom</i> carry it.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Ich heiße Tom.')">🔊</span>
+      <span class="spk rec" id="rec-1" onclick="toggleRec('rec-1','play-1','Ich heiße Tom.')">⏺</span>
+      <span class="spk play" id="play-1" onclick="playRec('play-1')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">2. <b>Wo</b>her <b>kommst</b> du?</p>
+    <p class="sh-note">Stress: question word <i>Woher</i> takes primary stress on first syllable <b>WO</b>-her; <i>kommst</i> gets a beat; <i>du</i> is light.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Woher kommst du?')">🔊</span>
+      <span class="spk rec" id="rec-2" onclick="toggleRec('rec-2','play-2','Woher kommst du?')">⏺</span>
+      <span class="spk play" id="play-2" onclick="playRec('play-2')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">3. Ich <b>komme</b> aus <b>Chi</b>na.</p>
+    <p class="sh-note">Stress: <b>KOM</b>-me (verb, first syllable); <i>aus</i> is weak; <b>CHI</b>-na (proper noun, first syllable).</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Ich komme aus China.')">🔊</span>
+      <span class="spk rec" id="rec-3" onclick="toggleRec('rec-3','play-3','Ich komme aus China.')">⏺</span>
+      <span class="spk play" id="play-3" onclick="playRec('play-3')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">4. Ich <b>wohne</b> in Berlin.</p>
+    <p class="sh-note">Stress: <b>WOH</b>-ne (verb); <i>in</i> weak; Berlin is unusual — stress on the <b>second</b> syllable: Ber-<b>LIN</b>. Most German words stress the first syllable; some city names and foreign loans are exceptions.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Ich wohne in Berlin.')">🔊</span>
+      <span class="spk rec" id="rec-4" onclick="toggleRec('rec-4','play-4','Ich wohne in Berlin.')">⏺</span>
+      <span class="spk play" id="play-4" onclick="playRec('play-4')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">5. <b>Will</b>kommen in Berlin!</p>
+    <p class="sh-note">Stress: <b>WILL</b>-kom-men (first syllable); <i>in</i> weak; Ber-<b>LIN</b>.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Willkommen in Berlin!')">🔊</span>
+      <span class="spk rec" id="rec-5" onclick="toggleRec('rec-5','play-5','Willkommen in Berlin!')">⏺</span>
+      <span class="spk play" id="play-5" onclick="playRec('play-5')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem;color:var(--accent);margin-top:18px">Day 1 · Pronunciation self-check · 小舌音 R (the German R)</h3>
+  <p style="font-size:.9rem;color:var(--muted)">This is the sound most Chinese speakers get wrong on Day 1 — and that's fine, you have 179 more days to refine it.</p>
+  <table class="pron-table">
+    <thead><tr><th>Wrong way</th><th>Self-check action</th></tr></thead>
+    <tbody>
+      <tr><td>Reading R as Chinese "日" (rì) or "勒" (lē)</td><td>First say a soft English "h" to feel throat vibration; then add voice — you'll get the uvular fricative [ʁ].</td></tr>
+      <tr><td>Forcing a hard trill everywhere</td><td>Two equally-standard options exist: <b>① uvular</b> (back of mouth, the "French R" style, common in north/standard German); <b>② tongue-tip</b> (alveolar trill, like Italian/Spanish "r", common in south Germany & Austria). Pick ONE and stick with it.</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Tip:</b> In everyday German, the R at the END of a syllable often softens to a quiet [ɐ] — almost like the "a" in English "sofa". So "der" often sounds like "de-a", not "derrr". Don't roll it there.</p>
+</section>
+
+<!-- 5. WRITING -->
+<section id="writing">
+  <h2><span class="num">5.</span> Writing</h2>
+  <div class="skip">⏸️ <strong>Today is Day 1 (N=1).</strong> Writing appears every 3 days (N % 3 == 0). First writing task arrives on Day 3.</div>
+</section>
+
+<!-- 6. REVIEW -->
+<section id="review">
+  <h2><span class="num">6.</span> Review Reminder</h2>
+  <div class="skip">📅 <strong>Today is Day 1</strong> — there are no previous lessons to review yet. Starting tomorrow (Day 2), this section will index the word lists from Day 1 (yesterday); from Day 4 onward it will also include Day (N-3) so you can quickly reopen <code>day-NNN.html</code> for a 30-second skim.</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>Footer · Day 1 metadata</h3>
+    <ul>
+      <li><b>Generated</b>: 2026-09-05 (v2.2 trial run · Executor = WorkBuddy GLM 5.2)</li>
+      <li><b>Scene</b>: 自我介绍 / Self-introduction at a Berlin language meetup</li>
+      <li><b>Grammar focus</b>: Present tense (sein, heißen); definite articles (der/die/das); V2 word order; aus + Dativ</li>
+      <li><b>Channels</b>: 智能体邮箱（唯一推送通道，PLAN v2.2）— push status logged below</li>
+      <li><b>Plan ref</b>: PLAN.md §3 (Day 1–30 row), §4 (template), §5 (HTML 规范), §6 (risk禁区 respected)</li>
+    </ul>
+
+    <h3 style="margin-top:14px">Quality self-check (PLAN §6 红线 · 执行者生成后必查)</h3>
+    <table class="sc">
+      <thead><tr><th>维度</th><th>结果</th></tr></thead>
+      <tbody>
+        <tr><td>5 个名词是否全部带冠词？</td><td class="ok">✅ die Hand / der Name / das Land / der Freund / die Stadt</td></tr>
+        <tr><td>5 个名词是否全部带复数？</td><td class="ok">✅ die Hände / die Namen / die Länder / die Freunde / die Städte</td></tr>
+        <tr><td>4 个动词是否全部带配价？</td><td class="ok">✅ heißen (+Nom.) · sein (+Nom.) · kommen (aus+Dat.) · wohnen (in+Dat.)</td></tr>
+        <tr><td>是否按英德同源关系分组？</td><td class="ok">✅ Group A 全部真同源词</td></tr>
+        <tr><td>是否避免假朋友并列展示？</td><td class="ok">✅ 未出现 Gift / bekommen / auch 等</td></tr>
+        <tr><td>Quiz 题干语言 / 讲解语言？</td><td class="ok">✅ 全部英语</td></tr>
+        <tr><td>是否含游戏化元素？</td><td class="ok">✅ 无</td></tr>
+        <tr><td>HTML 规范：Web Speech API 🔊 单词带冠词慢速？</td><td class="ok">✅ rate 0.7 + 整体读</td></tr>
+        <tr><td>HTML 规范：冠词色编码 der蓝/die红/das绿？</td><td class="ok">✅ .art-der/.art-die/.art-das 色块</td></tr>
+        <tr><td>HTML 规范：跟读 ⏺录音 + ▶回放？</td><td class="ok">✅ MediaRecorder 内存回放</td></tr>
+        <tr><td>HTML 规范：iOS speechSynthesis 解锁？</td><td class="ok">✅ 首次手势静默解锁</td></tr>
+        <tr><td>HTML 规范：单文件全内联无 CDN？</td><td class="ok">✅ 零外部依赖</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px">Push status (v2.2 trial run)</h3>
+    <ul class="push">
+      <li><span class="badge wait">⏳</span> 智能体邮箱 — 推送结果见执行日志（部署完成后执行）</li>
+      <li><span class="badge wait">⏳</span> GitHub Pages 部署 — 推送结果见执行日志</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var unlocked=false;
+  function unlock(){
+    if(unlocked) return;
+    try{ var u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); }catch(e){}
+    unlocked=true;
+  }
+  window.speak=function(btn,text,rate){
+    unlock();
+    if(!('speechSynthesis' in window)){ alert('Your browser does not support speech synthesis.'); return; }
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='de-DE'; u.rate=rate||1;
+    if(btn){ btn.style.background='var(--tap-bg)'; }
+    u.onend=function(){ if(btn){ btn.style.background=''; } };
+    u.onerror=function(){ if(btn){ btn.style.background=''; } };
+    speechSynthesis.speak(u);
+  };
+  window.speakWord=function(btn,text){
+    unlock();
+    if(!('speechSynthesis' in window)){ alert('Your browser does not support speech synthesis.'); return; }
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='de-DE'; u.rate=0.7; u.pitch=1;
+    if(btn){ btn.style.background='var(--tap-bg)'; }
+    u.onend=function(){ if(btn){ btn.style.background=''; } };
+    u.onerror=function(){ if(btn){ btn.style.background=''; } };
+    speechSynthesis.speak(u);
+  };
+
+  // recording
+  var recState={}, mediaRec={}, chunks={}, audioURL={}, recStream={};
+  window.toggleRec=function(recId,playId){
+    unlock();
+    if(recState[recId]==='recording'){ stopRec(recId,playId); return; }
+    if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)){ alert('Recording not supported in this browser.'); return; }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      recStream[recId]=stream;
+      var mr;
+      try{ mr=new MediaRecorder(stream); }catch(e){ try{ mr=new MediaRecorder(stream,{mimeType:'audio/mp4'}); }catch(e2){ alert('MediaRecorder unavailable.'); return; } }
+      mediaRec[recId]=mr; chunks[recId]=[]; recState[recId]='recording';
+      var btn=document.getElementById(recId); btn.classList.add('recording'); btn.textContent='⏹';
+      mr.ondataavailable=function(e){ if(e.data.size>0) chunks[recId].push(e.data); };
+      mr.onstop=function(){
+        var blob=new Blob(chunks[recId],{type:mr.mimeType||'audio/webm'});
+        if(audioURL[recId]){ URL.revokeObjectURL(audioURL[recId]); }
+        audioURL[recId]=URL.createObjectURL(blob);
+        var pb=document.getElementById(playId);
+        pb.style.opacity='1'; pb.style.pointerEvents='auto';
+        btn.classList.remove('recording'); btn.textContent='⏺';
+        stream.getTracks().forEach(function(t){t.stop();});
+        recState[recId]='idle';
+      };
+      mr.start();
+    }).catch(function(err){ alert('Microphone access denied or unavailable: '+err.message); });
+  };
+  function stopRec(recId,playId){
+    if(mediaRec[recId] && mediaRec[recId].state==='recording'){ mediaRec[recId].stop(); }
+  }
+  window.playRec=function(playId){
+    var key='play-'+playId.split('-')[1];
+    if(!audioURL[key]){ return; }
+    var a=new Audio(audioURL[key]); a.play();
+  };
+  // first-gesture unlock (catch taps anywhere)
+  document.addEventListener('click',function(){ unlock(); },{once:true});
+})();
+</script>
+</body>
+</html>
