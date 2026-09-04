@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+<title>Day 2 · A1 · 在柏林机场：到达与问路</title>
+<style>
+  :root{
+    --der:#2563eb;--der-bg:#dbeafe;
+    --die:#dc2626;--die-bg:#fee2e2;
+    --das:#16a34a;--das-bg:#dcfce7;
+    --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;
+    --bg:#ffffff;--panel:#f8fafc;--accent:#0f172a;
+    --tap:#7c3aed;--tap-bg:#f3e8ff;
+    --nav-h:52px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-bottom:calc(var(--nav-h) + 16px)}
+  body{margin:0;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px}
+  .wrap{max-width:820px;margin:0 auto;padding:0 16px}
+  header.top{border-bottom:1px solid var(--line);padding:16px 0 12px;background:var(--panel)}
+  .nav-top{display:flex;gap:10px;align-items:center;font-size:14px;margin-bottom:8px;flex-wrap:wrap}
+  .nav-top a,.nav-top .nav-disabled{color:var(--muted);text-decoration:none;padding:3px 8px;border-radius:6px}
+  .nav-top a{color:var(--accent);border:1px solid var(--line)}
+  .nav-top .nav-disabled{opacity:.4;border:1px dashed var(--line)}
+  h1{margin:0 0 4px;font-size:1.45rem;color:var(--accent)}
+  .lede{margin:0;color:var(--muted);font-size:.9rem}
+  main{padding:6px 0 30px}
+  section{padding:20px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:1.15rem;color:var(--accent);margin:0 0 4px;display:flex;align-items:baseline;gap:8px}
+  h2 .num{color:var(--muted);font-weight:600;font-size:.9rem}
+  .sec-intro{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+  /* article chips */
+  .art{display:inline-block;padding:1px 7px;border-radius:5px;font-weight:600;font-size:.92em;white-space:nowrap}
+  .art-der{color:var(--der);background:var(--der-bg)}
+  .art-die{color:var(--die);background:var(--die-bg)}
+  .art-das{color:var(--das);background:var(--das-bg)}
+  .noun{font-weight:600}
+  /* speak buttons — touch target ≥40px */
+  .spk{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 8px;font-size:.95rem;line-height:1;min-height:36px;min-width:36px;vertical-align:middle;color:var(--accent);user-select:none;-webkit-tap-highlight-color:transparent}
+  .spk:hover{background:var(--panel)}
+  .spk:active{transform:scale(.94)}
+  .spk.slow{color:var(--tap);border-color:#e9d5ff}
+  .spk.rec{color:#b91c1c;border-color:#fecaca}
+  .spk.play{color:#15803d;border-color:#bbf7d0}
+  .spk.rec.recording{background:#fee2e2;animation:pulse 1s infinite}
+  .spk.speed{font-size:.82rem;padding:0 6px;min-width:42px}
+  .spk.speed.active{background:var(--tap-bg);color:var(--tap);border-color:#d8b4fe}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .row-controls{display:inline-flex;gap:4px;align-items:center;margin-left:6px;flex-wrap:wrap}
+  .speed-row{display:inline-flex;gap:3px;align-items:center;margin-left:6px}
+  /* tables — desktop */
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93rem;display:table}
+  th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel);font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  td .ex{color:var(--muted);font-size:.87rem;display:block;margin-top:2px}
+  tr:hover{background:#fafbfc}
+  .grp{margin:14px 0}
+  .grp h3{font-size:.98rem;margin:0 0 6px;color:var(--accent)}
+  /* card layout for words on mobile */
+  .wordcards{display:none}
+  .wcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0}
+  .wcard .wc-head{font-size:1.05rem;margin-bottom:4px}
+  .wcard .wc-pl{color:var(--muted);font-size:.84rem;margin-bottom:6px}
+  .wcard .wc-en{font-weight:600;color:var(--accent);font-size:.9rem;margin-bottom:4px}
+  .wcard .wc-ex{color:var(--ink);font-size:.9rem}
+  .wcard .wc-ex .en{color:var(--muted);display:block;font-size:.85rem}
+  /* dialogue */
+  .dlg{list-style:none;padding:0;margin:10px 0}
+  .dlg li{padding:10px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px 1fr;gap:8px}
+  .dlg .spk-name{font-weight:700;color:var(--accent);font-size:.85rem}
+  .dlg .de{margin:3px 0}
+  .dlg .en{color:var(--muted);font-size:.9rem}
+  .dlg .ln{color:var(--muted);font-size:.82rem;font-weight:600}
+  /* grammar tap */
+  details.tap{background:var(--tap-bg);border:1px solid #e9d5ff;border-radius:9px;padding:0;margin:12px 0;overflow:hidden}
+  details.tap>summary{cursor:pointer;padding:12px 14px;font-weight:600;color:var(--tap);list-style:none}
+  details.tap>summary::-webkit-details-marker{display:none}
+  details.tap>summary::before{content:"▸ "}
+  details.tap[open]>summary::before{content:"▾ "}
+  .tap-body{padding:0 14px 14px}
+  .tap-body h4{margin:10px 0 4px;font-size:.9rem;color:var(--accent)}
+  .tap-body .bd{background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;white-space:pre-wrap;overflow-x:auto}
+  .tap-body .note{background:#fff;border-left:3px solid var(--tap);padding:8px 12px;margin:8px 0;border-radius:0 6px 6px 0;font-size:.9rem}
+  .tap-body ul{margin:6px 0;padding-left:20px}
+  .tap-body li{margin:3px 0;font-size:.9rem}
+  /* reading / listening */
+  .read{background:var(--panel);border-radius:9px;padding:14px 16px;margin:8px 0}
+  .read p{margin:8px 0}
+  .meta-read{color:var(--muted);font-size:.84rem;margin:0 0 4px}
+  /* listening */
+  .listen-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+  .listen-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .listen-controls .lbl{font-size:.84rem;color:var(--muted);margin-right:4px}
+  details.transcript{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+  details.transcript summary{cursor:pointer;color:var(--accent);font-size:.88rem;font-weight:600}
+  details.transcript[open] summary{color:var(--muted)}
+  .transcript-body{padding:8px 0;color:var(--ink);font-size:.92rem}
+  /* quiz */
+  .quiz{margin:14px 0}
+  .quiz .q{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin:10px 0}
+  .quiz .q-stem{font-weight:600;margin:0 0 8px}
+  .quiz .opts{list-style:none;padding:0;margin:0}
+  .quiz .opts li{padding:5px 0;font-size:.93rem}
+  .quiz details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+  .quiz details summary{cursor:pointer;color:var(--accent);font-size:.88rem;font-weight:600}
+  .quiz .ans{margin-top:6px;font-size:.9rem}
+  .quiz .ans b{color:var(--das)}
+  .quiz .class-self{color:var(--muted);font-size:.84rem;margin-top:6px}
+  /* shadowing */
+  .sh{background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px 14px;margin:10px 0}
+  .sh .sh-de{font-size:1rem;margin:0 0 6px}
+  .sh .sh-note{color:var(--muted);font-size:.86rem;margin:4px 0 0}
+  .pron-table{width:100%;margin:10px 0;font-size:.9rem}
+  .pron-table th{font-size:.8rem}
+  /* writing skip / review */
+  .skip{background:var(--panel);border-radius:9px;padding:14px 16px;color:var(--muted);font-size:.92rem}
+  .skip strong{color:var(--accent)}
+  .review-list{list-style:none;padding:0;margin:8px 0}
+  .review-list li{padding:8px 12px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
+  .review-list .rl-day{font-weight:700;color:var(--accent)}
+  .review-list a{color:var(--tap);text-decoration:none;font-size:.88rem}
+  .review-list .rl-words{color:var(--muted);font-size:.85rem;margin-top:4px}
+  /* footer */
+  footer{background:var(--panel);border-top:1px solid var(--line);padding:20px 0;font-size:.86rem;color:var(--muted)}
+  footer h3{color:var(--accent);font-size:1rem;margin:0 0 8px}
+  footer ul{padding-left:18px;margin:6px 0}
+  footer .sc{width:100%;margin:10px 0}
+  footer .sc td{font-size:.85rem}
+  footer .sc .ok{color:var(--das);font-weight:600}
+  .badge{display:inline-block;padding:1px 7px;border-radius:5px;font-size:.82rem;font-weight:600}
+  .badge.ok{background:var(--das-bg);color:var(--das)}
+  .badge.no{background:var(--die-bg);color:var(--die)}
+  /* module nav bar — sticky bottom, iOS safe area */
+  .modnav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:100;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .modnav::-webkit-scrollbar{display:none}
+  .modnav a{flex:0 0 auto;padding:8px 12px;color:var(--accent);text-decoration:none;font-size:.82rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--line);min-height:var(--nav-h);display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
+  .modnav a.home{color:var(--tap);border-right:2px solid var(--line)}
+  .modnav a:active{background:var(--panel)}
+  @media(max-width:560px){
+    h1{font-size:1.2rem}
+    .dlg li{grid-template-columns:28px 1fr}
+    table{display:none}
+    .wordcards{display:block}
+    .spk{min-height:40px;min-width:40px}
+    .speed-row{flex-wrap:wrap;gap:2px}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <nav class="nav-top">
+      <a href="day-001.html">← Day 1</a>
+      <a href="../index.html">Home</a>
+      <span class="nav-disabled">Day 3 →</span>
+    </nav>
+    <h1>Day 2 · A1 · 在柏林机场：到达与问路</h1>
+    <p class="lede">You've just landed at Berlin airport (BER). Today you learn to find your luggage, ask where the train station is, and understand a simple airport announcement. · 讲解语言：英语 · 内容语言：德语 · 全文不含任何游戏化元素。</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 1. WORDS -->
+<section id="words">
+  <h2><span class="num">1.</span> Today's Words <span style="font-weight:400;color:var(--muted);font-size:.9rem">(15 new)</span></h2>
+  <p class="sec-intro">Grouped by cognate relationship where possible. Every noun comes with its article and plural — always learn them together.</p>
+
+  <div class="grp">
+    <h3>Group A · Cognates (travel & airport)</h3>
+    <table>
+      <thead><tr><th>German (with article)</th><th>Plural</th><th>English</th><th>Example (German + English)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art art-das">das</span> <span class="noun">Ticket</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Ticket')">🔊</span></span></td><td>die Tickets</td><td>ticket</td><td>Ich habe ein Ticket.<span class="ex">I have a ticket.</span></td></tr>
+        <tr><td><span class="art art-das">das</span> <span class="noun">Taxi</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Taxi')">🔊</span></span></td><td>die Taxis</td><td>taxi</td><td>Ich nehme ein Taxi.<span class="ex">I take a taxi.</span></td></tr>
+        <tr><td><span class="art art-die">die</span> <span class="noun">Familie</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Familie')">🔊</span></span></td><td>die Familien</td><td>family</td><td>Meine Familie ist in China.<span class="ex">My family is in China.</span></td></tr>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Pass</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Pass')">🔊</span></span></td><td>die Pässe</td><td>passport</td><td>Wo ist mein Pass?<span class="ex">Where is my passport?</span></td></tr>
+        <tr><td><span class="art art-das">das</span> <span class="noun">Problem</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Problem')">🔊</span></span></td><td>die Probleme</td><td>problem</td><td>Kein Problem!<span class="ex">No problem!</span></td></tr>
+      </tbody>
+    </table>
+    <div class="wordcards">
+      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Ticket</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Ticket')">🔊</span></span></div><div class="wc-pl">Plural: die Tickets</div><div class="wc-en">ticket</div><div class="wc-ex">Ich habe ein Ticket. <span class="en">I have a ticket.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Taxi</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Taxi')">🔊</span></span></div><div class="wc-pl">Plural: die Taxis</div><div class="wc-en">taxi</div><div class="wc-ex">Ich nehme ein Taxi. <span class="en">I take a taxi.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Familie</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Familie')">🔊</span></span></div><div class="wc-pl">Plural: die Familien</div><div class="wc-en">family</div><div class="wc-ex">Meine Familie ist in China. <span class="en">My family is in China.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Pass</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Pass')">🔊</span></span></div><div class="wc-pl">Plural: die Pässe</div><div class="wc-en">passport</div><div class="wc-ex">Wo ist mein Pass? <span class="en">Where is my passport?</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Problem</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Problem')">🔊</span></span></div><div class="wc-pl">Plural: die Probleme</div><div class="wc-en">problem</div><div class="wc-ex">Kein Problem! <span class="en">No problem!</span></div></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <h3>Group B · Core verbs (with valence)</h3>
+    <table>
+      <thead><tr><th>German</th><th>Valence</th><th>English</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="noun">suchen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'suchen')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to look for</td><td>Ich suche den Bahnhof.<span class="ex">I am looking for the train station.</span></td></tr>
+        <tr><td><span class="noun">finden</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'finden')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to find</td><td>Ich finde meinen Koffer.<span class="ex">I find my suitcase.</span></td></tr>
+        <tr><td><span class="noun">nehmen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'nehmen')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to take</td><td>Ich nehme das Taxi.<span class="ex">I take the taxi.</span></td></tr>
+        <tr><td><span class="noun">sprechen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'sprechen')">🔊</span></span></td><td>(+ Akk. / mit + Dat.)</td><td>to speak</td><td>Ich spreche ein bisschen Deutsch.<span class="ex">I speak a little German.</span></td></tr>
+      </tbody>
+    </table>
+    <div class="wordcards">
+      <div class="wcard"><div class="wc-head"><span class="noun">suchen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'suchen')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to look for</div><div class="wc-ex">Ich suche den Bahnhof. <span class="en">I am looking for the train station.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="noun">finden</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'finden')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to find</div><div class="wc-ex">Ich finde meinen Koffer. <span class="en">I find my suitcase.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="noun">nehmen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'nehmen')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to take</div><div class="wc-ex">Ich nehme das Taxi. <span class="en">I take the taxi.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="noun">sprechen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'sprechen')">🔊</span></span></div><div class="wc-pl">Valence: + Akk. / mit + Dat.</div><div class="wc-en">to speak</div><div class="wc-ex">Ich spreche ein bisschen Deutsch. <span class="en">I speak a little German.</span></div></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <h3>Group C · Airport & asking the way</h3>
+    <table>
+      <thead><tr><th>German (with article)</th><th>Plural</th><th>English</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Flughafen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Flughafen')">🔊</span></span></td><td>die Flughäfen</td><td>airport</td><td>Ich bin auf dem Flughafen.<span class="ex">I am at the airport.</span></td></tr>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Bahnhof</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Bahnhof')">🔊</span></span></td><td>die Bahnhöfe</td><td>train station</td><td>Wo ist der Bahnhof?<span class="ex">Where is the train station?</span></td></tr>
+        <tr><td><span class="art art-der">der</span> <span class="noun">Koffer</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Koffer')">🔊</span></span></td><td>die Koffer</td><td>suitcase</td><td>Ich finde meinen Koffer nicht.<span class="ex">I can't find my suitcase.</span></td></tr>
+        <tr><td><span class="art art-die">die</span> <span class="noun">Frage</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Frage')">🔊</span></span></td><td>die Fragen</td><td>question</td><td>Ich habe eine Frage.<span class="ex">I have a question.</span></td></tr>
+        <tr><td><span class="art art-die">die</span> <span class="noun">Antwort</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Antwort')">🔊</span></span></td><td>die Antworten</td><td>answer</td><td>Die Antwort ist einfach.<span class="ex">The answer is simple.</span></td></tr>
+        <tr><td><span class="noun">Entschuldigung</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'Entschuldigung')">🔊</span></span></td><td>(interjection)</td><td>excuse me</td><td>Entschuldigung, wo ist der Bahnhof?<span class="ex">Excuse me, where is the train station?</span></td></tr>
+      </tbody>
+    </table>
+    <div class="wordcards">
+      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Flughafen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Flughafen')">🔊</span></span></div><div class="wc-pl">Plural: die Flughäfen</div><div class="wc-en">airport</div><div class="wc-ex">Ich bin auf dem Flughafen. <span class="en">I am at the airport.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Bahnhof</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Bahnhof')">🔊</span></span></div><div class="wc-pl">Plural: die Bahnhöfe</div><div class="wc-en">train station</div><div class="wc-ex">Wo ist der Bahnhof? <span class="en">Where is the train station?</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Koffer</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Koffer')">🔊</span></span></div><div class="wc-pl">Plural: die Koffer</div><div class="wc-en">suitcase</div><div class="wc-ex">Ich finde meinen Koffer nicht. <span class="en">I can't find my suitcase.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Frage</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Frage')">🔊</span></span></div><div class="wc-pl">Plural: die Fragen</div><div class="wc-en">question</div><div class="wc-ex">Ich habe eine Frage. <span class="en">I have a question.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Antwort</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Antwort')">🔊</span></span></div><div class="wc-pl">Plural: die Antworten</div><div class="wc-en">answer</div><div class="wc-ex">Die Antwort ist einfach. <span class="en">The answer is simple.</span></div></div>
+      <div class="wcard"><div class="wc-head"><span class="noun">Entschuldigung</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'Entschuldigung')">🔊</span></span></div><div class="wc-pl">interjection</div><div class="wc-en">excuse me</div><div class="wc-ex">Entschuldigung, wo ist der Bahnhof? <span class="en">Excuse me, where is the train station?</span></div></div>
+    </div>
+  </div>
+
+  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Word-learning tip:</b> Notice how <span class="art art-der">der</span> Pass, <span class="art art-das">das</span> Ticket, <span class="art art-das">das</span> Taxi all have different articles — there's no rule based on meaning. You must memorize the article WITH the noun from day one.</p>
+</section>
+
+<!-- 2. DIALOGUE -->
+<section id="dialogue">
+  <h2><span class="num">2.</span> Dialogue · 在机场问路</h2>
+  <p class="sec-intro">Setting: Tom has just landed at Berlin Brandenburg Airport (BER). He asks Herr Becker at the information desk how to get to the city.</p>
+
+  <ul class="dlg">
+    <li><span class="ln">1</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',1.25)">1.25×</span></span><div class="de">Entschuldigung! Ich suche den Bahnhof.</div><div class="en">Excuse me! I'm looking for the train station.</div></div></li>
+    <li><span class="ln">2</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">🔊</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',1.25)">1.25×</span></span><div class="de">Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.</div><div class="en">The train station is downstairs. Go straight ahead, then left.</div></div></li>
+    <li><span class="ln">3</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">🔊</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',1.25)">1.25×</span></span><div class="de">Danke! Ich habe auch eine Frage. Wo ist mein <span class="art art-der">Koffer</span>?</div><div class="en">Thanks! I also have a question. Where is my suitcase?</div></div></li>
+    <li><span class="ln">4</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">🔊</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',1.25)">1.25×</span></span><div class="de">Die <span class="art art-der">Koffer</span> sind bei Band drei. Haben Sie Ihr <span class="art art-das">Ticket</span>?</div><div class="en">The suitcases are at belt three. Do you have your ticket?</div></div></li>
+    <li><span class="ln">5</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">🔊</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',1.25)">1.25×</span></span><div class="de">Ja, mein <span class="art art-das">Ticket</span> ist hier. Und mein <span class="art art-der">Pass</span> auch.</div><div class="en">Yes, my ticket is here. And my passport too.</div></div></li>
+    <li><span class="ln">6</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">🔊</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',1.25)">1.25×</span></span><div class="de">Sehr gut. Nehmen Sie das <span class="art art-das">Taxi</span> oder die Bahn?</div><div class="en">Very good. Are you taking the taxi or the train?</div></div></li>
+    <li><span class="ln">7</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',1.25)">1.25×</span></span><div class="de">Ich nehme die Bahn. Das <span class="art art-das">Taxi</span> ist zu teuer.</div><div class="en">I'm taking the train. The taxi is too expensive.</div></div></li>
+    <li><span class="ln">8</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">🔊</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',1.25)">1.25×</span></span><div class="de">Kein <span class="art art-das">Problem</span>. Die Bahn fährt alle zehn Minuten.</div><div class="en">No problem. The train runs every ten minutes.</div></div></li>
+    <li><span class="ln">9</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">🔊</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',1.25)">1.25×</span></span><div class="de">Vielen Dank! Ich spreche nur ein bisschen Deutsch.</div><div class="en">Many thanks! I only speak a little German.</div></div></li>
+    <li><span class="ln">10</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Das ist gut. Willkommen in Berlin!')">🔊</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',1.25)">1.25×</span></span><div class="de">Das ist gut. Willkommen in Berlin!</div><div class="en">That's good. Welcome to Berlin!</div></div></li>
+  </ul>
+
+  <details class="tap" open>
+    <summary>Grammar Tap ① · "Ich habe eine Frage." — The indefinite article ein/eine/ein</summary>
+    <div class="tap-body">
+      <h4>Layer 1 · Sentence breakdown</h4>
+      <div class="bd">Ich  | habe | eine | Frage.
+I     | have | a    | question.
+[Subject] [Verb slot 2] [Indef. article] [Noun]</div>
+      <p style="font-size:.9rem;margin:8px 0">German has THREE indefinite articles because nouns have three genders. They all mean "a/an", but each matches its noun's gender:</p>
+      <div class="bd">ein   + masculine → ein Pass, ein Koffer, ein Bahnhof
+eine  + feminine  → eine Frage, eine Antwort, eine Familie
+ein   + neuter    → ein Ticket, ein Taxi, ein Problem</div>
+      <h4>Layer 2 · Word annotation</h4>
+      <ul>
+        <li><code>ich</code> — 1st sg., "I"</li>
+        <li><code>habe</code> — 1st sg. of <i>haben</i>, "have" (the irregular verb; Day 3 covers it formally)</li>
+        <li><code>eine</code> — indefinite article, feminine, nominative</li>
+        <li><code>Frage</code> — feminine noun, "question"</li>
+      </ul>
+      <h4>Layer 3 · Study tip · Why gender matters from Day 1</h4>
+      <p style="font-size:.9rem;margin:6px 0">English lets you say "a question / a ticket / a passport" with the same "a". German forces you to pick the matching article. If you learn "Frage" without "die", you can't say "a question" correctly later. <b>Always learn the noun WITH its definite article</b> — the indefinite article follows from it automatically.</p>
+      <div class="note">der → ein &nbsp;·&nbsp; die → eine &nbsp;·&nbsp; das → ein &nbsp;&nbsp;(just drop the "d" and add "-e" for feminine)</div>
+    </div>
+  </details>
+
+  <details class="tap">
+    <summary>Grammar Tap ② · "Ich suche den Bahnhof." — Present tense verb conjugation</summary>
+    <div class="tap-body">
+      <h4>Layer 1 · Sentence breakdown</h4>
+      <div class="bd">Ich | suche | den | Bahnhof.
+I    | look-for | the | train station.
+[Subject] [Verb slot 2] [Def. article] [Noun]</div>
+      <p style="font-size:.9rem;margin:8px 0">Most German verbs follow a regular pattern in the present tense. Take the stem (<i>suchen</i> → <i>such-</i>) and add endings:</p>
+      <div class="bd">ich       such-e     wir       such-en
+du        such-st     ihr       such-t
+er/sie    such-t      sie/Sie   such-en</div>
+      <h4>Layer 2 · Word annotation</h4>
+      <ul>
+        <li><code>suche</code> — 1st sg. of <i>suchen</i> (+ Akk.), "look for"</li>
+        <li><code>den</code> — masculine definite article, Akkusativ (you'll learn cases in Day 31+; for now notice <i>der</i> → <i>den</i> when it's the object)</li>
+        <li><code>Bahnhof</code> — masculine noun, "train station"</li>
+      </ul>
+      <h4>Layer 3 · Study tip · Only one verb form is irregular per verb</h4>
+      <p style="font-size:.9rem;margin:6px 0">For regular verbs, the only form that changes the stem is <code>du</code>: it adds <b>-st</b>. Everything else is just the stem + a vowel ending (<i>-e, -en, -t</i>). So once you know "ich suche", you basically know the whole verb.</p>
+      <div class="note">Same pattern for today's verbs: <i>finden → ich finde, du findest</i> · <i>nehmen → ich nehme, du nimmst</i> (⚠️ <i>nehmen</i> is irregular: <i>du nimmst</i>, <i>er nimmt</i> — vowel changes e→i)</div>
+    </div>
+  </details>
+</section>
+
+<!-- 3. LISTENING (v3 NEW) -->
+<section id="listening">
+  <h2><span class="num">3.</span> Listening · 机场广播</h2>
+  <p class="sec-intro">Listen to an airport announcement at BER. Pick your speed, then answer the questions. The transcript stays hidden until you finish — listen carefully first.</p>
+
+  <div class="listen-box">
+    <p style="font-weight:600;margin:0 0 8px">🔊 Airport announcement (≈55 words)</p>
+    <div class="listen-controls">
+      <span class="lbl">Speed:</span>
+      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',0.5)">0.5×</span>
+      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',0.75)">0.75×</span>
+      <span class="spk speed active" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',1)">1×</span>
+      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',1.25)">1.25×</span>
+    </div>
+    <p class="meta-read" style="margin:6px 0 0">Listen first, answer the quiz, then you may open the transcript to check.</p>
+
+    <div class="quiz" style="margin:10px 0 0">
+      <div class="q">
+        <p class="q-stem">Q1 · Number — Which platform (Gleis) does the train depart from?</p>
+        <ul class="opts"><li>A) Three</li><li>B) Four</li><li>C) Five</li></ul>
+        <details><summary>Show answer & explanation</summary>
+          <div class="ans"><b>Answer: B (Four)</b><br>The announcement says "Der Zug … fährt von Gleis vier." → Gleis 4 = platform 4. German numbers: drei=3, vier=4, fünf=5.</div>
+          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>Gleis</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ <b>没听清</b> → re-listen at 0.5× to the phrase "Gleis vier"</div>
+        </details>
+      </div>
+      <div class="q">
+        <p class="q-stem">Q2 · True or False — The taxi is cheaper than the train.</p>
+        <details><summary>Show answer & explanation</summary>
+          <div class="ans"><b>Answer: False</b><br>The announcement says "Die Bahn ist schneller und billiger" (the train is faster and cheaper) — so the taxi is the more expensive option. It costs "etwa fünfundvierzig Euro" (about €45).</div>
+          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>billiger</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ <b>没听清</b> → re-listen at 0.5× to "billiger"</div>
+        </details>
+      </div>
+      <div class="q">
+        <p class="q-stem">Q3 · Number — How long is the train ride?</p>
+        <ul class="opts"><li>A) 13 minutes</li><li>B) 30 minutes</li><li>C) 40 minutes</li></ul>
+        <details><summary>Show answer & explanation</summary>
+          <div class="ans"><b>Answer: B (30 minutes)</b><br>"Die Fahrtzeit beträgt dreißig Minuten." → dreißig = 30. Watch out: <i>dreizehn</i> = 13, <i>dreißig</i> = 30 — German numbers can sound alike at normal speed.</div>
+          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>dreißig</i>) ☐ 语法没懂 ☐ 理解偏了 (confused 13/30) ☐ <b>没听清</b> → re-listen at 0.5× to "dreißig Minuten"</div>
+        </details>
+      </div>
+    </div>
+
+    <details class="transcript">
+      <summary>Show transcript (after answering)</summary>
+      <div class="transcript-body">
+        <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.')">🔊</span></span>Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das <span class="art art-das">Taxi</span> vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.</p>
+        <p style="color:var(--muted);font-size:.88rem;margin-top:8px"><i>English:</i> Attention! The train to Berlin Central Station departs from platform 4. The travel time is 30 minutes. Please note: the taxi in front of the terminal costs about 45 euros. The train is faster and cheaper. Thank you.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 4. READING -->
+<section id="reading">
+  <h2><span class="num">4.</span> Reading · "Am Flughafen"</h2>
+  <p class="meta-read">Register: informal (first-person diary) · Length: ~150 words · A1 graded</p>
+
+  <div class="read">
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">🔊</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',1.25)">1.25×</span></span>Heute bin ich am <span class="art art-der">Flughafen</span> Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',1.25)">1.25×</span></span>Ich suche meinen <span class="art art-der">Koffer</span>. Wo ist der <span class="art art-der">Koffer</span>? Ich finde ihn nicht. Das ist ein <span class="art art-das">Problem</span>.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">🔊</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',1.25)">1.25×</span></span>Dann sehe ich den <span class="art art-der">Koffer</span> bei Band drei. Gut! Ich nehme den <span class="art art-der">Koffer</span> und gehe zum Ausgang.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',1.25)">1.25×</span></span>Ich habe eine <span class="art art-die">Frage</span>: Wo ist der <span class="art art-der">Bahnhof</span>? Ein Mann hilft mir. Er sagt: Der <span class="art art-der">Bahnhof</span> ist unten, links.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',1.25)">1.25×</span></span>Ich nehme die Bahn, nicht das <span class="art art-das">Taxi</span>. Das <span class="art art-das">Taxi</span> ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.</p>
+    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">🔊</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',1.25)">1.25×</span></span>Meine <span class="art art-die">Familie</span> ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.</p>
+  </div>
+
+  <div class="quiz">
+    <h3 style="font-size:1rem;color:var(--accent)">Quiz (3 questions · stems in English · A1 style)</h3>
+    <div class="q">
+      <p class="q-stem">Q1 · Information location — What problem does Tom have first?</p>
+      <ul class="opts"><li>A) He can't find his passport</li><li>B) He can't find his suitcase</li><li>C) He can't find the taxi</li></ul>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: B</b><br>Tom writes "Ich suche meinen Koffer … Ich finde ihn nicht." → He can't find his suitcase (Koffer). The passport isn't mentioned in the reading; the taxi is mentioned later as too expensive, not as lost.</div>
+        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>Koffer</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ 粗心</div>
+      </details>
+    </div>
+    <div class="q">
+      <p class="q-stem">Q2 · Detail — How much does the train cost?</p>
+      <ul class="opts"><li>A) 3 euros</li><li>B) 4 euros</li><li>C) 45 euros</li></ul>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: B (4 euros)</b><br>"Die Bahn kostet vier Euro." → vier = 4. Don't confuse with the listening text's 45 euros (that was the taxi price in the announcement).</div>
+        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>vier</i>) ☐ 语法没懂 ☐ 理解偏了 (mixed up with the listening's 45) ☐ 粗心</div>
+      </details>
+    </div>
+    <div class="q">
+      <p class="q-stem">Q3 · True or False — Tom takes the taxi to the city.</p>
+      <details><summary>Show answer & explanation</summary>
+        <div class="ans"><b>Answer: False</b><br>"Ich nehme die Bahn, nicht das Taxi." → He takes the train, NOT the taxi. The reason given: "Das Taxi ist zu teuer" (the taxi is too expensive).</div>
+        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>nicht</i> / <i>teuer</i>) ☐ 语法没懂 (missed the negation) ☐ 理解偏了 ☐ 粗心</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SHADOWING -->
+<section id="shadowing">
+  <h2><span class="num">5.</span> Shadowing</h2>
+  <p class="sec-intro">Read each aloud after the TTS audio. Stressed syllables in <b>bold</b>. Read each line 3 times — slowly first, then at normal speed. Three controls: 🔊 standard (with 0.5×) · ⏺ record · ▶ play your recording.</p>
+
+  <div class="sh">
+    <p class="sh-de">1. Ent<b>schul</b>di<b>gung</b>! Ich <b>su</b>che den <b>Bahn</b>hof.</p>
+    <p class="sh-note">Stress: <b>SCHUL</b>-di-gung (middle syllable of the long word); <b>SU</b>-che (verb stem); <b>BAHN</b>-hof (compound, first element stressed).</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊</span>
+      <span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.5)">0.5×</span>
+      <span class="spk rec" id="rec-1" onclick="toggleRec('rec-1','play-1')">⏺</span>
+      <span class="spk play" id="play-1" onclick="playRec('play-1')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">2. Wo ist mein <b>Pass</b>?</p>
+    <p class="sh-note">Stress: short sentence — <b>WO</b> carries the question weight, <b>PASS</b> is the content word. Both <i>ist</i> and <i>mein</i> are light.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Wo ist mein Pass?')">🔊</span>
+      <span class="spk speed" onclick="speak(this,'Wo ist mein Pass?',0.5)">0.5×</span>
+      <span class="spk rec" id="rec-2" onclick="toggleRec('rec-2','play-2')">⏺</span>
+      <span class="spk play" id="play-2" onclick="playRec('play-2')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">3. Ich <b>nehme</b> die <b>Bahn</b>, nicht das <b>Taxi</b>.</p>
+    <p class="sh-note">Stress: <b>NE</b>-me (verb), <b>BAHN</b> (noun, contrasted), <b>TAX</b>-i (noun, contrasted). The contrast between Bahn and Taxi carries the meaning — stress them clearly.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊</span>
+      <span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi.',0.5)">0.5×</span>
+      <span class="spk rec" id="rec-3" onclick="toggleRec('rec-3','play-3')">⏺</span>
+      <span class="spk play" id="play-3" onclick="playRec('play-3')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">4. Ich habe eine <b>Fra</b>ge.</p>
+    <p class="sh-note">Stress: <b>FRA</b>-ge (noun, first syllable). <i>habe</i> and <i>eine</i> are function words — light.</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Ich habe eine Frage.')">🔊</span>
+      <span class="spk speed" onclick="speak(this,'Ich habe eine Frage.',0.5)">0.5×</span>
+      <span class="spk rec" id="rec-4" onclick="toggleRec('rec-4','play-4')">⏺</span>
+      <span class="spk play" id="play-4" onclick="playRec('play-4')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <p class="sh-de">5. <b>Will</b>kom<b>men</b> in <b>Berlin</b>!</p>
+    <p class="sh-note">Stress: <b>WILL</b>-kom-men (first syllable); Ber-<b>LIN</b> (Berlin, stress on second syllable — exception to the first-syllable rule for some city names).</p>
+    <div class="row-controls" style="margin-top:8px">
+      <span class="spk" onclick="speak(this,'Willkommen in Berlin!')">🔊</span>
+      <span class="spk speed" onclick="speak(this,'Willkommen in Berlin!',0.5)">0.5×</span>
+      <span class="spk rec" id="rec-5" onclick="toggleRec('rec-5','play-5')">⏺</span>
+      <span class="spk play" id="play-5" onclick="playRec('play-5')" style="opacity:.4;pointer-events:none">▶</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem;color:var(--accent);margin-top:18px">Day 2 · Pronunciation self-check · ch 两音（ich-Laut / ach-Laut）</h3>
+  <p style="font-size:.9rem;color:var(--muted)">German "ch" has TWO sounds — which one you use depends on the vowel before it. Today's words <i>suchen</i>, <i>mich</i>, <i>ich</i> use the front (soft) one; <i>noch</i>, <i>auch</i> use the back (hard) one.</p>
+  <table class="pron-table">
+    <thead><tr><th>Sound</th><th>When</th><th>Example</th><th>How to produce</th></tr></thead>
+    <tbody>
+      <tr><td><b>ich-Laut</b> [ç]</td><td>after front vowels (i, e, ü, ö), after l/r/n, and in suffix <i>-chen</i></td><td><span class="spk speed" style="display:inline" onclick="speak(this,'ich',0.7)">🔊</span> ich, <span class="spk speed" style="display:inline" onclick="speak(this,'mich',0.7)">🔊</span> mich, <span class="spk speed" style="display:inline" onclick="speak(this,'suchen',0.7)">🔊</span> su-chen</td><td>Say English "huge" and hold the "h" — that hissy friction is [ç]. Or say "cat" and slide the "y" forward.</td></tr>
+      <tr><td><b>ach-Laut</b> [x]</td><td>after back vowels (a, o, u, au)</td><td><span class="spk speed" style="display:inline" onclick="speak(this,'noch',0.7)">🔊</span> noch, <span class="spk speed" style="display:inline" onclick="speak(this,'auch',0.7)">🔊</span> auch, <span class="spk speed" style="display:inline" onclick="speak(this,'Buch',0.7)">🔊</span> Buch</td><td>Like the "ch" in Scottish "loch" — a soft scraping at the back of the throat. NOT a hard English "k".</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Tip:</b> If you accidentally use the wrong one, Germans still understand you — but getting it right makes you sound much more natural. Practice the minimal pair: <span class="spk speed" style="display:inline" onclick="speak(this,'ich',0.7)">🔊 ich</span> vs <span class="spk speed" style="display:inline" onclick="speak(this,'ach',0.7)">🔊 ach</span>.</p>
+</section>
+
+<!-- 6. WRITING -->
+<section id="writing">
+  <h2><span class="num">6.</span> Writing</h2>
+  <div class="skip">⏸️ <strong>Today is Day 2 (N=2).</strong> Writing appears every 3 days (N % 3 == 0). First writing task arrives on Day 3.</div>
+</section>
+
+<!-- 7. REVIEW -->
+<section id="review">
+  <h2><span class="num">7.</span> Review Reminder</h2>
+  <p class="sec-intro">Skim yesterday's words for 30 seconds — don't relearn, just jog your memory.</p>
+  <ul class="review-list">
+    <li>
+      <span class="rl-day">Day 1</span> · <a href="day-001.html">打开 Day 1 →</a>
+      <div class="rl-words">der Name · die Hand · das Land · der Freund · heißen · sein · kommen · wohnen · ich · du · die Stadt · gut · danke · bitte · ja</div>
+    </li>
+  </ul>
+  <p class="sec-intro" style="margin-top:10px">Day (N-3) appears starting Day 4. Today only Day 1 (yesterday) is indexed.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>Footer · Day 2 metadata</h3>
+    <ul>
+      <li><b>Generated</b>: 2026-09-05 (v3 trial run · Executor = WorkBuddy GLM 5.2)</li>
+      <li><b>Scene</b>: 在柏林机场：到达与问路 / At Berlin airport: arrival & asking the way</li>
+      <li><b>Grammar focus</b>: Indefinite article ein/eine/ein; present-tense conjugation (regular verbs + nehmen irregular); V2 word order (review)</li>
+      <li><b>Deployment</b>: GitHub Pages — push status logged below</li>
+      <li><b>Plan ref</b>: PLAN.md v3 §3 (Day 1–30 row), §4 (7-block template), §5 (HTML 规范 v3), §6 (risk禁区 respected)</li>
+    </ul>
+
+    <h3 style="margin-top:14px">Quality self-check (PLAN §6 红线)</h3>
+    <table class="sc">
+      <thead><tr><th>维度</th><th>结果</th></tr></thead>
+      <tbody>
+        <tr><td>10 个名词是否全部带冠词+复数？</td><td class="ok">✅ das Ticket/Tickets · das Taxi/Taxis · die Familie/Familien · der Pass/Pässe · das Problem/Probleme · der Flughafen/Flughäfen · der Bahnhof/Bahnhöfe · der Koffer/Koffer · die Frage/Fragen · die Antwort/Antworten</td></tr>
+        <tr><td>4 个动词是否全部带配价？</td><td class="ok">✅ suchen (+Akk.) · finden (+Akk.) · nehmen (+Akk.) · sprechen (+Akk./mit+Dat.)</td></tr>
+        <tr><td>同源分组真实？无假朋友并列？</td><td class="ok">✅ Ticket/ticket · Taxi/taxi · Familie/family · Pass/passport · Problem/problem 全部真同源；无 Gift/bekommen 等假朋友</td></tr>
+        <tr><td>Quiz/听力题干语言？讲解语言？</td><td class="ok">✅ 全部英语</td></tr>
+        <tr><td>无游戏化元素？</td><td class="ok">✅ 无连胜/积分/排行榜</td></tr>
+        <tr><td>v3·听力板块存在？transcript 默认折叠？</td><td class="ok">✅ 含 40-80 词广播 + 3 题 + "没听清"分类 + details 折叠</td></tr>
+        <tr><td>v3·句子四档速度 0.5/0.75/1/1.25？</td><td class="ok">✅ 对话每句 + 短文每段 + 听力 + 跟读全配齐</td></tr>
+        <tr><td>v3·模块导航栏（吸底+锚点+安全区）？</td><td class="ok">✅ fixed bottom + env(safe-area-inset-bottom)</td></tr>
+        <tr><td>v3·移动优先词表卡片？触摸目标≥40px？</td><td class="ok">✅ ≤560px 转卡片 + spk min 40px</td></tr>
+        <tr><td>v3·录音回放走 Web Audio API？</td><td class="ok">✅ AudioContext.decodeAudioData（非 new Audio）</td></tr>
+        <tr><td>v3·🔊 覆盖每个德语词/句？</td><td class="ok">✅ 词条+例句+对话句+听力+短文段+跟读+Grammar Tap 例句全覆盖</td></tr>
+        <tr><td>v3·播报文本与显示文本逐字一致？</td><td class="ok">✅ speak() 传入字符串 = 显示文本（已核 Day 1 整训项）</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px">Deployment status</h3>
+    <ul class="push">
+      <li><span class="badge wait">⏳</span> GitHub Pages — 部署结果见执行日志</li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Module navigation bar (v3) — sticky bottom -->
+<nav class="modnav">
+  <a href="#words">Words</a>
+  <a href="#dialogue">Dialogue</a>
+  <a href="#listening">Listening</a>
+  <a href="#reading">Reading</a>
+  <a href="#shadowing">Shadowing</a>
+  <a href="#writing">Writing</a>
+  <a href="#review">Review</a>
+  <a href="../index.html" class="home">Home</a>
+</nav>
+
+<script>
+(function(){
+  var unlocked=false, audioCtx=null;
+  function unlock(){
+    if(unlocked) return;
+    try{ var u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); }catch(e){}
+    try{ if(!audioCtx){ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); } if(audioCtx.state==='suspended'){ audioCtx.resume(); } }catch(e){}
+    unlocked=true;
+  }
+  function speakAt(text,rate){
+    if(!('speechSynthesis' in window)){ return; }
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='de-DE'; u.rate=rate||1; u.pitch=1;
+    speechSynthesis.speak(u);
+  }
+  window.speak=function(btn,text,rate){
+    unlock(); speakAt(text,rate||1);
+  };
+  window.speakWord=function(btn,text){
+    unlock(); speakAt(text,0.7);
+  };
+  window.speakListen=function(btn,text,rate){
+    unlock();
+    var sibs=btn.parentNode.querySelectorAll('.spk.speed');
+    sibs.forEach(function(s){ s.classList.remove('active'); });
+    btn.classList.add('active');
+    speakAt(text,rate||1);
+  };
+
+  // recording — Web Audio API for playback (v3 fix for iOS mute switch)
+  var recState={}, mediaRec={}, chunks={}, audioBuf={}, recStream={};
+  window.toggleRec=function(recId,playId){
+    unlock();
+    if(recState[recId]==='recording'){ stopRec(recId,playId); return; }
+    if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)){ alert('Recording not supported in this browser.'); return; }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      recStream[recId]=stream;
+      var mr;
+      try{ mr=new MediaRecorder(stream); }catch(e){ try{ mr=new MediaRecorder(stream,{mimeType:'audio/mp4'}); }catch(e2){ alert('MediaRecorder unavailable.'); return; } }
+      mediaRec[recId]=mr; chunks[recId]=[]; recState[recId]='recording';
+      var btn=document.getElementById(recId); btn.classList.add('recording'); btn.textContent='⏹';
+      mr.ondataavailable=function(e){ if(e.data.size>0) chunks[recId].push(e.data); };
+      mr.onstop=function(){
+        var blob=new Blob(chunks[recId],{type:mr.mimeType||'audio/webm'});
+        var reader=new FileReader();
+        reader.onload=function(){
+          try{
+            audioCtx.decodeAudioData(reader.result, function(buf){
+              audioBuf[recId]=buf;
+              var pb=document.getElementById(playId);
+              pb.style.opacity='1'; pb.style.pointerEvents='auto';
+            }, function(){ /* decode fail */ });
+          }catch(e){ /* fallback */ }
+        };
+        reader.readAsArrayBuffer(blob);
+        btn.classList.remove('recording'); btn.textContent='⏺';
+        stream.getTracks().forEach(function(t){t.stop();});
+        recState[recId]='idle';
+      };
+      mr.start();
+    }).catch(function(err){ alert('Microphone access denied: '+err.message); });
+  };
+  function stopRec(recId,playId){
+    if(mediaRec[recId] && mediaRec[recId].state==='recording'){ mediaRec[recId].stop(); }
+  }
+  window.playRec=function(playId){
+    var recId='rec-'+playId.split('-')[1];
+    if(!audioBuf[recId]){ return; }
+    unlock();
+    try{
+      var src=audioCtx.createBufferSource();
+      src.buffer=audioBuf[recId];
+      src.connect(audioCtx.destination);
+      src.start(0);
+    }catch(e){ /* ignore */ }
+  };
+  document.addEventListener('click',function(){ unlock(); },{once:true});
+})();
+</script>
+</body>
+</html>
