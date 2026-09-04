@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+<title>German Cases · 四格讲解 · DeutschBrücke Reference</title>
+<style>
+  :root{
+    --der:#2563eb;--der-bg:#dbeafe;
+    --die:#dc2626;--die-bg:#fee2e2;
+    --das:#16a34a;--das-bg:#dcfce7;
+    --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;
+    --bg:#ffffff;--panel:#f8fafc;--accent:#0f172a;
+    --tap:#7c3aed;--tap-bg:#f3e8ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding-bottom:20px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;font-size:17px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);padding:20px 0 14px;background:var(--panel)}
+  header h1{margin:0 0 4px;font-size:1.4rem;color:var(--accent)}
+  header .sub{color:var(--muted);font-size:.92rem;margin:0}
+  .back{display:inline-block;margin-bottom:10px;color:var(--tap);text-decoration:none;font-size:.9rem;font-weight:600}
+  main{padding:16px 0}
+  .case{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;scroll-margin-top:16px}
+  .case h2{margin:0 0 4px;font-size:1.2rem;color:var(--accent);display:flex;align-items:baseline;gap:8px}
+  .case h2 .de{color:var(--tap);font-weight:700}
+  .case .what{font-size:1rem;margin:6px 0 10px}
+  .case .when{background:var(--panel);border-left:3px solid var(--tap);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95rem}
+  .case .when b{color:var(--accent)}
+  table.casetab{width:100%;border-collapse:collapse;margin:12px 0;font-size:.95rem}
+  table.casetab th,table.casetab td{text-align:center;padding:9px 8px;border:1px solid var(--line)}
+  table.casetab th{background:var(--panel);color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}
+  table.casetab td.lab{text-align:left;font-weight:600;color:var(--accent);background:var(--panel);font-size:.85rem}
+  .art{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:600;font-size:.95em}
+  .art-der{color:var(--der);background:var(--der-bg)}
+  .art-die{color:var(--die);background:var(--die-bg)}
+  .art-das{color:var(--das);background:var(--das-bg)}
+  .ex{background:var(--panel);border-radius:8px;padding:12px 14px;margin:10px 0}
+  .ex .de{font-size:1.02rem;margin:0 0 4px}
+  .ex .en{color:var(--muted);font-size:.9rem;margin:0}
+  .spk{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 8px;font-size:.95rem;min-height:40px;min-width:40px;vertical-align:middle;color:var(--accent);user-select:none;-webkit-tap-highlight-color:transparent}
+  .spk:active{transform:scale(.94)}
+  .note{color:var(--muted);font-size:.88rem;margin:8px 0}
+  .note b{color:var(--accent)}
+  .summary{background:var(--tap-bg);border:1px solid #e9d5ff;border-radius:12px;padding:16px 20px;margin:18px 0}
+  .summary h3{margin:0 0 8px;color:var(--tap);font-size:1.05rem}
+  .summary p{margin:6px 0;font-size:.92rem}
+  footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:.85rem;text-align:center}
+  @media(max-width:560px){
+    body{font-size:17px}
+    .case{padding:14px 16px}
+    table.casetab{font-size:.88rem}
+    table.casetab th,table.casetab td{padding:7px 5px}
+    .spk{min-height:44px;min-width:44px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="back">← Back to Dashboard</a>
+    <h1>German Cases · 四格讲解</h1>
+    <p class="sub">The four cases (Kasus) show a noun's role in a sentence. English mostly uses word order; German uses endings on articles. · 英语讲解，中文关键词注释</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="case" id="nominativ">
+  <h2><span class="de">Nominativ</span> <span style="color:var(--muted);font-size:.9rem">主格</span></h2>
+  <p class="what"><b>What it is:</b> The "default" form of a noun — the subject doing the action, or the complement after <i>sein/bleiben/werden</i>.</p>
+  <div class="when"><b>When to use:</b> ① Subject of the sentence (who/what does the verb). ② After <i>sein</i> (to be), <i>werden</i> (to become), <i>bleiben</i> (to stay) — these verbs don't change the case.<br><span class="note" style="margin:4px 0">中文：主格是名词的"原始形态"，做主语或系动词后的表语。</span></div>
+  <table class="casetab">
+    <thead><tr><th>Gender</th><th>Article</th><th>Example noun</th></tr></thead>
+    <tbody>
+      <tr><td class="lab">Masculine 阳</td><td><span class="art art-der">der</span></td><td>der Mann</td></tr>
+      <tr><td class="lab">Feminine 阴</td><td><span class="art art-die">die</span></td><td>die Frau</td></tr>
+      <tr><td class="lab">Neuter 中</td><td><span class="art art-das">das</span></td><td>das Kind</td></tr>
+      <tr><td class="lab">Plural 复</td><td><span class="art art-die">die</span></td><td>die Leute</td></tr>
+    </tbody>
+  </table>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Der Mann kommt aus Deutschland.')">🔊</span> Der Mann kommt aus Deutschland.</p>
+    <p class="en">The man comes from Germany. <i>(Der Mann = subject, doing the coming)</i></p>
+  </div>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Sie ist eine Lehrerin.')">🔊</span> Sie ist eine Lehrerin.</p>
+    <p class="en">She is a teacher. <i>(eine Lehrerin = complement after "ist", stays Nominativ)</i></p>
+  </div>
+</section>
+
+<section class="case" id="akkusativ">
+  <h2><span class="de">Akkusativ</span> <span style="color:var(--muted);font-size:.9rem">宾格</span></h2>
+  <p class="what"><b>What it is:</b> The direct object — the thing/person receiving the action of most verbs.</p>
+  <div class="when"><b>When to use:</b> ① Direct object of most verbs (haben, suchen, finden, nehmen, sehen, essen…). ② After prepositions <i>durch, für, gegen, ohne, um</i>.<br><span class="note" style="margin:4px 0">中文：宾格是动作的直接承受者。关键：<b>只有阳性单数冠词变</b>（der→den），阴性/中性/复数不变！这是初学者最大的福音。</span></div>
+  <table class="casetab">
+    <thead><tr><th>Gender</th><th>Nom</th><th>→ Akk</th><th>Changed?</th></tr></thead>
+    <tbody>
+      <tr><td class="lab">Masculine 阳</td><td><span class="art art-der">der</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">den</span></td><td style="color:var(--die);font-weight:700">YES ⚠️</td></tr>
+      <tr><td class="lab">Feminine 阴</td><td><span class="art art-die">die</span></td><td><span class="art art-die">die</span></td><td style="color:var(--das)">no</td></tr>
+      <tr><td class="lab">Neuter 中</td><td><span class="art art-das">das</span></td><td><span class="art art-das">das</span></td><td style="color:var(--das)">no</td></tr>
+      <tr><td class="lab">Plural 复</td><td><span class="art art-die">die</span></td><td><span class="art art-die">die</span></td><td style="color:var(--das)">no</td></tr>
+    </tbody>
+  </table>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Ich suche den Bahnhof.')">🔊</span> Ich suche <span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">den</span> Bahnhof.</p>
+    <p class="en">I am looking for the train station. <i>(den Bahnhof = direct object of "suche"; der→den because Bahnhof is masculine)</i></p>
+  </div>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Ich habe ein Ticket.')">🔊</span> Ich habe ein Ticket.</p>
+    <p class="en">I have a ticket. <i>(ein Ticket = direct object; "ein" unchanged because Ticket is neuter)</i></p>
+  </div>
+</section>
+
+<section class="case" id="dativ">
+  <h2><span class="de">Dativ</span> <span style="color:var(--muted);font-size:.9rem">与格</span></h2>
+  <p class="what"><b>What it is:</b> The indirect object — the recipient/beneficiary of an action. Answers "to/for whom?"</p>
+  <div class="when"><b>When to use:</b> ① Indirect object (Ich gebe <b>dem Mann</b> das Buch = I give the man the book). ② After prepositions <i>aus, bei, mit, nach, seit, von, zu</i>. ③ After some verbs (<i>helfen, danken, gehören, antworten</i>) that always take Dativ.<br><span class="note" style="margin:4px 0">中文：与格表示动作的间接承受者（给谁、为谁）。记忆：<b>阳单 der→dem，阴单 die→der</b>（注意 der 跑到阴单去了，容易混！）。</span></div>
+  <table class="casetab">
+    <thead><tr><th>Gender</th><th>Nom</th><th>→ Dat</th></tr></thead>
+    <tbody>
+      <tr><td class="lab">Masculine 阳</td><td><span class="art art-der">der</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">dem</span></td></tr>
+      <tr><td class="lab">Feminine 阴</td><td><span class="art art-die">die</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">der</span></td></tr>
+      <tr><td class="lab">Neuter 中</td><td><span class="art art-das">das</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">dem</span></td></tr>
+      <tr><td class="lab">Plural 复</td><td><span class="art art-die">die</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">den + noun-n</span></td></tr>
+    </tbody>
+  </table>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Ich komme aus Deutschland.')">🔊</span> Ich komme aus Deutschland.</p>
+    <p class="en">I come from Germany. <i>(aus + Dativ; Deutschland has no article, so no visible change)</i></p>
+  </div>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Ich wohne in Berlin.')">🔊</span> Ich wohne in Berlin.</p>
+    <p class="en">I live in Berlin. <i>(in + Dativ for "where"; Berlin has no article)</i></p>
+  </div>
+  <p class="note"><b>Preposition "in" is tricky:</b> <i>in + Dat</i> = where (location, "Ich wohne in Berlin"); <i>in + Akk</i> = where to (motion, "Ich gehe in die Stadt"). You'll learn this contrast in Day 31+.</p>
+</section>
+
+<section class="case" id="genitiv">
+  <h2><span class="de">Genitiv</span> <span style="color:var(--muted);font-size:.9rem">属格</span></h2>
+  <p class="what"><b>What it is:</b> Possession — "of" something. Shows ownership or belonging.</p>
+  <div class="when"><b>When to use:</b> ① Possession (das Auto <b>des Mannes</b> = the car of the man / the man's car). ② After prepositions <i>während, wegen, statt, trotz</i>. <b>Note:</b> In everyday spoken German, Genitiv is often replaced by "von + Dativ" (<i>das Auto von dem Mann</i>), but it's still used in writing and formal contexts.<br><span class="note" style="margin:4px 0">中文：属格表"的/属于"。口语常被"von+与格"替代，但书面语和正式场合仍用属格。A1 阶段认得即可，不急着主动用。</span></div>
+  <table class="casetab">
+    <thead><tr><th>Gender</th><th>Nom</th><th>→ Gen</th></tr></thead>
+    <tbody>
+      <tr><td class="lab">Masculine 阳</td><td><span class="art art-der">der</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">des + noun-s</span></td></tr>
+      <tr><td class="lab">Feminine 阴</td><td><span class="art art-die">die</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">der</span></td></tr>
+      <tr><td class="lab">Neuter 中</td><td><span class="art art-das">das</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">des + noun-s</span></td></tr>
+      <tr><td class="lab">Plural 复</td><td><span class="art art-die">die</span></td><td><span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">der + noun</span></td></tr>
+    </tbody>
+  </table>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Das ist das Auto des Mannes.')">🔊</span> Das ist das Auto <span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">des Mannes</span>.</p>
+    <p class="en">That is the car of the man. <i>(des Mannes = Genitiv, masculine singular; noun adds -s)</i></p>
+  </div>
+  <div class="ex">
+    <p class="de"><span class="spk" onclick="speak(this,'Während der Woche arbeite ich.')">🔊</span> <span style="color:var(--der);font-weight:700;background:var(--der-bg);padding:1px 6px;border-radius:5px">Während der Woche</span> arbeite ich.</p>
+    <p class="en">During the week I work. <i>(während + Genitiv; der Woche = Genitiv feminine, looks like Nominativ masculine — context tells you which)</i></p>
+  </div>
+</section>
+
+<div class="summary">
+  <h3>Quick summary · 四格速记</h3>
+  <p><b>Who does it?</b> → <span class="de" style="color:var(--tap);font-weight:700">Nominativ</span> (subject)</p>
+  <p><b>What receives it?</b> → <span class="de" style="color:var(--tap);font-weight:700">Akkusativ</span> (direct object) — only masculine changes: der→den</p>
+  <p><b>To/for whom?</b> → <span class="de" style="color:var(--tap);font-weight:700">Dativ</span> (indirect object) — der→dem, die→der</p>
+  <p><b>Of what?</b> → <span class="de" style="color:var(--tap);font-weight:700">Genitiv</span> (possession) — der→des, often + noun -s</p>
+  <p style="margin-top:10px;color:var(--muted);font-size:.86rem">A1 阶段重点掌握 Nominativ 与 Akkusativ；Dativ 认得常用介词搭配（aus/in/von/mit）；Genitiv 认得即可。Day 31+ 系统学冠词四格。</p>
+</div>
+
+</main>
+<footer>
+  <div class="wrap">
+    <p>DeutschBrücke Reference · 四格讲解 · 一次性静态页（PLAN v4 §5.7）<br>
+    <a href="../index.html">← Back to Dashboard</a></p>
+  </div>
+</footer>
+<script>
+function speak(btn,text,rate){
+  if(!('speechSynthesis' in window)){ return; }
+  try{ var u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); }catch(e){}
+  speechSynthesis.cancel();
+  var u2=new SpeechSynthesisUtterance(text);
+  u2.lang='de-DE'; u2.rate=rate||1;
+  speechSynthesis.speak(u2);
+}
+document.addEventListener('click',function(){ try{ speechSynthesis.speak(new SpeechSynthesisUtterance('')); }catch(e){} },{once:true});
+</script>
+</body>
+</html>

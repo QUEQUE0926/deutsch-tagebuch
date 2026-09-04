@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+<title>Day 3 · A1 · 在柏林餐厅点餐 · DeutschBrücke</title>
+<style>
+  :root{
+    --der:#2563eb;--der-bg:#dbeafe;
+    --die:#dc2626;--die-bg:#fee2e2;
+    --das:#16a34a;--das-bg:#dcfce7;
+    --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;
+    --bg:#ffffff;--panel:#f8fafc;--accent:#0f172a;
+    --tap:#7c3aed;--tap-bg:#f3e8ff;
+    --ok:#16a34a;--ok-bg:#dcfce7;
+    --bad:#dc2626;--bad-bg:#fee2e2;
+    --neutral:#64748b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.75;
+    font-size:17px;padding-bottom:88px;
+  }
+  .de-text{font-size:18px}
+  header{
+    border-bottom:1px solid var(--line);
+    padding:14px 18px 10px;background:var(--panel);
+    position:sticky;top:0;z-index:5;
+  }
+  header .top{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    flex-wrap:wrap;
+  }
+  header h1{margin:0;font-size:1.05rem;color:var(--accent);font-weight:700}
+  header .nav-days{font-size:.85rem;color:var(--muted)}
+  header .nav-days a{color:var(--tap);text-decoration:none;margin:0 4px}
+  .tab-panel{display:none;padding:18px;max-width:760px;margin:0 auto}
+  .tab-panel.active{display:block}
+  /* Vocab card stack */
+  .vocab-grid{display:grid;gap:12px}
+  .vcard{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;border-left:5px solid var(--neutral);
+  }
+  .vcard.art-der{border-left-color:var(--der)}
+  .vcard.art-die{border-left-color:var(--die)}
+  .vcard.art-das{border-left-color:var(--das)}
+  .vcard .head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .vcard .word{font-size:1.15rem;font-weight:700}
+  .art{
+    display:inline-block;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.9rem;color:#fff;
+  }
+  .art-der{background:var(--der)}
+  .art-die{background:var(--die)}
+  .art-das{background:var(--das)}
+  .vcard .plural{color:var(--muted);font-size:.95rem}
+  .vcard .pl-spk{
+    border:1px solid var(--line);border-radius:6px;background:var(--panel);
+    padding:1px 7px;font-size:.85rem;cursor:pointer;margin-left:6px;
+  }
+  .vcard .valence{
+    margin-left:6px;color:var(--tap);cursor:pointer;font-weight:700;
+    text-decoration:none;display:inline-flex;align-items:center;
+  }
+  .vcard .en{color:var(--accent);font-weight:600;margin:2px 0 4px}
+  .vcard .ex{font-size:.95rem;color:var(--ink);margin-top:4px}
+  .vcard .ex .de-text{display:block;margin-bottom:2px}
+  .vcard .ex .en-ex{color:var(--muted);font-size:.9rem}
+  .spk{
+    display:inline-block;border:1px solid var(--line);border-radius:8px;
+    background:var(--panel);padding:2px 9px;cursor:pointer;font-size:.95rem;
+    min-height:28px;line-height:1;user-select:none;
+  }
+  .spk:hover{background:var(--tap-bg);border-color:var(--tap)}
+  .spk-sentence{display:inline-flex;gap:4px;flex-wrap:wrap;margin:6px 0;align-items:center}
+  .spbtn{
+    border:1px solid var(--line);border-radius:8px;background:#fff;
+    padding:4px 10px;cursor:pointer;font-size:.85rem;color:var(--muted);
+    min-height:32px;
+  }
+  .spbtn.active{background:var(--tap);color:#fff;border-color:var(--tap)}
+  /* Dialogue */
+  .dlg{display:grid;gap:12px}
+  .bubble{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px 14px;
+  }
+  .bubble .who{font-weight:700;color:var(--tap);font-size:.9rem;margin-bottom:4px}
+  .bubble .de-text{margin:4px 0 2px}
+  .bubble .en{color:var(--muted);font-size:.92rem}
+  .tok{
+    display:inline;border-bottom:1.5px dashed var(--tap);cursor:pointer;
+    padding:0 1px;
+  }
+  .tok:hover{background:var(--tap-bg)}
+  .tap-btn{
+    display:inline-block;background:var(--tap-bg);color:var(--tap);
+    border:1px solid var(--tap);border-radius:8px;padding:1px 7px;
+    font-size:.8rem;cursor:pointer;margin-left:6px;
+  }
+  /* Overlay */
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;
+    display:none;align-items:center;justify-content:center;padding:16px;
+  }
+  .overlay.show{display:flex}
+  .overlay .card{
+    background:#fff;border-radius:14px;padding:18px 20px;max-width:520px;width:100%;
+    max-height:80vh;overflow:auto;
+  }
+  .overlay .card h3{margin:0 0 6px;color:var(--accent);font-size:1.05rem}
+  .overlay .close{float:right;cursor:pointer;color:var(--muted);font-size:1.2rem;border:none;background:none}
+  .overlay .layer{margin:10px 0;padding:10px 12px;background:var(--panel);border-radius:8px}
+  .overlay .layer b{color:var(--tap)}
+  .overlay .word-anno{display:grid;gap:4px;font-size:.92rem}
+  .overlay .word-anno .row{display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}
+  .overlay .word-anno .w{font-weight:700;min-width:70px}
+  .overlay .word-anno .m{color:var(--muted)}
+  /* Listening */
+  .lcard{
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;
+  }
+  .player-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+  .play-btn{
+    border:none;background:var(--tap);color:#fff;border-radius:24px;
+    padding:8px 16px;cursor:pointer;font-size:.95rem;font-weight:600;min-height:40px;
+  }
+  .play-btn.playing{background:var(--bad)}
+  .speed-row{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+  .transcript{
+    background:var(--panel);border:1px dashed var(--line);border-radius:8px;
+    padding:10px 12px;margin-top:8px;display:none;
+  }
+  .transcript.show{display:block}
+  .transcript .de-text{margin:4px 0}
+  /* Quiz */
+  .quiz{margin:10px 0}
+  .quiz .q{font-weight:600;margin:10px 0 6px}
+  .quiz .opts{display:grid;gap:6px}
+  .quiz .opt{
+    border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;
+    background:#fff;min-height:44px;text-align:left;font-size:.95rem;
+  }
+  .quiz .opt:hover{background:var(--panel)}
+  .quiz .opt.correct{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+  .quiz .opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+  .quiz .opt:disabled{cursor:default;opacity:.85}
+  .quiz .fb{margin-top:6px;padding:10px;background:var(--panel);border-radius:8px;display:none;font-size:.92rem}
+  .quiz .fb.show{display:block}
+  .quiz .fb b{color:var(--tap)}
+  .quiz .errcat{margin-top:6px;font-size:.88rem;color:var(--muted)}
+  .quiz .errcat .lab{display:inline-block;margin:3px 4px 3px 0;padding:2px 8px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+  .quiz .errcat .lab:hover{background:var(--panel)}
+  /* Shadowing */
+  .shad{display:grid;gap:10px}
+  .shad .row{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;
+  }
+  .shad .de-text{margin:4px 0}
+  .shad .ctrl{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px}
+  .shad button{
+    border:1px solid var(--line);border-radius:8px;background:#fff;
+    padding:5px 10px;cursor:pointer;font-size:.9rem;min-height:40px;
+  }
+  .shad .rec{border-color:var(--bad);color:var(--bad)}
+  .shad .rec.recording{background:var(--bad);color:#fff}
+  .shad .play{border-color:var(--ok);color:var(--ok)}
+  .pron-tip{
+    background:var(--tap-bg);border-left:3px solid var(--tap);padding:10px 12px;
+    border-radius:0 8px 8px 0;margin-top:8px;font-size:.92rem;
+  }
+  /* Writing */
+  .wcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .wcard .rubric{background:var(--panel);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:.92rem}
+  .wcard textarea{
+    width:100%;min-height:140px;border:1px solid var(--line);border-radius:8px;
+    padding:10px;font-family:inherit;font-size:1rem;resize:vertical;
+  }
+  /* Review */
+  .rev-list{display:grid;gap:8px}
+  .rev-list a{
+    display:block;text-decoration:none;color:var(--tap);font-weight:600;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:9px 12px;
+  }
+  .rev-list .sub{color:var(--muted);font-weight:400;font-size:.85rem;margin-top:2px;display:block}
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:14px 18px;background:var(--panel);font-size:.85rem;color:var(--muted)}
+  footer ul{margin:6px 0;padding-left:18px}
+  /* Tab bar */
+  .tabbar{
+    position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+    display:flex;overflow-x:auto;z-index:10;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .tabbar .tab{
+    flex:1 0 auto;min-width:62px;text-align:center;padding:8px 4px 10px;
+    cursor:pointer;color:var(--muted);font-size:.72rem;border:none;background:none;
+    text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px;
+  }
+  .tabbar .tab .ic{font-size:1.3rem;line-height:1}
+  .tabbar .tab.active{color:var(--tap)}
+  .tabbar .tab.disabled{opacity:.35;cursor:not-allowed}
+  .step-row{
+    display:flex;justify-content:space-between;gap:8px;margin-top:18px;
+    max-width:760px;margin-left:auto;margin-right:auto;
+  }
+  .step-row button{
+    border:1px solid var(--line);border-radius:8px;background:#fff;
+    padding:10px 14px;cursor:pointer;font-size:.9rem;min-height:44px;
+  }
+  .step-row button:hover{background:var(--panel)}
+  .step-row .next{background:var(--tap);color:#fff;border-color:var(--tap)}
+  .mark-studied{
+    display:block;margin:18px auto 0;padding:11px 18px;border:none;border-radius:24px;
+    background:var(--ok);color:#fff;font-weight:600;font-size:1rem;cursor:pointer;min-height:44px;
+  }
+  .mark-studied.done{background:var(--neutral)}
+  .empty{color:var(--muted);font-style:italic;padding:14px;background:var(--panel);border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>Day 3 · A1 上 · 在柏林餐厅点餐</h1>
+    <div class="nav-days"><a href="days/day-002.html">← Day 2</a> | <a href="../index.html">🏠 Dashboard</a></div>
+  </div>
+</header>
+
+<!-- ============ VOCABULARY ============ -->
+<section class="tab-panel active" id="t-vocab">
+  <h2>📚 Vocabulary · 15 new words</h2>
+  <p style="color:var(--muted);font-size:.92rem">Words grouped by English–German cognate ties where possible. Tap any 🔊 to hear. Tap ❓ next to a verb to open the cases reference.</p>
+  <div class="vocab-grid">
+
+    <!-- Group A: Cognates -->
+    <h3 style="margin:10px 0 4px;font-size:1rem;color:var(--accent)">Group A · Cognates (sound-alikes)</h3>
+
+    <div class="vcard art-die">
+      <div class="head">
+        <span class="art art-die">die</span>
+        <span class="word">Pizza</span>
+        <span class="plural">Pl. die Pizzen / Pizzas</span>
+        <span class="pl-spk" onclick="speakWord('die Pizzen')">🔊</span>
+        <span class="spk" onclick="speakWord('die Pizza')">🔊</span>
+      </div>
+      <div class="en">pizza</div>
+      <div class="ex">
+        <span class="de-text">Ich möchte <span class="art art-die">eine</span> Pizza, bitte. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')">1.25×</button></span></span>
+        <span class="en-ex">I would like a pizza, please.</span>
+      </div>
+    </div>
+
+    <div class="vcard art-das">
+      <div class="head">
+        <span class="art art-das">das</span>
+        <span class="word">Restaurant</span>
+        <span class="plural">Pl. die Restaurants</span>
+        <span class="pl-spk" onclick="speakWord('die Restaurants')">🔊</span>
+        <span class="spk" onclick="speakWord('das Restaurant')">🔊</span>
+      </div>
+      <div class="en">restaurant</div>
+      <div class="ex">
+        <span class="de-text">Das Restaurant ist sehr gut. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')">1.25×</button></span></span>
+        <span class="en-ex">The restaurant is very good.</span>
+      </div>
+    </div>
+
+    <div class="vcard art-der">
+      <div class="head">
+        <span class="art art-der">der</span>
+        <span class="word">Kaffee</span>
+        <span class="plural">Pl. die Kaffees</span>
+        <span class="pl-spk" onclick="speakWord('die Kaffees')">🔊</span>
+        <span class="spk" onclick="speakWord('der Kaffee')">🔊</span>
+      </div>
+      <div class="en">coffee</div>
+      <div class="ex">
+        <span class="de-text">Ein Kaffee, bitte! 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ein Kaffee, bitte!')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ein Kaffee, bitte!')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ein Kaffee, bitte!')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ein Kaffee, bitte!')">1.25×</button></span></span>
+        <span class="en-ex">A coffee, please!</span>
+      </div>
+    </div>
+
+    <div class="vcard art-die">
+      <div class="head">
+        <span class="art art-die">die</span>
+        <span class="word">Tomate</span>
+        <span class="plural">Pl. die Tomaten</span>
+        <span class="pl-spk" onclick="speakWord('die Tomaten')">🔊</span>
+        <span class="spk" onclick="speakWord('die Tomate')">🔊</span>
+      </div>
+      <div class="en">tomato</div>
+      <div class="ex">
+        <span class="de-text">Die Suppe hat Tomaten. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Suppe hat Tomaten.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Suppe hat Tomaten.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Suppe hat Tomaten.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Suppe hat Tomaten.')">1.25×</button></span></span>
+        <span class="en-ex">The soup has tomatoes.</span>
+      </div>
+    </div>
+
+    <div class="vcard art-der">
+      <div class="head">
+        <span class="art art-der">der</span>
+        <span class="word">Salat</span>
+        <span class="plural">Pl. die Salate</span>
+        <span class="pl-spk" onclick="speakWord('die Salate')">🔊</span>
+        <span class="spk" onclick="speakWord('der Salat')">🔊</span>
+      </div>
+      <div class="en">salad</div>
+      <div class="ex">
+        <span class="de-text">Ich nehme den Salat. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme den Salat.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme den Salat.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme den Salat.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme den Salat.')">1.25×</button></span></span>
+        <span class="en-ex">I'll take the salad.</span>
+      </div>
+    </div>
+
+    <!-- Group B: Verbs with valence -->
+    <h3 style="margin:14px 0 4px;font-size:1rem;color:var(--accent)">Group B · Verbs (with valence)</h3>
+
+    <div class="vcard">
+      <div class="head">
+        <span class="word">bestellen</span>
+        <a class="valence" href="../reference/cases.html#akkusativ" target="_blank">❓</a>
+        <span class="spk" onclick="speakWord('bestellen')">🔊</span>
+      </div>
+      <div class="en">to order <span style="color:var(--muted);font-size:.88rem">(bestellt + Akk.)</span></div>
+      <div class="ex">
+        <span class="de-text">Ich bestelle eine Pizza. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">1.25×</button></span></span>
+        <span class="en-ex">I order a pizza.</span>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="head">
+        <span class="word">nehmen</span>
+        <a class="valence" href="../reference/cases.html#akkusativ" target="_blank">❓</a>
+        <span class="spk" onclick="speakWord('nehmen')">🔊</span>
+      </div>
+      <div class="en">to take <span style="color:var(--muted);font-size:.88rem">(nimmt + Akk.; stem vowel e→i)</span></div>
+      <div class="ex">
+        <span class="de-text">Er nimmt die Suppe. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Er nimmt die Suppe.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Er nimmt die Suppe.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Er nimmt die Suppe.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Er nimmt die Suppe.')">1.25×</button></span></span>
+        <span class="en-ex">He takes the soup.</span>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="head">
+        <span class="word">möchten</span>
+        <a class="valence" href="../reference/cases.html#akkusativ" target="_blank">❓</a>
+        <span class="spk" onclick="speakWord('möchten')">🔊</span>
+      </div>
+      <div class="en">would like <span style="color:var(--muted);font-size:.88rem">(möchte + Akk.; Konjunktiv II of mögen)</span></div>
+      <div class="ex">
+        <span class="de-text">Wir möchten zahlen. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Wir möchten zahlen.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Wir möchten zahlen.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Wir möchten zahlen.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Wir möchten zahlen.')">1.25×</button></span></span>
+        <span class="en-ex">We would like to pay.</span>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="head">
+        <span class="word">bezahlen</span>
+        <a class="valence" href="../reference/cases.html#akkusativ" target="_blank">❓</a>
+        <span class="spk" onclick="speakWord('bezahlen')">🔊</span>
+      </div>
+      <div class="en">to pay <span style="color:var(--muted);font-size:.88rem">(bezahlt + Akk. — thing paid)</span></div>
+      <div class="ex">
+        <span class="de-text">Ich bezahle die Rechnung. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bezahle die Rechnung.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bezahle die Rechnung.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bezahle die Rechnung.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bezahle die Rechnung.')">1.25×</button></span></span>
+        <span class="en-ex">I pay the bill.</span>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="head">
+        <span class="word">schmecken</span>
+        <a class="valence" href="../reference/cases.html#dativ" target="_blank">❓</a>
+        <span class="spk" onclick="speakWord('schmecken')">🔊</span>
+      </div>
+      <div class="en">to taste good (to someone) <span style="color:var(--muted);font-size:.88rem">(schmeckt + Dativ — person who enjoys)</span></div>
+      <div class="ex">
+        <span class="de-text">Die Pizza schmeckt mir. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">1.25×</button></span></span>
+        <span class="en-ex">The pizza tastes good to me. (I like the pizza.)</span>
+      </div>
+    </div>
+
+    <!-- Group C: Restaurant nouns -->
+    <h3 style="margin:14px 0 4px;font-size:1rem;color:var(--accent)">Group C · Restaurant nouns</h3>
+
+    <div class="vcard art-der">
+      <div class="head">
+        <span class="art art-der">der</span>
+        <span class="word">Kellner</span>
+        <span class="plural">Pl. die Kellner</span>
+        <span class="pl-spk" onclick="speakWord('die Kellner')">🔊</span>
+        <span class="spk" onclick="speakWord('der Kellner')">🔊</span>
+      </div>
+      <div class="en">waiter (male)</div>
+    </div>
+
+    <div class="vcard art-die">
+      <div class="head">
+        <span class="art art-die">die</span>
+        <span class="word">Speisekarte</span>
+        <span class="plural">Pl. die Speisekarten</span>
+        <span class="pl-spk" onclick="speakWord('die Speisekarten')">🔊</span>
+        <span class="spk" onclick="speakWord('die Speisekarte')">🔊</span>
+      </div>
+      <div class="en">menu</div>
+      <div class="ex">
+        <span class="de-text">Die Speisekarte, bitte. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Speisekarte, bitte.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Speisekarte, bitte.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Speisekarte, bitte.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Speisekarte, bitte.')">1.25×</button></span></span>
+        <span class="en-ex">The menu, please.</span>
+      </div>
+    </div>
+
+    <div class="vcard art-das">
+      <div class="head">
+        <span class="art art-das">das</span>
+        <span class="word">Essen</span>
+        <span class="plural">(no plural, substance noun)</span>
+        <span class="spk" onclick="speakWord('das Essen')">🔊</span>
+      </div>
+      <div class="en">food (the meal/substance)</div>
+      <div class="ex">
+        <span class="de-text">Das Essen ist lecker. 🔊<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Das Essen ist lecker.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das Essen ist lecker.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Das Essen ist lecker.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Das Essen ist lecker.')">1.25×</button></span></span>
+        <span class="en-ex">The food is tasty.</span>
+      </div>
+    </div>
+
+    <div class="vcard art-die">
+      <div class="head">
+        <span class="art art-die">die</span>
+        <span class="word">Rechnung</span>
+        <span class="plural">Pl. die Rechnungen</span>
+        <span class="pl-spk" onclick="speakWord('die Rechnungen')">🔊</span>
+        <span class="spk" onclick="speakWord('die Rechnung')">🔊</span>
+      </div>
+      <div class="en">bill / check</div>
+    </div>
+
+    <div class="vcard art-der">
+      <div class="head">
+        <span class="art art-der">der</span>
+        <span class="word">Tisch</span>
+        <span class="plural">Pl. die Tische</span>
+        <span class="pl-spk" onclick="speakWord('die Tische')">🔊</span>
+        <span class="spk" onclick="speakWord('der Tisch')">🔊</span>
+      </div>
+      <div class="en">table</div>
+    </div>
+
+  </div>
+
+  <p style="font-size:.9rem;color:var(--muted);margin-top:12px"><b>Tip</b>: For every noun, always say it WITH its article — "der Kellner", never just "Kellner". The article is part of the word's identity in German. Saying them together from Day 1 saves you from re-learning later.</p>
+
+  <div class="step-row">
+    <button onclick="goTab('home')">← Home</button>
+    <button class="next" onclick="goTab('dialogue')">Next: Dialogue →</button>
+  </div>
+</section>
+
+<!-- ============ DIALOGUE ============ -->
+<section class="tab-panel" id="t-dialogue">
+  <h2>💬 Dialogue · At a Berlin restaurant</h2>
+  <p style="color:var(--muted);font-size:.92rem">Tap any underlined word to hear it. Tap 💡 for a grammar breakdown overlay.</p>
+  <div class="dlg de-text">
+
+    <div class="bubble">
+      <div class="who">Kellner</div>
+      <div class="de-text" id="d1">Guten Abend! Haben Sie <span class="tok" onclick="speakWord('eine')">eine</span> <span class="tok" onclick="speakWord('Reservierung')">Reservierung</span>? <span class="tap-btn" onclick="openTap('tap1')">💡</span></div>
+      <div class="en">Good evening! Do you have a reservation?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text">Ja, auf den Namen <span class="tok" onclick="speakWord('Tom')">Tom</span>. Ein <span class="tok" onclick="speakWord('Tisch')">Tisch</span> für zwei Personen. <span class="tap-btn" onclick="openTap('tap2')">💡</span></div>
+      <div class="en">Yes, under the name Tom. A table for two people.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Kellner</div>
+      <div class="de-text">Hier ist die <span class="tok" onclick="speakWord('Speisekarte')">Speisekarte</span>. Was möchten Sie <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap3')">💡</span></div>
+      <div class="en">Here is the menu. What would you like to drink?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Anna</div>
+      <div class="de-text">Ich nehme einen <span class="tok" onclick="speakWord('Kaffee')">Kaffee</span>, bitte. <span class="tap-btn" onclick="openTap('tap4')">💡</span></div>
+      <div class="en">I'll take a coffee, please.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Kellner</div>
+      <div class="de-text">Sehr gern. Und zum <span class="tok" onclick="speakWord('Essen')">Essen</span>? <span class="tap-btn" onclick="openTap('tap5')">💡</span></div>
+      <div class="en">Very gladly. And for the food (to eat)?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text">Ich bestelle die <span class="tok" onclick="speakWord('Pizza')">Pizza</span> mit <span class="tok" onclick="speakWord('Tomaten')">Tomaten</span>. <span class="tap-btn" onclick="openTap('tap6')">💡</span></div>
+      <div class="en">I'll order the pizza with tomatoes.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Anna</div>
+      <div class="de-text">Für mich die <span class="tok" onclick="speakWord('Suppe')">Suppe</span> und einen <span class="tok" onclick="speakWord('Salat')">Salat</span>. <span class="tap-btn" onclick="openTap('tap7')">💡</span></div>
+      <div class="en">For me the soup and a salad.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Kellner</div>
+      <div class="de-text">Alles klar. Möchten Sie noch etwas zu <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap8')">💡</span></div>
+      <div class="en">All clear. Would you like anything else to drink?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text">Nein, danke. Können wir bitte die <span class="tok" onclick="speakWord('Rechnung')">Rechnung</span> bekommen? <span class="tap-btn" onclick="openTap('tap9')">💡</span></div>
+      <div class="en">No, thanks. Could we please have the bill?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Kellner</div>
+      <div class="de-text">Natürlich. Das macht 28 Euro. <span class="tap-btn" onclick="openTap('tap10')">💡</span></div>
+      <div class="en">Of course. That makes 28 euros.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">1.25×</button></div>
+    </div>
+
+  </div>
+
+  <div class="step-row">
+    <button onclick="goTab('vocab')">← Vocabulary</button>
+    <button class="next" onclick="goTab('listening')">Next: Listening →</button>
+  </div>
+</section>
+
+<!-- ============ LISTENING ============ -->
+<section class="tab-panel" id="t-listening">
+  <h2>🎧 Listening · Waiter's spoken specials</h2>
+  <p style="color:var(--muted);font-size:.92rem">Listen to the waiter announce today's specials. Use the speed buttons if needed. The transcript stays hidden until you answer all questions.</p>
+
+  <div class="lcard">
+    <div class="player-row">
+      <button class="play-btn" id="lplay" onclick="toggleListen()">▶ Play</button>
+      <span style="color:var(--muted);font-size:.85rem">~55 words · waiter monologue</span>
+    </div>
+    <div class="speed-row">
+      <button class="spbtn" data-rate="0.5" onclick="setListenSpeed(this,0.5)">0.5×</button>
+      <button class="spbtn active" data-rate="1" onclick="setListenSpeed(this,1)">1×</button>
+      <button class="spbtn" data-rate="0.75" onclick="setListenSpeed(this,0.75)">0.75×</button>
+      <button class="spbtn" data-rate="1.25" onclick="setListenSpeed(this,1.25)">1.25×</button>
+    </div>
+    <div class="transcript" id="ltr">
+      <b>Transcript</b>
+      <p class="de-text">Guten Tag! Heute haben wir zwei Specials. Erstens: eine Pizza mit Tomaten und Käse, neun Euro. Zweitens: die Suppe des Tages, sechs Euro. Dazu ein Kaffee für drei Euro oder ein Wasser für zwei Euro. Die Speisekarte finden Sie hier. Vielen Dank!</p>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q1 · How much is the soup of the day?</div>
+    <div class="opts" data-q="l1">
+      <button class="opt" onclick="answerOpt(this,true,'l1','€6 — listen for „sechs Euro\" after „die Suppe des Tages\".')">€6</button>
+      <button class="opt" onclick="answerOpt(this,false,'l1','The pizza is €9, not the soup. Listen for „sechs Euro\" right after „die Suppe des Tages\".')">€9</button>
+      <button class="opt" onclick="answerOpt(this,false,'l1','Water is €2. The soup is €6 — listen for „sechs Euro\".')">€2</button>
+    </div>
+    <div class="fb" id="fb-l1"></div>
+    <div class="errcat" id="ec-l1" style="display:none">If you got it wrong, why? <span class="lab" onclick="pickErr(this,'l1','没听清')">没听清 / Didn't catch</span><span class="lab" onclick="pickErr(this,'l1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l1','数字混了')">数字混了</span><span class="lab" onclick="pickErr(this,'l1','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q2 · True or False: The waiter mentions a coffee for €3.</div>
+    <div class="opts" data-q="l2">
+      <button class="opt" onclick="answerOpt(this,true,'l2','True — „ein Kaffee für drei Euro\".')">True</button>
+      <button class="opt" onclick="answerOpt(this,false,'l2','Listen again for „ein Kaffee für drei Euro\" — coffee IS mentioned at €3.')">False</button>
+    </div>
+    <div class="fb" id="fb-l2"></div>
+    <div class="errcat" id="ec-l2" style="display:none">If you got it wrong, why? <span class="lab" onclick="pickErr(this,'l2','没听清')">没听清 / Didn't catch</span><span class="lab" onclick="pickErr(this,'l2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l2','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'l2','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q3 · Which two items does the waiter mention as specials?</div>
+    <div class="opts" data-q="l3">
+      <button class="opt" onclick="answerOpt(this,true,'l3','Correct — „eine Pizza … und die Suppe des Tages\".')">Pizza and soup</button>
+      <button class="opt" onclick="answerOpt(this,false,'l3','Salad is NOT mentioned. Listen for „eine Pizza\" and „die Suppe des Tages\".')">Pizza and salad</button>
+      <button class="opt" onclick="answerOpt(this,false,'l3','Coffee and water are drinks offered alongside, NOT the two specials.')">Coffee and water</button>
+    </div>
+    <div class="fb" id="fb-l3"></div>
+    <div class="errcat" id="ec-l3" style="display:none">If you got it wrong, why? <span class="lab" onclick="pickErr(this,'l3','没听清')">没听清 / Didn't catch</span><span class="lab" onclick="pickErr(this,'l3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l3','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'l3','粗心')">粗心</span></div>
+  </div>
+
+  <p style="font-size:.88rem;color:var(--muted);margin-top:8px">Answer all 3 questions to unlock the transcript.</p>
+
+  <div class="step-row">
+    <button onclick="goTab('dialogue')">← Dialogue</button>
+    <button class="next" onclick="goTab('reading')">Next: Reading →</button>
+  </div>
+</section>
+
+<!-- ============ READING ============ -->
+<section class="tab-panel" id="t-reading">
+  <h2>📖 Reading · Tom's diary: dinner in Berlin</h2>
+  <p style="color:var(--muted);font-size:.92rem"><b>Register</b>: informal (first-person diary). <b>Length</b>: ~155 words.</p>
+
+  <div class="lcard de-text">
+    <p>Heute Abend war ich mit Anna in einem Restaurant in Berlin. Das Restaurant heißt „Bei Luigi\" und ist sehr klein, aber gemütlich. Der Kellner war sehr freundlich.</p>
+    <p>Ich hatte Hunger und bestellte eine Pizza mit Tomaten. Anna nahm die Suppe und einen Salat. Dazu trank ich einen Kaffee. Der Kaffee war stark, aber sehr gut. Die Pizza schmeckte mir sehr — sie war heiß und lecker!</p>
+    <p>Anna mochte die Suppe, aber der Salat war kalt. Sie sagte: „Der Salat ist nicht so gut.\" Ich gab ihr etwas von meiner Pizza. Wir lachten.</p>
+    <p>Zum Schluss bekamen wir die Rechnung. Das Essen kostete zusammen 28 Euro. Ich bezahlte und gab dem Kellner drei Euro Trinkgeld. Es war ein schöner Abend in Berlin.</p>
+    <p style="font-size:.95rem">🔊 <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Heute Abend war ich mit Anna in einem Restaurant in Berlin. Das Restaurant heißt Bei Luigi und ist sehr klein, aber gemütlich. Der Kellner war sehr freundlich.')">¶1 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Heute Abend war ich mit Anna in einem Restaurant in Berlin. Das Restaurant heißt Bei Luigi und ist sehr klein, aber gemütlich. Der Kellner war sehr freundlich.')">¶1 1×</button></span></p>
+    <p style="font-size:.95rem">🔊 <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich hatte Hunger und bestellte eine Pizza mit Tomaten. Anna nahm die Suppe und einen Salat. Dazu trank ich einen Kaffee. Der Kaffee war stark, aber sehr gut. Die Pizza schmeckte mir sehr — sie war heiß und lecker!')">¶2 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich hatte Hunger und bestellte eine Pizza mit Tomaten. Anna nahm die Suppe und einen Salat. Dazu trank ich einen Kaffee. Der Kaffee war stark, aber sehr gut. Die Pizza schmeckte mir sehr — sie war heiß und lecker!')">¶2 1×</button></span></p>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q1 · Information location · What did Anna think of the salad?</div>
+    <div class="opts" data-q="r1">
+      <button class="opt" onclick="answerOpt(this,true,'r1','Correct — „der Salat war kalt\" and she said „Der Salat ist nicht so gut\".')">It was cold and not very good</button>
+      <button class="opt" onclick="answerOpt(this,false,'r1','She liked the SOUP, not the salad. The salad was cold and „nicht so gut\".')">It was tasty</button>
+      <button class="opt" onclick="answerOpt(this,false,'r1','Anna didn't send it back — she just complained and Tom shared his pizza.')">She sent it back to the kitchen</button>
+    </div>
+    <div class="fb" id="fb-r1"></div>
+    <div class="errcat" id="ec-r1" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r1','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r1','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r1','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q2 · True or False · Tom paid 28 euros for the meal and gave a 3 euro tip.</div>
+    <div class="opts" data-q="r2">
+      <button class="opt" onclick="answerOpt(this,true,'r2','True — „kostete zusammen 28 Euro\" and „drei Euro Trinkgeld\".')">True</button>
+      <button class="opt" onclick="answerOpt(this,false,'r2','Re-read the last paragraph: „28 Euro\" + „drei Euro Trinkgeld\".')">False</button>
+    </div>
+    <div class="fb" id="fb-r2"></div>
+    <div class="errcat" id="ec-r2" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r2','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r2','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r2','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="q">Q3 · Multiple choice · Why did Tom give Anna some of his pizza?</div>
+    <div class="opts" data-q="r3">
+      <button class="opt" onclick="answerOpt(this,true,'r3','Correct — her salad was bad, so he shared. „Ich gab ihr etwas von meiner Pizza.\"')">Because her salad was not good</button>
+      <button class="opt" onclick="answerOpt(this,false,'r3','He ordered the pizza for himself; he shared AFTER her salad disappointed her.')">Because he didn't want his pizza</button>
+      <button class="opt" onclick="answerOpt(this,false,'r3','The text says nothing about paying. He shared food, not money.')">Because she paid the bill</button>
+    </div>
+    <div class="fb" id="fb-r3"></div>
+    <div class="errcat" id="ec-r3" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r3','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r3','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r3','粗心')">粗心</span></div>
+  </div>
+
+  <div class="step-row">
+    <button onclick="goTab('listening')">← Listening</button>
+    <button class="next" onclick="goTab('shadowing')">Next: Shadowing →</button>
+  </div>
+</section>
+
+<!-- ============ SHADOWING ============ -->
+<section class="tab-panel" id="t-shadowing">
+  <h2>🎤 Shadowing · 5 sentences + ü/ö self-check</h2>
+  <p style="color:var(--muted);font-size:.92rem">Read each line aloud after the audio. Stressed syllables are in <b>bold</b>. Read each line slowly first, then at normal speed.</p>
+
+  <div class="shad de-text">
+    <div class="row">
+      <div>1. Ich <b>be</b>stelle <b>ei</b>ne <b>Piz</b>za.</div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">🔊 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle eine Pizza.')">🔊 1×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>2. Die <b>Piz</b>za <b>schmeckt</b> <b>mir</b>.</div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">🔊 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Pizza schmeckt mir.')">🔊 1×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>3. <b>Wür</b>den Sie <b>bit</b>te die <b>Rech</b>nung <b>brin</b>gen?</div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')">🔊 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')">🔊 1×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>4. Ich <b>neh</b>me <b>die</b> <b>Sup</b>pe <b>heu</b>te.</div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme die Suppe heute.')">🔊 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme die Suppe heute.')">🔊 1×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>5. <b>Kös</b>ten die <b>Ge</b>tränke <b>wirk</b>lich <b>so</b> viel?</div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')">🔊 0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')">🔊 1×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pron-tip">
+    <b>Day 3 pronunciation self-check · ü and ö</b><br>
+    Chinese has no ü (as in <span style="cursor:pointer;text-decoration:underline" onclick="speakWord('über')">über</span>) or ö (as in <span style="cursor:pointer;text-decoration:underline" onclick="speakWord('schön')">schön</span>). The trick: say "eee", then round your lips as if whistling — keep the tongue position of "eee". The sound that comes out is ü. Same with "ohh" → round → ö. Common mistakes: collapsing ü to "u" (so <span style="cursor:pointer;text-decoration:underline" onclick="speakWord('über')">über</span> sounds like "oober") or ö to "o" (<span style="cursor:pointer;text-decoration:underline" onclick="speakWord('schön')">schön</span> sounds like "shohn"). Practice the eee→round glide until your lips feel the change.
+  </div>
+
+  <div class="step-row">
+    <button onclick="goTab('reading')">← Reading</button>
+    <button class="next" onclick="goTab('writing')">Next: Writing →</button>
+  </div>
+</section>
+
+<!-- ============ WRITING (N%3==0, present) ============ -->
+<section class="tab-panel" id="t-writing">
+  <h2>✍️ Writing · 80–100 words · Restaurant reservation email</h2>
+  <p style="color:var(--muted);font-size:.92rem">Day 3 is a writing day (N % 3 == 0). Write a short email (80–100 words) to a Berlin restaurant to reserve a table for Saturday at 19:00 for 3 people. Use the Du/Sie guide: a restaurant you don't know → <b>Sie</b> form.</p>
+
+  <div class="wcard">
+    <p style="margin-top:0"><b>Prompt</b>: Write to „Bei Luigi" (Italian restaurant in Berlin). Include: greeting, date/time, number of people, one special request (e.g. a table by the window / vegetarian option), thanks, sign-off with your name.</p>
+
+    <textarea placeholder="Sehr geehrte Damen und Herren,
+
+...write your email here (80–100 words)...
+
+Mit freundlichen Grüßen
+[your name]"></textarea>
+
+    <div class="rubric">
+      <b>Self-check rubric</b>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li>☐ Content points covered: date, time, party size, special request</li>
+        <li>☐ Format: greeting + body + sign-off (3 blocks)</li>
+        <li>☐ Register: Sie form throughout (Ihre, Sie, sehr geehrte)</li>
+        <li>☐ Word count: 80–100</li>
+        <li>☐ At least one modal-like polite form: möchte / würden Sie</li>
+        <li>☐ Articles present on all nouns (der Tisch, die Reservierung, …)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <button onclick="goTab('shadowing')">← Shadowing</button>
+    <button class="next" onclick="goTab('review')">Next: Review →</button>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="tab-panel" id="t-review">
+  <h2>🔁 Review Reminder · yesterday & 3 days ago</h2>
+  <p style="color:var(--muted);font-size:.92rem">Just the word lists — re-open the lesson pages if you need to re-hear them.</p>
+
+  <div class="rev-list">
+    <a href="days/day-002.html">
+      Day 2 · 在柏林机场：到达与问路
+      <span class="sub">der Flughafen, die Frage, die Antwort, suchen (+Akk.), finden (+Akk.), nehmen (+Akk.), sprechen (+mit Dat.), die Entschuldigung, …</span>
+    </a>
+    <a href="days/day-001.html">
+      Day 1 · 自我介绍：初次见面
+      <span class="sub">der Name, die Hand, das Land, der Freund, die Stadt, heißen, sein, kommen (+aus Dat.), wohnen (+in Dat.), ich, du, …</span>
+    </a>
+  </div>
+
+  <p style="margin-top:18px"><b>30-second skim</b>: Cover Day 1 & Day 2 word lists with your hand, try to recall each article + plural. Miss any? Tap the link to re-listen.</p>
+
+  <button class="mark-studied" id="markBtn" onclick="markStudied()">Mark Day 3 as studied ✅</button>
+
+  <div class="step-row">
+    <button onclick="goTab('writing')">← Writing</button>
+    <button class="next" onclick="goTab('home')">Finish · Home →</button>
+  </div>
+</section>
+
+<!-- ============ OVERLAY (Grammar Tap) ============ -->
+<div class="overlay" id="overlay" onclick="if(event.target.id==='overlay')closeTap()">
+  <div class="card" id="tapcard"></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <b>Day 3 · A1 上 · 在柏林餐厅点餐</b>
+  <ul>
+    <li><b>Generated</b>: 2026-09-05 (v4 trial run · Executor = WorkBuddy GLM 5.2)</li>
+    <li><b>Scene</b>: Ordering food at a Berlin restaurant</li>
+    <li><b>Grammar focus</b>: Definite articles (der/die/das) → Akkusativ basics; möchten as polite request; schmecken + Dativ</li>
+    <li><b>Deployment</b>: GitHub Pages — status logged below</li>
+    <li><b>Plan ref</b>: PLAN.md §3 (Day 1–30 row · 餐厅), §4 (v4 template · 7 sections incl. Writing), §5 (v4 HTML spec)</li>
+  </ul>
+  <h4 style="margin:10px 0 4px">Quality self-check (PLAN §6)</h4>
+  <ul>
+    <li>☐ 15 entries each with article + plural + valence</li>
+    <li>☐ No false friends grouped as cognates</li>
+    <li>☐ All explanations in English</li>
+    <li>☐ No gamification / streaks / rankings</li>
+    <li>☐ Every German word & sentence has 🔊</li>
+    <li>☐ Spoken text = displayed text (verbatim)</li>
+    <li>☐ Article color coding on all articles</li>
+    <li>☐ Tab view · speed buttons · Web Audio playback · clickable options · Mark-as-studied</li>
+  </ul>
+  <h4 style="margin:10px 0 4px">Deployment status</h4>
+  <ul id="deploy-status">
+    <li>⏳ GitHub Pages — push result logged after deploy step</li>
+  </ul>
+</footer>
+
+<!-- ============ TAB BAR ============ -->
+<nav class="tabbar">
+  <a class="tab" onclick="goTab('home')"><span class="ic">🏠</span>Home</a>
+  <a class="tab active" onclick="goTab('vocab')"><span class="ic">📚</span>Vocab</a>
+  <a class="tab" onclick="goTab('dialogue')"><span class="ic">💬</span>Dialog</a>
+  <a class="tab" onclick="goTab('listening')"><span class="ic">🎧</span>Listen</a>
+  <a class="tab" onclick="goTab('reading')"><span class="ic">📖</span>Read</a>
+  <a class="tab" onclick="goTab('shadowing')"><span class="ic">🎤</span>Shadow</a>
+  <a class="tab" onclick="goTab('writing')"><span class="ic">✍️</span>Write</a>
+  <a class="tab" onclick="goTab('review')"><span class="ic">🔁</span>Review</a>
+</nav>
+
+<script>
+// ---------- iOS unlock ----------
+var unlocked=false;
+function unlock(){
+  if(unlocked) return;
+  try{ var u=new SpeechSynthesisUtterance(''); u.lang='de-DE'; speechSynthesis.speak(u); }catch(e){}
+  unlocked=true;
+  if(window.audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+}
+document.addEventListener('click',unlock,true);
+document.addEventListener('touchend',unlock,true);
+
+// ---------- Speak ----------
+function speakWord(w){
+  unlock();
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w); u.lang='de-DE'; u.rate=0.7;
+  speechSynthesis.speak(u);
+}
+function speakSentence(btn, txt){
+  unlock();
+  var rate=parseFloat(btn.getAttribute('data-rate'))||1;
+  // sibling buttons lose active state
+  var sib=btn.parentNode.querySelectorAll('.spbtn');
+  sib.forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt); u.lang='de-DE'; u.rate=rate;
+  u.onend=function(){ btn.classList.remove('active'); };
+  speechSynthesis.speak(u);
+}
+
+// ---------- Tab navigation ----------
+function goTab(name){
+  if(name==='home'){ window.location.href='../index.html'; return; }
+  var panels=document.querySelectorAll('.tab-panel');
+  panels.forEach(function(p){p.classList.remove('active')});
+  var el=document.getElementById('t-'+name);
+  if(el) el.classList.add('active');
+  var tabs=document.querySelectorAll('.tabbar .tab');
+  tabs.forEach(function(t){t.classList.remove('active')});
+  // map name to tab index
+  var map={vocab:1,dialogue:2,listening:3,reading:4,shadowing:5,writing:6,review:7};
+  if(map[name]!==undefined) tabs[map[name]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ---------- Grammar Tap overlay ----------
+var TAPS={
+  tap1:{de:'Guten Abend! Haben Sie eine Reservierung?',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„Haben Sie eine Reservierung?\" — Do you have a reservation? Verb-first question (yes/no); Sie = formal you (capitalized).'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Guten Abend',m:'greeting · „good evening\"'},
+        {w:'Haben',m:'verb · 2nd-position flip to slot 1 for yes/no question · „have\"'},
+        {w:'Sie',m:'pronoun · formal you · Akkusativ here (object of haben)'},
+        {w:'eine',m:'indefinite article · fem. · Akkusativ (fem. stays „eine\")'},
+        {w:'Reservierung',m:'noun · fem. · die Reservierung · „reservation\"'}]},
+      {h:'Layer 3 · Study tip',b:'Yes/no questions in German put the verb in slot 1. „Sie haben\" (statement) → „Haben Sie\" (question).'}
+    ]},
+  tap2:{de:'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„Yes, under the name Tom. A table for two people.\" Restaurant-booking set phrase.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'auf',m:'preposition · auf + Akk. (motion/destination metaphor here)'},
+        {w:'den',m:'definite article · masc. · Akkusativ (der→den)'},
+        {w:'Namen',m:'noun · masc. · der Name · weak noun, -n in non-Nom.'},
+        {w:'Ein',m:'indefinite article · neut./masc. · Akkusativ masc. = einen, but Tisch here is in Apposition/idomatic — see tip'},
+        {w:'Tisch',m:'noun · masc. · der Tisch'},
+        {w:'für',m:'preposition · für + Akk. · „for\"'},
+        {w:'zwei',m:'number · „two\"'},
+        {w:'Personen',m:'noun · fem. plural · die Personen'}]},
+      {h:'Layer 3 · Study tip',b:'„auf den Namen\" is a fixed restaurant phrase (literally „onto the name\"). Note der Name is a weak noun: it takes -n in all cases except Nominativ — „den Namen\", not „den Name\".'}
+    ]},
+  tap3:{de:'Hier ist die Speisekarte. Was möchten Sie trinken?',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„Here is the menu. What would you like to drink?\"'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Hier',m:'adverb · „here\" · occupies slot 1'},
+        {w:'ist',m:'verb · sein · slot 2'},
+        {w:'die',m:'definite article · fem. · Nom. (predicate noun)'},
+        {w:'Speisekarte',m:'noun · fem. · die Speisekarte · „menu\"'},
+        {w:'Was',m:'interrogative · „what\" · slot 1'},
+        {w:'möchten',m:'modal · Konjunktiv II of mögen · „would like\" · slot 2'},
+        {w:'Sie',m:'pronoun · formal you · slot 3'},
+        {w:'trinken',m:'verb · infinitive · end of clause'}]},
+      {h:'Layer 3 · Study tip',b:'„möchten\" is the polite form of „wollen\" (to want). Always paired with an infinitive at the end: „Ich möchte … trinken.\"'}
+    ]},
+  tap4:{de:'Ich nehme einen Kaffee, bitte.',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„I'll take a coffee, please.\" Idiomatic ordering phrase.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Ich',m:'pronoun · 1sg · Nom. · slot 1'},
+        {w:'nehme',m:'verb · nehmen · 1sg present · slot 2'},
+        {w:'einen',m:'indefinite article · masc. · Akkusativ (ein→einen)'},
+        {w:'Kaffee',m:'noun · masc. · der Kaffee · Akkusativ object'},
+        {w:'bitte',m:'particle · „please\"'}]},
+      {h:'Layer 3 · Study tip',b:'„nehmen\" (to take) is your go-to ordering verb in German. Note Akkusativ masculine article flips: ein → einen, der → den. Open the <a href=\"../reference/cases.html#akkusativ\" target=\"_blank\">cases reference</a> for the full table.'}
+    ]},
+  tap5:{de:'Sehr gern. Und zum Essen?',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„Very gladly. And (what) to eat?\" Elliptical — object question implied.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Sehr',m:'adverb · „very\"'},
+        {w:'gern',m:'adverb · „gladly / willingly\" · fixed polite reply'},
+        {w:'Und',m:'conjunction · „and\"'},
+        {w:'zum',m:'prep + article · zu + dem · Dativ · „for the / to the\"'},
+        {w:'Essen',m:'noun · neut. · das Essen · Dativ'}]},
+      {h:'Layer 3 · Study tip',b:'„zu + dem\" contracts to „zum\". „zu\" always takes Dativ. „zum Essen\" = „for the meal / to eat\".'}
+    ]},
+  tap6:{de:'Ich bestelle die Pizza mit Tomaten.',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„I order the pizza with tomatoes.\"'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Ich',m:'pronoun · 1sg · Nom.'},
+        {w:'bestelle',m:'verb · bestellen · 1sg present'},
+        {w:'die',m:'definite article · fem. · Akkusativ (fem. stays die)'},
+        {w:'Pizza',m:'noun · fem. · die Pizza'},
+        {w:'mit',m:'preposition · mit + Dativ · „with\"'},
+        {w:'Tomaten',m:'noun · fem. plural · Dativ plural (no change from Nom. plural)'}]},
+      {h:'Layer 3 · Study tip',b:'Two-way contrast: direct object (die Pizza) is Akkusativ; „mit\" always takes Dativ. So „die Pizza\" (Akk fem = die) but „mit Tomaten\" (Dat plural = Tomaten, same form).'}
+    ]},
+  tap7:{de:'Für mich die Suppe und einen Salat.',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„For me the soup and a salad.\" Topic-fronted ordering phrase.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Für',m:'preposition · für + Akk. · „for\"'},
+        {w:'mich',m:'pronoun · 1sg · Akkusativ · „me\"'},
+        {w:'die',m:'definite article · fem. · Akkusativ'},
+        {w:'Suppe',m:'noun · fem. · die Suppe'},
+        {w:'und',m:'conjunction'},
+        {w:'einen',m:'indefinite article · masc. · Akkusativ (ein→einen)'},
+        {w:'Salat',m:'noun · masc. · der Salat'}]},
+      {h:'Layer 3 · Study tip',b:'„Für mich …\" fronts the beneficiary; the verb is dropped (elliptical). Note the masc. flip ein→einen before Salat. <a href=\"../reference/cases.html#akkusativ\" target=\"_blank\">Cases reference</a>.'}
+    ]},
+  tap8:{de:'Alles klar. Möchten Sie noch etwas zu trinken?',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„All clear. Would you like something else to drink?\"'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'noch',m:'adverb · „still / yet\"'},
+        {w:'etwas',m:'indefinite pronoun · „something\"'},
+        {w:'zu',m:'particle before infinitive · „to\" (zu trinken = to drink)'},
+        {w:'trinken',m:'verb · infinitive'}]},
+      {h:'Layer 3 · Study tip',b:'„zu + infinitive\" is the German equivalent of „to + verb\". „noch etwas\" = „something else / more\".'}
+    ]},
+  tap9:{de:'Nein, danke. Können wir bitte die Rechnung bekommen?',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„No thanks. Could we please get the bill?\" Polite modal-perfect question.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Können',m:'modal · können · „can / could\" · slot 1 (question)'},
+        {w:'wir',m:'pronoun · 1pl · Nom.'},
+        {w:'bitte',m:'particle'},
+        {w:'die',m:'definite article · fem. · Akkusativ'},
+        {w:'Rechnung',m:'noun · fem. · die Rechnung'},
+        {w:'bekommen',m:'verb · infinitive · end of clause · „to get / receive\"'}]},
+      {h:'Layer 3 · Study tip',b:'Modal + infinitive: modal conjugates, infinitive goes to the very end. Note „bekommen\" does NOT mean „to become\" (false friend!) — it means „to receive / get\". „to become\" = werden.'}
+    ]},
+  tap10:{de:'Natürlich. Das macht 28 Euro.',
+    layers:[
+      {h:'Layer 1 · Sentence breakdown',b:'„Of course. That makes 28 euros.\" Set phrase for stating the total.'},
+      {h:'Layer 2 · Word annotation',words:[
+        {w:'Das',m:'demonstrative pronoun · neut. · Nom. · „that\"'},
+        {w:'macht',m:'verb · machen · 3sg present · „makes / comes to\"'},
+        {w:'28',m:'number'},
+        {w:'Euro',m:'noun · neut. plural · die Euro (no -s plural)'}]},
+      {h:'Layer 3 · Study tip',b:'„Das macht …\" is the standard waiter phrase for the total. Euro plural stays „Euro\" (no -s): „zwei Euro\", not „zwei Euros\".'}
+    ]}
+};
+function openTap(id){
+  var t=TAPS[id]; if(!t) return;
+  var html='<button class="close" onclick="closeTap()">✕</button>';
+  html+='<h3>Grammar Tap · '+id.replace('tap','Sentence ')+'</h3>';
+  html+='<div class="layer"><b>🔊 Sentence:</b> '+t.de+' ';
+  html+='<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,\''+t.de.replace(/'/g,"\\'")+'\')">0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,\''+t.de.replace(/'/g,"\\'")+'\')">1×</button></span></div>';
+  t.layers.forEach(function(L){
+    html+='<div class="layer"><b>'+L.h+'</b><br>'+ (L.b||'') +'';
+    if(L.words){
+      html+='<div class="word-anno" style="margin-top:6px">';
+      L.words.forEach(function(w){
+        html+='<div class="row"><span class="w"><span class="tok" onclick="speakWord(\''+w.w.replace(/'/g,"\\'")+'\')">'+w.w+'</span> 🔊</span><span class="m">'+w.m+'</span></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('tapcard').innerHTML=html;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeTap(){ document.getElementById('overlay').classList.remove('show'); }
+
+// ---------- Listening player ----------
+var lstate={rate:1,playing:false,utter:null};
+function setListenSpeed(btn,r){
+  lstate.rate=r;
+  document.querySelectorAll('[onclick^="setListenSpeed"]').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+}
+function toggleListen(){
+  var btn=document.getElementById('lplay');
+  if(lstate.playing){
+    speechSynthesis.cancel();
+    lstate.playing=false; btn.textContent='▶ Play'; btn.classList.remove('playing');
+    return;
+  }
+  unlock();
+  var txt='Guten Tag! Heute haben wir zwei Specials. Erstens: eine Pizza mit Tomaten und Käse, neun Euro. Zweitens: die Suppe des Tages, sechs Euro. Dazu ein Kaffee für drei Euro oder ein Wasser für zwei Euro. Die Speisekarte finden Sie hier. Vielen Dank!';
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt); u.lang='de-DE'; u.rate=lstate.rate;
+  u.onend=function(){ lstate.playing=false; btn.textContent='▶ Play'; btn.classList.remove('playing'); };
+  lstate.utter=u; lstate.playing=true;
+  btn.textContent='⏸ Pause'; btn.classList.add('playing');
+  speechSynthesis.speak(u);
+}
+
+// ---------- Quiz (clickable options + feedback + error cat) ----------
+var answered={};
+function answerOpt(btn, correct, qid, explain){
+  if(answered[qid]) return;
+  answered[qid]=true;
+  var opts=btn.parentNode.querySelectorAll('.opt');
+  opts.forEach(function(o){o.disabled=true});
+  if(correct){ btn.classList.add('correct'); }
+  else { btn.classList.add('wrong');
+    // also highlight the correct one
+    opts.forEach(function(o){ if(o.getAttribute('onclick').indexOf('true')>-1 && o!==btn) o.classList.add('correct'); });
+  }
+  var fb=document.getElementById('fb-'+qid);
+  fb.innerHTML='<b>'+(correct?'✓ Correct':'✗ Not quite')+'</b> — '+explain;
+  fb.classList.add('show');
+  document.getElementById('ec-'+qid).style.display='block';
+  // unlock transcript after all 3 listening questions
+  if(qid.startsWith('l')){
+    if(answered['l1']&&answered['l2']&&answered['l3']){
+      document.getElementById('ltr').classList.add('show');
+    }
+  }
+}
+function pickErr(el,qid,label){
+  var spans=el.parentNode.querySelectorAll('.lab');
+  spans.forEach(function(s){s.style.background='#fff';s.style.color='var(--muted)'});
+  el.style.background='var(--tap)'; el.style.color='#fff';
+  if(label==='没听清'){
+    var fb=document.getElementById('fb-'+qid);
+    fb.innerHTML+='<br><span style="color:var(--tap)"><b>Tip:</b> Re-listen at 0.5× — pause after each clause. Numbers like „sechs\" vs „neun\" are easy to swap; mouth the number silently as you hear it.</span>';
+  }
+}
+
+// ---------- Shadowing recording (Web Audio API playback) ----------
+var audioCtx;
+var recChunks=[]; var mediaRec=null; var currentRecBtn=null; var recBuffers={};
+function ensureCtx(){
+  if(!audioCtx){ try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+function toggleRec(btn){
+  ensureCtx();
+  if(btn.classList.contains('recording')){
+    if(mediaRec){ mediaRec.stop(); }
+    return;
+  }
+  // reset previous
+  if(currentRecBtn && currentRecBtn!==btn && currentRecBtn.classList.contains('recording')){ if(mediaRec) mediaRec.stop(); }
+  currentRecBtn=btn;
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    recChunks=[];
+    mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=function(e){ if(e.data.size>0) recChunks.push(e.data); };
+    mediaRec.onstop=function(){
+      var blob=new Blob(recChunks, {type: mediaRec.mimeType || 'audio/mp4'});
+      var reader=new FileReader();
+      reader.onload=function(){
+        var key='shad-'+Math.random().toString(36).slice(2);
+        recBuffers[key]=reader.result;
+        btn.setAttribute('data-rec',key);
+        btn.classList.remove('recording'); btn.textContent='⏺ Re-record';
+        stream.getTracks().forEach(function(t){t.stop()});
+      };
+      reader.readAsArrayBuffer(blob);
+    };
+    mediaRec.start();
+    btn.classList.add('recording'); btn.textContent='⏹ Stop';
+  }).catch(function(err){
+    alert('Recording not available: '+err.message);
+    btn.classList.remove('recording');
+  });
+}
+function playRec(btn){
+  var row=btn.closest('.row');
+  var recBtn=row.querySelector('.rec');
+  var key=recBtn.getAttribute('data-rec');
+  if(!key){ alert('No recording yet — tap ⏺ first'); return; }
+  ensureCtx();
+  var buf=recBuffers[key];
+  audioCtx.decodeAudioData(buf.slice(0), function(decoded){
+    var src=audioCtx.createBufferSource();
+    src.buffer=decoded; src.connect(audioCtx.destination);
+    src.start(0);
+  }, function(err){ alert('Playback failed: '+err); });
+}
+
+// ---------- Mark as studied (localStorage) ----------
+function markStudied(){
+  try{
+    localStorage.setItem('day-003-studied','1');
+    var b=document.getElementById('markBtn');
+    b.classList.add('done'); b.textContent='✅ Day 3 marked as studied';
+  }catch(e){ alert('Could not save (private mode?) — your browser blocked localStorage.'); }
+}
+try{ if(localStorage.getItem('day-003-studied')){ var b=document.getElementById('markBtn'); b.classList.add('done'); b.textContent='✅ Day 3 already studied'; } }catch(e){}
+</script>
+</body>
+</html>
