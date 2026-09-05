@@ -1174,7 +1174,7 @@ function answerOpt(btn, correct, qid, explain){
   var ec=document.getElementById('ec-'+qid);
   if(ec) ec.style.display='block';
   // persist
-  try{ localStorage.setItem('quiz:day3:'+qid, JSON.stringify({idx:idx,correct:correct})); emitEvent('answered','quiz:day3:'+qid,{idx:idx,correct:correct}); }catch(e){}
+  try{ localStorage.setItem('quiz:day3:'+qid, JSON.stringify({idx:idx,correct:correct})); emitEvent('answered','quiz:day3:'+qid,{idx:idx,correct:correct,qhash:qhashOf(qid)}); }catch(e){}
   // unlock transcript after all 3 listening questions
   if(qid.startsWith('l')){
     var done=['l1','l2','l3'].every(function(q){ return document.querySelector('[data-q="'+q+'"] .opt[disabled]'); });
@@ -1360,6 +1360,41 @@ function syncStatus(s){ var el=document.getElementById('syncStat'); if(el) el.te
 function syncKeyTs(){ try{ return JSON.parse(localStorage.getItem('sync:kt')||'{}'); }catch(e){ return {}; } }
 function syncSetKt(key,ts){ try{ var kt=syncKeyTs(); kt[key]=ts; localStorage.setItem('sync:kt',JSON.stringify(kt)); }catch(e){} }
 
+// §15.2 题目指纹: sha1(题干+选项按序) 前 8 位 — 恢复作答的唯一闸门
+function sha1_8(str){
+  function rol(n,b){ return (n<<b)|(n>>>(32-b)); }
+  var msg=unescape(encodeURIComponent(str));
+  var ml=msg.length, w=[], i;
+  for(i=0;i<ml;i++) w[i>>2]=(w[i>>2]||0)|(msg.charCodeAt(i)<<(24-(i%4)*8));
+  w[ml>>2]=(w[ml>>2]||0)|(0x80<<(24-(ml%4)*8));
+  var nblk=((ml+8)>>6)+1, bl=[];
+  for(i=0;i<nblk*16;i++) bl[i]=w[i]||0;
+  bl[nblk*16-1]=ml*8;
+  var h0=0x67452301,h1=0xEFCDAB89,h2=0x98BADCFE,h3=0x10325476,h4=0xC3D2E1F0;
+  for(i=0;i<bl.length;i+=16){
+    var a=h0,b=h1,c=h2,d=h3,e=h4,j;
+    var W=[];
+    for(j=0;j<80;j++) W[j]=j<16?(bl[i+j]||0):rol(W[j-3]^W[j-8]^W[j-14]^W[j-16],1);
+    for(j=0;j<80;j++){
+      var t;
+      if(j<20) t=(rol(a,5)+((b&c)|(~b&d))+e+W[j]+0x5A827999)|0;
+      else if(j<40) t=(rol(a,5)+(b^c^d)+e+W[j]+0x6ED9EBA1)|0;
+      else if(j<60) t=(rol(a,5)+((b&c)|(b&d)|(c&d))+e+W[j]+0x8F1BBCDC)|0;
+      else t=(rol(a,5)+(b^c^d)+e+W[j]+0xCA62C1D6)|0;
+      e=d; d=c; c=rol(b,30); b=a; a=t;
+    }
+    h0=(h0+a)|0; h1=(h1+b)|0; h2=(h2+c)|0; h3=(h3+d)|0; h4=(h4+e)|0;
+  }
+  return ((h0>>>0).toString(16)+((h1>>>0).toString(16))+((h2>>>0).toString(16))+((h3>>>0).toString(16))+((h4>>>0).toString(16))).slice(0,8);
+}
+function qhashOf(qid){
+  var c=document.querySelector('.opts[data-q="'+qid+'"]'); if(!c) return '';
+  var quiz=c.closest('.quiz'); var qel=quiz?quiz.querySelector('.q'):null;
+  var opts=c.querySelectorAll('.opt');
+  var txt=(qel?qel.textContent.trim():'')+'|'+Array.prototype.map.call(opts,function(o){ return o.textContent.trim(); }).join('|');
+  return sha1_8(txt);
+}
+
 function emitEvent(type,key,payload){
   if(__restoring) return;
   try{
@@ -1387,6 +1422,8 @@ function applyRemote(ev){
   try{
     if(ev.type==='answered'){
       var payload=typeof ev.payload==='string'?JSON.parse(ev.payload):(ev.payload||{});
+      // §15.2 指纹闸门: 题目内容对不上就不恢复 (事件留日志), 防止旧版作答污染再生成后的新题
+      if(payload.qhash && payload.qhash!==qhashOf(ev.key.split(':').pop())){ __restoring=false; return; }
       localStorage.setItem(ev.key,JSON.stringify(payload));
       var qid=ev.key.split(':').pop();
       var c=document.querySelector('.opts[data-q="'+qid+'"]');
