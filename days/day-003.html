@@ -158,6 +158,14 @@
   .gctx .expl{font-size:.93rem;line-height:1.7;margin:6px 0 0;color:var(--ink)}
   .gctx .expl b{color:var(--tap)}
   .wspk{border-bottom:1.5px dotted var(--tap);cursor:pointer}
+  /* §12.B Cloud sync box */
+  .syncbox{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 14px;font-size:.9rem}
+  .syncbox .sync-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}
+  .syncbox input{flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.95rem}
+  .syncbox button{border:1px solid var(--tap);background:var(--tap-bg);color:var(--tap);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;min-height:40px}
+  .syncbox button:hover{background:var(--tap);color:#fff}
+  .syncbox .ns{font-weight:700;color:var(--accent)}
+  .syncbox .stat{color:var(--muted);font-size:.85rem}
   /* Shadowing */
   .shad{display:grid;gap:10px}
   .shad .row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -895,6 +903,12 @@ Mit freundlichen Grüßen
 <!-- ============ FOOTER ============ -->
 <footer data-page-node-id="sPH62EhT4Gjbwjob5X5swK">
   <b data-page-node-id="GHzNb8tCHJ8ifYeC9OQYbU">Day 3 · A1 上 · 在柏林餐厅点餐</b>
+  <div class="syncbox" id="syncbox">
+    <div class="sync-row"><b>☁ 云同步 Cloud sync</b> · <span class="ns" id="syncNs">未登录 (仅本机)</span> <span class="stat" id="syncStat"></span></div>
+    <div class="sync-row" id="syncLoginRow"><input id="syncPass" placeholder="口令: German=正式 / Test=测试" autocomplete="off"><button onclick="syncSetPass()">登录</button></div>
+    <div class="sync-row" id="syncLoggedRow" style="display:none"><button onclick="syncNow()">↻ Sync now</button><button onclick="syncSwitch()">切换口令</button></div>
+    <div class="sync-row stat">断网照常学习，答案先存本机，联网自动补交；同口令在手机/电脑间互通。localStorage 按设备存，首次在别的设备登录会从云端拉回进度。</div>
+  </div>
   <ul data-page-node-id="dXYUfZ8a7Dh0YvTgz4IhTm">
     <li data-page-node-id="Ad7hiJhii8WS3BB9X2z4FK"><b data-page-node-id="1KSpJbZRMnCccDi6lOjChI">Generated</b>: 2026-09-05 (v5 改版跑 · Executor = WorkBuddy GLM 5.2)</li>
     <li data-page-node-id="vc3QdXd0kH4qBBdsIUxLgg"><b data-page-node-id="C6QC9wA7S6kZl7EEzC6ZAc">Scene</b>: Ordering food at a Berlin restaurant</li>
@@ -980,10 +994,10 @@ function toggleFav(star,word){
   try{
     if(card.classList.contains('fav')){
       card.classList.remove('fav'); star.textContent='☆';
-      localStorage.removeItem(key);
+      localStorage.removeItem(key); emitEvent('fav_off',key,null);
     }else{
       card.classList.add('fav'); star.textContent='★';
-      localStorage.setItem(key,'1');
+      localStorage.setItem(key,'1'); emitEvent('fav_on',key,null);
     }
   }catch(e){}
 }
@@ -1160,7 +1174,7 @@ function answerOpt(btn, correct, qid, explain){
   var ec=document.getElementById('ec-'+qid);
   if(ec) ec.style.display='block';
   // persist
-  try{ localStorage.setItem('quiz:day3:'+qid, JSON.stringify({idx:idx,correct:correct})); }catch(e){}
+  try{ localStorage.setItem('quiz:day3:'+qid, JSON.stringify({idx:idx,correct:correct})); emitEvent('answered','quiz:day3:'+qid,{idx:idx,correct:correct}); }catch(e){}
   // unlock transcript after all 3 listening questions
   if(qid.startsWith('l')){
     var done=['l1','l2','l3'].every(function(q){ return document.querySelector('[data-q="'+q+'"] .opt[disabled]'); });
@@ -1191,7 +1205,7 @@ function redoQuiz(qid){
   if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
   var ec=document.getElementById('ec-'+qid);
   if(ec) ec.style.display='none';
-  try{ localStorage.removeItem('quiz:day3:'+qid); }catch(e){}
+  try{ localStorage.removeItem('quiz:day3:'+qid); emitEvent('reset','quiz:day3:'+qid,null); }catch(e){}
   // v5.1 §11-3: listening quiz redo → re-lock transcript
   if(qid.indexOf('l')===0 && document.getElementById('ltr')){
     document.getElementById('ltr').classList.remove('show');
@@ -1213,8 +1227,9 @@ function redoModule(mod){
   // scroll to top of the section for a clean redo feel
   try{ document.querySelector('#t-'+(mod==='review'?'review':mod)).scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
 }
-// restore quiz state on load
+// restore quiz state on load (guarded: no sync events emitted for own restores)
 try{
+  __restoring=true;
   document.querySelectorAll('.opts[data-q]').forEach(function(c){
     var qid=c.getAttribute('data-q');
     var raw=localStorage.getItem('quiz:day3:'+qid);
@@ -1225,6 +1240,7 @@ try{
     if(btn){ var oc=btn.getAttribute('onclick'); btn.setAttribute('onclick',oc); btn.click(); }
   });
 }catch(e){}
+__restoring=false;
 
 // ---------- Shadowing recording (Web Audio API playback) ----------
 var audioCtx;
@@ -1285,9 +1301,11 @@ function markStudied(){
   try{
     if(localStorage.getItem('day-003-studied')){
       localStorage.removeItem('day-003-studied');
+      emitEvent('studied_off','studied',null);
       b.classList.remove('done'); b.textContent='Mark Day 3 as studied ✅';
     }else{
       localStorage.setItem('day-003-studied','1');
+      emitEvent('studied_on','studied',null);
       b.classList.add('done'); b.textContent='✅ Day 3 studied (tap to undo)';
     }
   }catch(e){ alert('Could not save (private mode?)'); }
@@ -1306,6 +1324,7 @@ function resetDay(){
       }
     }
     toDel.forEach(function(k){ localStorage.removeItem(k); });
+    emitEvent('reset','day3',null);
     // reset all quiz UI in the page
     document.querySelectorAll('.opts[data-q]').forEach(function(c){
       var opts=c.querySelectorAll('.opt');
@@ -1327,6 +1346,190 @@ function resetDay(){
     alert('Day 3 progress reset. ⭐ Favorites kept.');
   }catch(e){ alert('Reset failed: '+e.message); }
 }
+
+// ==================== §12.B Cloud sync (Workers + D1) ====================
+var SYNC_API='https://deutsch-sync.queque0926.workers.dev/api/log';
+var DAY=3, DAYPAD='003';
+var __restoring=false;
+function __uuid(){ try{ return crypto.randomUUID(); }catch(e){ return 'e-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10); } }
+function __device(){ var ua=navigator.userAgent; if(/iPhone|iPad/i.test(ua)) return 'ios-safari'; if(/Android/i.test(ua)) return 'android'; if(/Mac/i.test(ua)) return 'mac'; return 'pc'; }
+function syncPass(){ try{ return localStorage.getItem('sync:pass')||''; }catch(e){ return ''; } }
+function syncOutbox(){ try{ return JSON.parse(localStorage.getItem('sync:outbox')||'[]'); }catch(e){ return []; } }
+function syncSaveOutbox(q){ try{ localStorage.setItem('sync:outbox',JSON.stringify(q)); }catch(e){} }
+function syncStatus(s){ var el=document.getElementById('syncStat'); if(el) el.textContent=s||''; }
+function syncKeyTs(){ try{ return JSON.parse(localStorage.getItem('sync:kt')||'{}'); }catch(e){ return {}; } }
+function syncSetKt(key,ts){ try{ var kt=syncKeyTs(); kt[key]=ts; localStorage.setItem('sync:kt',JSON.stringify(kt)); }catch(e){} }
+
+function emitEvent(type,key,payload){
+  if(__restoring) return;
+  try{
+    var q=syncOutbox();
+    q.push({id:__uuid(),device:__device(),ts:Date.now(),type:type,day:DAY,key:key,payload:payload});
+    syncSaveOutbox(q);
+    syncSetKt(key,Date.now());
+    syncStatus('待同步 '+q.length+' 条');
+    setTimeout(flushSync,1500);
+  }catch(e){}
+}
+function flushSync(){
+  var pass=syncPass(); if(!pass) return;
+  var q=syncOutbox(); if(!q.length){ return; }
+  fetch(SYNC_API,{method:'POST',headers:{'Content-Type':'application/json','X-Passphrase':pass},body:JSON.stringify(q)})
+    .then(function(r){
+      if(r.status===200){ syncSaveOutbox([]); syncStatus('已同步 ✓'); }
+      else if(r.status===401){ syncStatus('口令被拒,请重新登录'); }
+      else { syncStatus('待同步 '+syncOutbox().length+' 条'); }
+    })
+    .catch(function(){ syncStatus('离线 · 待同步 '+syncOutbox().length+' 条'); });
+}
+function applyRemote(ev){
+  __restoring=true;
+  try{
+    if(ev.type==='answered'){
+      var payload=typeof ev.payload==='string'?JSON.parse(ev.payload):(ev.payload||{});
+      localStorage.setItem(ev.key,JSON.stringify(payload));
+      var qid=ev.key.split(':').pop();
+      var c=document.querySelector('.opts[data-q="'+qid+'"]');
+      if(c){ var btn=c.querySelectorAll('.opt')[payload.idx]; if(btn && !btn.disabled) btn.click(); }
+    } else if(ev.type==='reset'){
+      if(ev.key==='day'+DAY){
+        var del=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (k.indexOf('quiz:day'+DAY+':')===0 || k==='day-'+DAYPAD+'-studied')) del.push(k); }
+        del.forEach(function(k){ localStorage.removeItem(k); });
+        document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+          var os=cc.querySelectorAll('.opt'); os.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+          var qid2=cc.getAttribute('data-q'); var fb=document.getElementById('fb-'+qid2); if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+          var ec=document.getElementById('ec-'+qid2); if(ec) ec.style.display='none';
+        });
+        var ltr=document.getElementById('ltr'); if(ltr) ltr.classList.remove('show');
+        var mb=document.getElementById('markBtn'); if(mb){ mb.classList.remove('done'); mb.textContent='Mark Day 3 as studied ✅'; }
+        if(typeof stopListen==='function') stopListen();
+      } else {
+        localStorage.removeItem(ev.key);
+        var qid3=ev.key.split(':').pop();
+        if(qid3 && document.querySelector('.opts[data-q="'+qid3+'"]')) redoQuiz(qid3);
+      }
+    } else if(ev.type==='studied_on'||ev.type==='studied_off'){
+      if(ev.type==='studied_on') localStorage.setItem('day-'+DAYPAD+'-studied','1'); else localStorage.removeItem('day-'+DAYPAD+'-studied');
+      var b=document.getElementById('markBtn');
+      if(b){ if(ev.type==='studied_on'){ b.classList.add('done'); b.textContent='✅ Day 3 studied (tap to undo)'; } else { b.classList.remove('done'); b.textContent='Mark Day 3 as studied ✅'; } }
+    } else if(ev.type==='fav_on'||ev.type==='fav_off'){
+      var w=ev.key.split(':').slice(2).join(':');
+      if(ev.type==='fav_on') localStorage.setItem(ev.key,'1'); else localStorage.removeItem(ev.key);
+      document.querySelectorAll('.vcard').forEach(function(c){
+        if(c.getAttribute('data-word')===w){ c.classList.toggle('fav',ev.type==='fav_on'); var s=c.querySelector('.fav-star'); if(s) s.textContent=(ev.type==='fav_on'?'★':'☆'); }
+      });
+    }
+  }catch(e){}
+  __restoring=false;
+}
+function pullSync(){
+  var pass=syncPass(); if(!pass) return Promise.resolve();
+  var lastTs=0; try{ lastTs=parseInt(localStorage.getItem('sync:lastTs')||'0',10)||0; }catch(e){}
+  return fetch(SYNC_API+'?since='+lastTs,{headers:{'X-Passphrase':pass}})
+    .then(function(r){ if(r.status!==200) throw new Error('http '+r.status); return r.json(); })
+    .then(function(data){
+      var max=lastTs;
+      (data.events||[]).forEach(function(ev){
+        if(!ev || typeof ev.ts!=='number' || ev.ts<=max) return;
+        max=ev.ts;
+        var lt=syncKeyTs()[ev.key]||0;
+        if(ev.ts>lt){ applyRemote(ev); syncSetKt(ev.key,ev.ts); }
+      });
+      try{ localStorage.setItem('sync:lastTs',''+max); }catch(e){}
+      syncStatus('已同步 ✓');
+    })
+    .catch(function(){ syncStatus('离线 · 本地进度不受影响'); });
+}
+function syncNow(){ syncStatus('同步中…'); flushSync(); pullSync(); }
+
+// namespace isolation: per-profile snapshot of local day-3 state
+function hashTag(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return 'h'+(h>>>0).toString(36); }
+function dayKeys(){
+  var ks=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (k.indexOf('quiz:day'+DAY+':')===0 || k.indexOf('fav:day'+DAY+':')===0 || k==='day-'+DAYPAD+'-studied')) ks.push(k); }
+  return ks;
+}
+function snapshotNS(tag){
+  try{
+    var st={keys:{},kt:localStorage.getItem('sync:kt')||'{}',lastTs:localStorage.getItem('sync:lastTs')||'0'};
+    dayKeys().forEach(function(k){ st.keys[k]=localStorage.getItem(k); });
+    localStorage.setItem('sync:snap:'+tag,JSON.stringify(st));
+  }catch(e){}
+}
+function restoreNS(tag){
+  dayKeys().forEach(function(k){ localStorage.removeItem(k); });
+  var raw=null; try{ raw=localStorage.getItem('sync:snap:'+tag); }catch(e){}
+  if(raw){
+    try{
+      var st=JSON.parse(raw);
+      Object.keys(st.keys||{}).forEach(function(k){ if(st.keys[k]!==null) localStorage.setItem(k,st.keys[k]); });
+      localStorage.setItem('sync:kt',st.kt||'{}'); localStorage.setItem('sync:lastTs',st.lastTs||'0');
+    }catch(e){}
+  } else {
+    localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
+  }
+}
+function reRenderFromLocal(){
+  __restoring=true;
+  try{
+    document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+      var os=cc.querySelectorAll('.opt'); os.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+      var qid=cc.getAttribute('data-q'); var fb=document.getElementById('fb-'+qid); if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+      var ec=document.getElementById('ec-'+qid); if(ec) ec.style.display='none';
+    });
+    document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+      var qid=cc.getAttribute('data-q'); var raw=localStorage.getItem('quiz:day'+DAY+':'+qid); if(!raw) return;
+      var d=JSON.parse(raw); var btn=cc.querySelectorAll('.opt')[d.idx]; if(btn) btn.click();
+    });
+    var l1=!!localStorage.getItem('quiz:day3:l1'),l2=!!localStorage.getItem('quiz:day3:l2'),l3=!!localStorage.getItem('quiz:day3:l3');
+    var ltr=document.getElementById('ltr'); if(ltr){ if(l1&&l2&&l3) ltr.classList.add('show'); else ltr.classList.remove('show'); }
+    var b=document.getElementById('markBtn');
+    if(b){ if(localStorage.getItem('day-'+DAYPAD+'-studied')){ b.classList.add('done'); b.textContent='✅ Day 3 studied (tap to undo)'; } else { b.classList.remove('done'); b.textContent='Mark Day 3 as studied ✅'; } }
+    document.querySelectorAll('.vcard').forEach(function(c){
+      var w=c.getAttribute('data-word'); var on=w && localStorage.getItem('fav:day'+DAY+':'+w);
+      c.classList.toggle('fav',!!on); var s=c.querySelector('.fav-star'); if(s) s.textContent=(on?'★':'☆');
+    });
+  }catch(e){}
+  __restoring=false;
+}
+function setNamespace(pass){
+  var oldTag=null; try{ oldTag=localStorage.getItem('sync:tag'); }catch(e){}
+  var newTag=hashTag(pass);
+  if(oldTag && oldTag!==newTag){ snapshotNS(oldTag); restoreNS(newTag); reRenderFromLocal(); }
+  else if(!oldTag){ snapshotNS(newTag); }
+  try{ localStorage.setItem('sync:tag',newTag); localStorage.setItem('sync:pass',pass); }catch(e){}
+  updateSyncUI();
+  syncNow();
+}
+function syncSetPass(){
+  var el=document.getElementById('syncPass');
+  var v=((el&&el.value)||'').trim();
+  if(!v){ alert('请输入口令 (German = 正式 / Test = 测试)'); return; }
+  setNamespace(v);
+  if(el) el.value='';
+}
+function syncSwitch(){
+  var v=prompt('输入口令:\nGerman = 正式进度\nTest = 测试 (独立空白)', syncPass()||'');
+  if(v===null) return;
+  v=(v||'').trim(); if(!v) return;
+  setNamespace(v);
+}
+function updateSyncUI(){
+  var pass=syncPass();
+  var nsEl=document.getElementById('syncNs');
+  var loggedRow=document.getElementById('syncLoggedRow');
+  var loginRow=document.getElementById('syncLoginRow');
+  if(!nsEl||!loggedRow||!loginRow) return;
+  if(pass){
+    nsEl.textContent = pass==='German'?'正式 · German':(pass==='Test'?'测试 · Test · 独立空白':'已登录');
+    loggedRow.style.display=''; loginRow.style.display='none';
+  } else {
+    nsEl.textContent='未登录 (仅本机)';
+    loggedRow.style.display='none'; loginRow.style.display='';
+  }
+}
+try{ updateSyncUI(); }catch(e){}
+if(syncPass()){ pullSync().then(function(){ flushSync(); }); }
+window.addEventListener('online',function(){ if(syncPass()) flushSync(); });
 </script>
 </body>
 </html>
