@@ -905,9 +905,9 @@ Mit freundlichen Grüßen
   <b data-page-node-id="GHzNb8tCHJ8ifYeC9OQYbU">Day 3 · A1 上 · 在柏林餐厅点餐</b>
   <div class="syncbox" id="syncbox">
     <div class="sync-row"><b>☁ 云同步 Cloud sync</b> · <span class="ns" id="syncNs">未登录 (仅本机)</span> <span class="stat" id="syncStat"></span></div>
-    <div class="sync-row" id="syncLoginRow"><input id="syncPass" placeholder="口令: German=正式 / Test=测试" autocomplete="off"><button onclick="syncSetPass()">登录</button></div>
-    <div class="sync-row" id="syncLoggedRow" style="display:none"><button onclick="syncNow()">↻ Sync now</button><button onclick="syncSwitch()">切换口令</button></div>
-    <div class="sync-row stat">断网照常学习，答案先存本机，联网自动补交；同口令在手机/电脑间互通。localStorage 按设备存，首次在别的设备登录会从云端拉回进度。</div>
+    <div class="sync-row" id="syncLoggedRow" style="display:none">已登录 ✓ · 进度自动同步 · <a href="../index.html">Home 管理口令 / 清除云端</a></div>
+    <div class="sync-row" id="syncLoginRow"><a href="../index.html">去 Home 输口令登录云同步 →</a></div>
+    <div class="sync-row stat">断网照常学习，答案先存本机，联网自动补交；同口令在手机/电脑间互通。</div>
   </div>
   <ul data-page-node-id="dXYUfZ8a7Dh0YvTgz4IhTm">
     <li data-page-node-id="Ad7hiJhii8WS3BB9X2z4FK"><b data-page-node-id="1KSpJbZRMnCccDi6lOjChI">Generated</b>: 2026-09-05 (v5 改版跑 · Executor = WorkBuddy GLM 5.2)</li>
@@ -1191,6 +1191,7 @@ function pickErr(el,qid,label){
   var spans=el.parentNode.querySelectorAll('.lab');
   spans.forEach(function(s){s.style.background='#fff';s.style.color='var(--muted)'});
   el.style.background='var(--tap)'; el.style.color='#fff';
+  emitEvent('errcat','quiz:day3:'+qid,{cat:label}); // §16.3 错因上云, Home 错题集显示
   if(label==='没听清'){
     var fb=document.getElementById('fb-'+qid);
     fb.innerHTML+='<br><span style="color:var(--tap)"><b>Tip:</b> Re-listen at 0.5× — pause after each clause. Numbers like "sechs" vs "neun" are easy to swap; mouth the number silently as you hear it.</span>';
@@ -1347,6 +1348,25 @@ function resetDay(){
   }catch(e){ alert('Reset failed: '+e.message); }
 }
 
+// ==================== §16.4 题库 QBANK (Home 错题集 + review.html 共用; 纯 JSON, 每日生成模板必产) ====================
+var QBANK={"day":3,"pad":"003","title":"在柏林餐厅点餐","words":[
+{"w":"die Pizza","de":"Pizza","art":"die","en":"pizza","pl":"die Pizzen / Pizzas"},
+{"w":"das Restaurant","de":"Restaurant","art":"das","en":"restaurant","pl":"die Restaurants"},
+{"w":"der Kaffee","de":"Kaffee","art":"der","en":"coffee","pl":"die Kaffees"},
+{"w":"die Tomate","de":"Tomate","art":"die","en":"tomato","pl":"die Tomaten"},
+{"w":"der Salat","de":"Salat","art":"der","en":"salad","pl":"die Salate"},
+{"w":"bestellen","verb":true,"en":"to order"},
+{"w":"nehmen","verb":true,"en":"to take"},
+{"w":"m\u00f6chten","verb":true,"en":"would like"},
+{"w":"bezahlen","verb":true,"en":"to pay"},
+{"w":"schmecken","verb":true,"en":"to taste good"},
+{"w":"der Kellner","de":"Kellner","art":"der","en":"waiter (male)","pl":"die Kellner"},
+{"w":"die Speisekarte","de":"Speisekarte","art":"die","en":"menu","pl":"die Speisekarten"},
+{"w":"das Essen","de":"Essen","art":"das","en":"food (the meal/substance)","pl":null},
+{"w":"die Rechnung","de":"Rechnung","art":"die","en":"bill / check","pl":"die Rechnungen"},
+{"w":"der Tisch","de":"Tisch","art":"der","en":"table","pl":"die Tische"}
+],"pageq":{"vq1":"die Pizza","vq2":"der Kellner","vq3":"die Rechnung","vq4":"der Tisch","vq5":"die Speisekarte"}};
+
 // ==================== §12.B Cloud sync (Workers + D1) ====================
 var SYNC_API='https://deutsch-sync.queque0926.workers.dev/api/log';
 var DAY=3, DAYPAD='003';
@@ -1481,8 +1501,10 @@ function syncNow(){ syncStatus('同步中…'); flushSync(); pullSync(); }
 
 // namespace isolation: per-profile snapshot of local day-3 state
 function hashTag(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return 'h'+(h>>>0).toString(36); }
+// §16.1 快照泛化: 覆盖全部天数的键 (与 Home 同规则), 否则 Home 换空间会丢其他天的本机数据
 function dayKeys(){
-  var ks=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (k.indexOf('quiz:day'+DAY+':')===0 || k.indexOf('fav:day'+DAY+':')===0 || k==='day-'+DAYPAD+'-studied')) ks.push(k); }
+  var reA=/^quiz:day\d+:/, reF=/^fav:day\d+:/, reS=/^day-\d{3}-studied$/, reR=/^rev:/;
+  var ks=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (reA.test(k)||reF.test(k)||reS.test(k)||reR.test(k))) ks.push(k); }
   return ks;
 }
 function snapshotNS(tag){
@@ -1537,27 +1559,15 @@ function setNamespace(pass){
   updateSyncUI();
   syncNow();
 }
-function syncSetPass(){
-  var el=document.getElementById('syncPass');
-  var v=((el&&el.value)||'').trim();
-  if(!v){ alert('请输入口令 (German = 正式 / Test = 测试)'); return; }
-  setNamespace(v);
-  if(el) el.value='';
-}
-function syncSwitch(){
-  var v=prompt('输入口令:\nGerman = 正式进度\nTest = 测试 (独立空白)', syncPass()||'');
-  if(v===null) return;
-  v=(v||'').trim(); if(!v) return;
-  setNamespace(v);
-}
 function updateSyncUI(){
+  // §16.1 口令登录移至 Home; 本页只做状态指示
   var pass=syncPass();
   var nsEl=document.getElementById('syncNs');
   var loggedRow=document.getElementById('syncLoggedRow');
   var loginRow=document.getElementById('syncLoginRow');
   if(!nsEl||!loggedRow||!loginRow) return;
   if(pass){
-    nsEl.textContent = pass==='German'?'正式 · German':(pass==='Test'?'测试 · Test · 独立空白':'已登录');
+    nsEl.textContent = pass==='German'?'正式 · German ✓':(pass==='Test'?'测试 · Test ✓':'已登录 ✓');
     loggedRow.style.display=''; loginRow.style.display='none';
   } else {
     nsEl.textContent='未登录 (仅本机)';

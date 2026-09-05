@@ -69,6 +69,33 @@
   .list .title{color:var(--ink);font-size:.95rem;margin-top:2px}
   .list a.open{color:var(--accent);text-decoration:none;font-size:.88rem;font-weight:600;white-space:nowrap}
   .note{color:var(--muted);font-size:.82rem;margin-top:8px}
+  /* §16 Cloud sync card */
+  .sync{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+  .sync .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+  .sync .tag2{font-weight:700;color:var(--accent)}
+  .sync .ns{font-weight:700;color:var(--accent)}
+  .sync .stat{color:var(--muted);font-size:.85rem}
+  .sync input[type=text],.sync input:not([type]){flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.95rem}
+  .sync button{border:1px solid var(--tap);background:var(--tap-bg);color:var(--tap);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;min-height:40px}
+  .sync button:hover{background:var(--tap);color:#fff}
+  .sync button.danger{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+  .sync button.danger:hover{background:var(--bad);color:#fff}
+  .sync label.chk{font-size:.85rem;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+  /* §16.3 views */
+  .vlist{margin:8px 0 14px}
+  .vrow{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;flex-wrap:wrap}
+  .vrow:hover{background:var(--panel)}
+  .vrow .vw{font-weight:700;color:var(--accent)}
+  .vrow .art-d{color:var(--der)} .vrow .art-f{color:var(--die)} .vrow .art-n{color:var(--das)}
+  .vrow .ven{color:var(--muted);font-size:.9rem}
+  .vrow .vmeta{color:var(--muted);font-size:.82rem}
+  .vrow a.vjump{color:var(--tap);font-weight:600;text-decoration:none;white-space:nowrap;font-size:.88rem}
+  .vrow .spk2{cursor:pointer;border:1px solid var(--line);border-radius:6px;padding:2px 7px;background:var(--panel)}
+  .vrow.cleared{opacity:.75}
+  .vrow.cleared .vw{text-decoration:line-through;color:var(--ok)}
+  .vrow .badge{background:var(--bad-bg);color:var(--bad);border-radius:5px;padding:0 6px;font-size:.78rem;font-weight:600}
+  .vrow.cleared .badge{background:var(--ok-bg);color:var(--ok)}
+  .empty{color:var(--muted);font-size:.88rem;padding:8px 2px}
   footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:.85rem;background:var(--panel)}
   footer a{color:var(--accent)}
 </style>
@@ -93,7 +120,16 @@
       <span class="r"><b id="pnum">3</b> / 180 天 · <span id="ppct">1.7%</span></span>
     </div>
     <div class="bar"><div class="fill" id="pfill" style="width:1.7%"></div></div>
-    <p class="note">A1 → B1 基础轮 180 天。换设备后「已学」状态不迁移（localStorage 按设备隔离，自用可接受）。</p>
+    <p class="note">A1 → B1 基础轮 180 天。已学状态已接云端同步（同口令跨设备互通）。</p>
+  </div>
+
+  <!-- §16.1 Cloud sync card -->
+  <div class="sync" id="syncCard">
+    <div class="row"><span class="tag2">☁ 云同步 · Cloud sync</span> · <span class="ns" id="syncNs">未登录 (仅本机)</span> <span class="stat" id="syncStat"></span></div>
+    <div class="row" id="syncLoginRow"><input id="syncPass" placeholder="口令: German=正式 / Test=测试" autocomplete="off"><button onclick="syncSetPass()">登录</button></div>
+    <div class="row" id="syncLoggedRow" style="display:none"><button onclick="syncNow()">↻ Sync now</button><button onclick="syncSwitch()">切换口令</button></div>
+    <div class="row" id="syncClearRow" style="display:none"><button class="danger" onclick="clearCloud()">🗑 清除本空间云端数据</button><label class="chk"><input type="checkbox" id="syncWipeLocal"> 同时清除本机数据</label></div>
+    <div class="row stat">同一口令在手机/电脑间互通；断网先存本机、联网自动补交。清除只影响当前口令对应的空间，需要有那个空间的口令才能清它。</div>
   </div>
 
   <!-- Today's lesson -->
@@ -108,6 +144,12 @@
   <a class="ref" href="reference/cases.html">
     📖 Reference · 四格讲解专页（Nominativ / Genitiv / Dativ / Akkusativ）
     <span class="sub">配价 ❓ 与 Grammar Tap 里的格标注都链接到这里 · 一次性静态页，每天复用</span>
+  </a>
+
+  <!-- §16.4 Review center entry -->
+  <a class="ref" href="review.html" style="background:var(--ok-bg);border-color:var(--ok);color:var(--ok)">
+    🔁 Review Center · 复习中心（错题驱动动态组卷）
+    <span class="sub">错过的词优先 + 间隔到期（1/3/7 天）+ 随机补齐 · 每套 10 题，作答计入错题集</span>
   </a>
 
   <!-- Grid dashboard -->
@@ -142,6 +184,15 @@
   </ul>
   <p class="note">后续每日课程将在推送后自动追加到列表顶部，网格同步着色。</p>
 
+  <!-- §16.3 Favorites view -->
+  <h2 class="sec" id="favSec">⭐ 收藏夹 · Favorites <span class="stat" id="favCount" style="font-weight:400;font-size:.85rem"></span></h2>
+  <div class="vlist" id="favList"><div class="empty">加载中…</div></div>
+
+  <!-- §16.3 Mistakes view -->
+  <h2 class="sec" id="misSec">📕 错题集 · Mistakes <span class="stat" id="misCount" style="font-weight:400;font-size:.85rem"></span></h2>
+  <div class="vlist" id="misList"><div class="empty">加载中…</div></div>
+  <p class="note">错题按词条聚合：显示错误次数与最近错因；之后答对该词会自动划掉（历史保留在日志里）。错题练一练 → <a href="review.html" style="color:var(--tap);font-weight:600">复习中心 review.html</a></p>
+
 </main>
 
 <footer>
@@ -154,35 +205,261 @@
 <script>
 var GENERATED=3;       // 已生成天数（执行者每日 +1 后此处也更新）
 var TOTAL=180;
-var studied={};
-try{
-  for(var i=1;i<=GENERATED;i++){
-    var k='day-'+String(i).padStart(3,'0')+'-studied';
-    if(localStorage.getItem(k)) studied[i]=true;
-  }
-}catch(e){}
+var SYNC_API='https://deutsch-sync.queque0926.workers.dev/api/log';
+var CLOUD_EV=[];       // §16.3 云端事件 (每次 since=0 全量, 事件量小)
+var QBANKS={};         // day -> QBANK (从各天页面提取)
 
-// Progress
+// ---------- basic sync core (§16.1) ----------
+function syncPass(){ try{ return localStorage.getItem('sync:pass')||''; }catch(e){ return ''; } }
+function hashTag(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return 'h'+(h>>>0).toString(36); }
+function syncStatus(s){ var el=document.getElementById('syncStat'); if(el) el.textContent=s||''; }
+function allDayKeys(){
+  var reA=/^quiz:day\d+:/, reF=/^fav:day\d+:/, reS=/^day-\d{3}-studied$/, reR=/^rev:/;
+  var ks=[];
+  for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (reA.test(k)||reF.test(k)||reS.test(k)||reR.test(k))) ks.push(k); }
+  return ks;
+}
+function snapshotNS(tag){
+  try{
+    var st={keys:{}};
+    allDayKeys().forEach(function(k){ st.keys[k]=localStorage.getItem(k); });
+    st.kt=localStorage.getItem('sync:kt')||'{}';
+    st.lastTs=localStorage.getItem('sync:lastTs')||'0';
+    localStorage.setItem('sync:snap:'+tag,JSON.stringify(st));
+  }catch(e){}
+}
+function restoreNS(tag){
+  allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
+  var raw=null; try{ raw=localStorage.getItem('sync:snap:'+tag); }catch(e){}
+  if(raw){
+    try{
+      var st=JSON.parse(raw);
+      Object.keys(st.keys||{}).forEach(function(k){ if(st.keys[k]!==null) localStorage.setItem(k,st.keys[k]); });
+      localStorage.setItem('sync:kt',st.kt||'{}'); localStorage.setItem('sync:lastTs',st.lastTs||'0');
+    }catch(e){}
+  } else { localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0'); }
+}
+function setNamespace(pass){
+  var oldTag=null; try{ oldTag=localStorage.getItem('sync:tag'); }catch(e){}
+  var newTag=hashTag(pass);
+  if(oldTag && oldTag!==newTag){ snapshotNS(oldTag); restoreNS(newTag); }
+  else if(!oldTag){ snapshotNS(newTag); }
+  try{ localStorage.setItem('sync:tag',newTag); localStorage.setItem('sync:pass',pass); }catch(e){}
+  updateSyncUI(); loadEvents();
+}
+function syncSetPass(){
+  var el=document.getElementById('syncPass');
+  var v=((el&&el.value)||'').trim();
+  if(!v){ alert('请输入口令 (German = 正式 / Test = 测试)'); return; }
+  setNamespace(v); if(el) el.value='';
+}
+function syncSwitch(){
+  var v=prompt('输入口令:\nGerman = 正式进度\nTest = 测试 (独立空白)', syncPass()||'');
+  if(v===null) return;
+  v=(v||'').trim(); if(!v) return;
+  setNamespace(v);
+}
+function syncNow(){ syncStatus('同步中…'); loadEvents(); }
+function updateSyncUI(){
+  var pass=syncPass();
+  var nsEl=document.getElementById('syncNs');
+  var lr=document.getElementById('syncLoggedRow');
+  var li=document.getElementById('syncLoginRow');
+  var cr=document.getElementById('syncClearRow');
+  if(!nsEl||!lr||!li) return;
+  if(pass){
+    nsEl.textContent = pass==='German'?'正式 · German':(pass==='Test'?'测试 · Test · 独立空白':'已登录');
+    lr.style.display=''; li.style.display='none'; if(cr) cr.style.display='';
+  } else {
+    nsEl.textContent='未登录 (仅本机)';
+    lr.style.display='none'; li.style.display=''; if(cr) cr.style.display='none';
+  }
+}
+// ---------- §16.2 clear ----------
+function clearCloud(){
+  var pass=syncPass(); if(!pass){ alert('请先登录'); return; }
+  var nsName = pass==='German'?'正式空间 German':(pass==='Test'?'测试空间 Test':'当前空间');
+  if(!confirm('确认清除 '+nsName+' 的【云端】全部数据？此操作不可恢复。')) return;
+  var v=prompt('第二次确认：重新输入当前口令以执行清除');
+  if(v===null) return;
+  v=(v||'').trim();
+  if(v!==pass){ alert('口令不一致，已取消'); return; }
+  var wipe=document.getElementById('syncWipeLocal') && document.getElementById('syncWipeLocal').checked;
+  fetch(SYNC_API.replace('/api/log','/api/clear'),{method:'POST',headers:{'X-Passphrase':pass}})
+    .then(function(r){ if(r.status!==200) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(d){
+      if(wipe){
+        allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
+        try{ localStorage.removeItem('sync:snap:'+hashTag(pass)); }catch(e){}
+        localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
+      }
+      syncStatus('云端已清除 '+(d.deleted||0)+' 条');
+      refreshAll();
+      alert('云端已清除 '+(d.deleted||0)+' 条数据'+(wipe?'，本机数据也已清除':'（本机数据未动）'));
+    })
+    .catch(function(e){ alert('清除失败: '+e.message); });
+}
+// ---------- data loading & fold ----------
+function outboxEv(){ try{ return JSON.parse(localStorage.getItem('sync:outbox')||'[]'); }catch(e){ return []; } }
+function allEvents(){ return CLOUD_EV.concat(outboxEv()); }
+function loadEvents(){
+  var pass=syncPass();
+  var p = pass
+    ? fetch(SYNC_API+'?since=0',{headers:{'X-Passphrase':pass}})
+        .then(function(r){ if(r.status!==200) throw new Error('HTTP '+r.status); return r.json(); })
+        .then(function(d){ CLOUD_EV=d.events||[]; syncStatus('云端 '+CLOUD_EV.length+' 条 · 已同步 ✓'); })
+        .catch(function(){ CLOUD_EV=[]; syncStatus('离线 · 显示本机数据'); })
+    : Promise.resolve().then(function(){ CLOUD_EV=[]; });
+  return p.then(refreshAll);
+}
+function loadQBanks(){
+  var ps=[];
+  for(var d=1;d<=GENERATED;d++){
+    (function(d){
+      ps.push(fetch('days/day-'+String(d).padStart(3,'0')+'.html')
+        .then(function(r){ return r.ok?r.text():''; })
+        .then(function(t){ var m=t.match(/var QBANK=(\{[\s\S]*?\});\r?\n/); if(m){ try{ QBANKS[d]=JSON.parse(m[1]); }catch(e){} } })
+        .catch(function(){}));
+    })(d);
+  }
+  return Promise.all(ps);
+}
+function parsePayload(p){ if(p==null) return {}; if(typeof p==='string'){ try{ return JSON.parse(p); }catch(e){ return {}; } } return p; }
+// ---------- studied grid (§16.1 + 任务B遗留: 云拉取已学) ----------
+function studiedMap(){
+  var m={};
+  try{ for(var i=1;i<=GENERATED;i++){ if(localStorage.getItem('day-'+String(i).padStart(3,'0')+'-studied')) m[i]=true; } }catch(e){}
+  allEvents().forEach(function(ev){
+    if(ev && (ev.type==='studied_on'||ev.type==='studied_off') && ev.day>=1 && ev.day<=GENERATED){ m[ev.day]=(ev.type==='studied_on'); }
+  });
+  return m;
+}
+function renderGrid(){
+  var sm=studiedMap();
+  var grid=document.getElementById('grid');
+  var html='';
+  for(var d=1;d<=TOTAL;d++){
+    var cls='cell ', txt='', href='';
+    if(d>GENERATED){ cls+='locked'; txt='🔒'; }
+    else if(sm[d]){ cls+='studied'; txt='✓'; href='days/day-'+String(d).padStart(3,'0')+'.html'; }
+    else { cls+='unlocked'; txt=d; href='days/day-'+String(d).padStart(3,'0')+'.html'; }
+    if(href){ html+='<a class="'+cls+'" href="'+href+'" title="Day '+d+'"><span class="num">'+txt+'</span></a>'; }
+    else { html+='<span class="'+cls+'" title="Day '+d+' (未解锁)"><span class="num">'+txt+'</span></span>'; }
+  }
+  grid.innerHTML=html;
+}
+// ---------- favorites fold (§16.3) ----------
+function favFold(){
+  var st={}; // key 'dayN|word' -> {on,ts}
+  allDayKeys().forEach(function(k){
+    var m=k.match(/^fav:day(\d+):(.+)$/);
+    if(m && localStorage.getItem(k)) st[m[1]+'|'+m[2]]={day:+m[1],word:m[2],on:true,ts:0};
+  });
+  allEvents().forEach(function(ev){
+    if(ev && (ev.type==='fav_on'||ev.type==='fav_off')){
+      var m2=String(ev.key||'').match(/^fav:day(\d+):(.+)$/);
+      if(!m2) return;
+      var key=m2[1]+'|'+m2[2];
+      var cur=st[key]||{day:+m2[1],word:m2[2],on:false,ts:0};
+      if((ev.ts||0)>=cur.ts){ cur.on=(ev.type==='fav_on'); cur.ts=ev.ts||0; st[key]=cur; }
+    }
+  });
+  return Object.keys(st).filter(function(k){ return st[k].on; }).map(function(k){ return st[k]; })
+    .sort(function(a,b){ return a.day-b.day || a.word.localeCompare(b.word); });
+}
+function speakTxt(t){
+  try{ var u=new SpeechSynthesisUtterance(t); u.lang='de-DE'; u.rate=0.75; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
+}
+function renderFavs(){
+  var favs=favFold();
+  var el=document.getElementById('favList');
+  document.getElementById('favCount').textContent=favs.length?('· '+favs.length+' 词'):'';
+  if(!favs.length){ el.innerHTML='<div class="empty">还没有收藏 — 在课程页点词卡右上角的 ☆ 收藏。</div>'; return; }
+  var html='', lastDay=0;
+  favs.forEach(function(f){
+    if(f.day!==lastDay){ html+='<div class="empty" style="font-weight:700;color:var(--accent)">Day '+f.day+'</div>'; lastDay=f.day; }
+    var art=f.word.split(' ')[0], artCls=art==='der'?'art-d':(art==='die'?'art-f':(art==='das'?'art-n':''));
+    html+='<div class="vrow"><span><span class="vw"><span class="'+artCls+'">'+f.word.replace(' ','</span> <span class="'+artCls+'">')+'</span></span>'
+      +'</span><span class="vmeta">Day '+f.day
+      +' <span class="spk2" onclick="speakTxt(\''+f.word.replace(/'/g,"\\'")+'\')">🔊</span>'
+      +' <a class="vjump" href="days/day-'+String(f.day).padStart(3,'0')+'.html">去复习 →</a></span></div>';
+  });
+  el.innerHTML=html;
+}
+// ---------- mistakes fold (§16.3) ----------
+function wordOfKey(key){
+  var s=String(key||'');
+  var mRev=s.match(/^rev:day(\d+):(.+):[a-z]+$/);
+  if(mRev) return {day:+mRev[1],word:mRev[2]};
+  var mQ=s.match(/^quiz:day(\d+):(.+)$/);
+  if(mQ){
+    var qb=QBANKS[+mQ[1]];
+    if(qb && qb.pageq && qb.pageq[mQ[2]]) return {day:+mQ[1],word:qb.pageq[mQ[2]]};
+    return {day:+mQ[1],word:null,qid:mQ[2]};
+  }
+  return null;
+}
+function mistakeFold(){
+  var evs=allEvents().filter(function(ev){ return ev && ev.type==='answered' && (/^quiz:day\d+:/.test(ev.key)||/^rev:/.test(ev.key)); })
+    .sort(function(a,b){ return (a.ts||0)-(b.ts||0); });
+  // synthetic: local quiz states (ts=0, 事件优先) — 云端已有同 key 事件时跳过, 防重复计数
+  allDayKeys().forEach(function(k){
+    var m=k.match(/^quiz:day(\d+):(.+)$/);
+    if(m && !evs.some(function(e){ return e.key===k; })){ try{ var d=JSON.parse(localStorage.getItem(k)); evs.push({key:k,type:'answered',ts:0,day:+m[1],payload:d}); }catch(e){} }
+  });
+  evs.sort(function(a,b){ return (a.ts||0)-(b.ts||0); });
+  var cats={};   // wordKey -> latest errcat
+  allEvents().forEach(function(ev){
+    if(ev && ev.type==='errcat'){ var w=wordOfKey(ev.key); if(w && w.word) cats[w.day+'|'+w.word]=parsePayload(ev.payload).cat||''; }
+  });
+  var per={}; // wordKey -> {day,word,qid,wrong,lastWrong,cleared,lastCat}
+  evs.forEach(function(ev){
+    var w=wordOfKey(ev.key); if(!w) return;
+    var k=w.day+'|'+(w.word||('· '+w.qid));
+    var cur=per[k]||{day:w.day,word:w.word,qid:w.qid,wrong:0,lastWrong:0,cleared:true,lastCat:''};
+    var pl=parsePayload(ev.payload);
+    if(pl.correct){ cur.cleared=true; }
+    else { cur.wrong++; cur.lastWrong=ev.ts||0; cur.cleared=false; }
+    per[k]=cur;
+  });
+  return Object.keys(per).map(function(k){
+    var r=per[k];
+    r.lastCat = cats[k] || r.lastCat;
+    return r;
+  }).filter(function(r){ return r.wrong>0 || !r.cleared; })
+    .sort(function(a,b){ return (b.cleared?1:0)-(a.cleared?1:0) || b.wrong-a.wrong || b.lastWrong-a.lastWrong; });
+}
+function renderMistakes(){
+  var rows=mistakeFold();
+  var el=document.getElementById('misList');
+  var open=rows.filter(function(r){ return !r.cleared; }).length;
+  document.getElementById('misCount').textContent=rows.length?('· 未清 '+open+' / 共 '+rows.length):'';
+  if(!rows.length){ el.innerHTML='<div class="empty">暂无错题 — 做错题会自动出现在这里，答对后自动划掉。</div>'; return; }
+  var html='';
+  rows.forEach(function(r){
+    var label=r.word||('Day '+r.day+' · '+(r.qid||''));
+    var art=r.word?r.word.split(' ')[0]:'';
+    var artCls=art==='der'?'art-d':(art==='die'?'art-f':(art==='das'?'art-n':''));
+    var wordHtml=r.word
+      ? '<span class="vw"><span class="'+artCls+'">'+r.word.replace(' ','</span> <span class="'+artCls+'">')+'</span></span> <span class="spk2" onclick="speakTxt(\''+r.word.replace(/'/g,"\\'")+'\')">🔊</span>'
+      : '<span class="vw">'+label+'</span>';
+    html+='<div class="vrow'+(r.cleared?' cleared':'')+'">'
+      +'<span>'+wordHtml+' <span class="ven">'+(r.cleared?'✓ 已答对':'错 '+r.wrong+' 次'+(r.lastCat?' · '+r.lastCat:''))+'</span></span>'
+      +'<span class="vmeta"><span class="badge">'+(r.cleared?'cleared':'wrong')+'</span>'
+      +' <a class="vjump" href="days/day-'+String(r.day).padStart(3,'0')+'.html">Day '+r.day+' →</a></span></div>';
+  });
+  el.innerHTML=html;
+}
+function refreshAll(){ renderGrid(); renderFavs(); renderMistakes(); }
+// ---------- progress + boot ----------
 var pct=(GENERATED/TOTAL*100).toFixed(1);
 document.getElementById('pnum').textContent=GENERATED;
 document.getElementById('ppct').textContent=pct+'%';
 document.getElementById('pfill').style.width=pct+'%';
-
-// Grid
-var grid=document.getElementById('grid');
-var html='';
-for(var d=1;d<=TOTAL;d++){
-  var cls='cell ', txt='', href='';
-  if(d>GENERATED){ cls+='locked'; txt='🔒'; }
-  else if(studied[d]){ cls+='studied'; txt='✓'; href='days/day-'+String(d).padStart(3,'0')+'.html'; }
-  else { cls+='unlocked'; txt=d; href='days/day-'+String(d).padStart(3,'0')+'.html'; }
-  if(href){
-    html+='<a class="'+cls+'" href="'+href+'" title="Day '+d+'"><span class="num">'+txt+'</span></a>';
-  } else {
-    html+='<span class="'+cls+'" title="Day '+d+' (未解锁)"><span class="num">'+txt+'</span></span>';
-  }
-}
-grid.innerHTML=html;
+updateSyncUI();
+refreshAll();
+loadQBanks().then(function(){ refreshAll(); loadEvents(); });
+window.addEventListener('online',function(){ if(syncPass()) loadEvents(); });
 </script>
 </body>
 </html>
