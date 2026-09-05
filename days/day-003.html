@@ -36,7 +36,7 @@
   .fav-filter{border:1px solid var(--line);border-radius:20px;background:#fff;padding:6px 14px;cursor:pointer;font-size:.9rem;color:var(--muted);min-height:40px}
   .fav-filter.on{background:var(--tap);color:#fff;border-color:var(--tap)}
   .vocab-grid{display:grid;gap:12px}
-  .vcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:5px solid var(--neutral)}
+  .vcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:6px solid var(--neutral)}
   .vcard.art-der{border-left-color:var(--der)}
   .vcard.art-die{border-left-color:var(--die)}
   .vcard.art-das{border-left-color:var(--das)}
@@ -93,16 +93,24 @@
   .stop-btn{border:1px solid var(--bad);background:#fff;color:var(--bad);border-radius:24px;padding:8px 14px;cursor:pointer;font-size:.9rem;min-height:40px}
   .speed-row{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
 
-  /* v5.1 §11-1 词卡连体胶囊 */
-  .vcard .l1{display:flex;align-items:baseline;gap:0}
+  /* v5.1 §11-1 词卡连体胶囊 (v5.2 §12.A-2: tint 用变量, 加粗 700) */
+  .vcard .l1{display:flex;align-items:baseline;gap:0;flex-wrap:wrap}
   .vcard .l1 .art{display:inline-block;padding:1px 6px;border-radius:6px 0 0 6px;margin-right:0;font-weight:600}
   .vcard .l1 .word{display:inline-block;padding:1px 8px 1px 6px;border-radius:0 6px 6px 0;margin-left:0;font-weight:700}
-  .vcard .l1 .art.art-der{background:rgba(92,122,153,.18);color:#5c7a99}
-  .vcard .l1 .art.art-die{background:rgba(160,107,122,.18);color:#a06b7a}
-  .vcard .l1 .art.art-das{background:rgba(122,145,120,.18);color:#7a9178}
-  .vcard .l1 .word.g-der{background:rgba(92,122,153,.08);color:#3a5570}
-  .vcard .l1 .word.g-die{background:rgba(160,107,122,.08);color:#7a4a55}
-  .vcard .l1 .word.g-das{background:rgba(122,145,120,.08);color:#4a6048}
+  .vcard .l1 .art.art-der{background:var(--der-bg);color:#5c7a99}
+  .vcard .l1 .art.art-die{background:var(--die-bg);color:#a06b7a}
+  .vcard .l1 .art.art-das{background:var(--das-bg);color:#7a9178}
+  .vcard .l1 .word.g-der{background:var(--der-bg);color:#3a5570;font-weight:700}
+  .vcard .l1 .word.g-die{background:var(--die-bg);color:#7a4a55;font-weight:700}
+  .vcard .l1 .word.g-das{background:var(--das-bg);color:#4a6048;font-weight:700}
+  /* v5.2 §12.A-3 动词中性徽标 */
+  .vcard .verb-tag{display:inline-block;border:1px solid var(--tap);background:transparent;color:var(--tap);border-radius:4px;padding:1px 6px;font-weight:600;font-size:.78em;margin-right:4px;vertical-align:middle}
+  /* v5.2 §12.A-1 模块级重做按钮 */
+  .module-redo{display:block;margin:14px 0 0;padding:9px 14px;border:1px dashed var(--tap);background:var(--tap-bg);color:var(--tap);border-radius:8px;cursor:pointer;font-size:.92rem;font-weight:600;min-height:44px;width:100%}
+  .module-redo:hover{background:var(--tap);color:#fff}
+  /* v5.2 §12.A-7 整页重置按钮 */
+  .reset-day{display:block;margin:18px auto 0;padding:11px 18px;border:1px solid var(--bad);background:#fff;color:var(--bad);border-radius:24px;font-weight:600;font-size:.95rem;cursor:pointer;min-height:44px}
+  .reset-day:hover{background:var(--bad);color:#fff}
   /* l2 复数行冠词上色块 */
   .vcard .l2 .art{display:inline-block;padding:1px 5px;border-radius:4px;font-weight:600;font-size:.88em}
   .vcard .l2 .art.art-der{background:rgba(92,122,153,.18);color:#5c7a99}
@@ -112,6 +120,7 @@
   .transcript{background:var(--panel);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;display:none}
   .transcript.show{display:block}
   .transcript .de-text{margin:4px 0}
+  .transcript .en{color:var(--muted);font-size:.9rem;margin:0 0 10px}
   /* Quiz */
   .quiz{margin:10px 0}
   .quiz .q{font-weight:600;margin:10px 0 6px}
@@ -199,40 +208,40 @@
 
     <div class="vcard art-die" data-word="die Pizza" data-page-node-id="BwUuKe9jGWgQ1ABwqK0E0L">
       <span class="fav-star" onclick="toggleFav(this,'die Pizza')" data-page-node-id="RMal0KADO5plsn7DeS6JCy">☆</span>
-      <div class="l1" data-page-node-id="jsru8iP5yCUysK2AWPXxCC"><span class="art art-die" data-page-node-id="NF7x7sDFB22FeRo1H6PCXG">die</span><span class="word g-die" data-page-node-id="Q31zfOBcXEEnBz5w4lKBe0">Pizza</span></div>
-      <div class="l2" data-page-node-id="jSouRx4XvAUPp8KkaqWtOd">Pl. <span class="art art-die">die</span> Pizzen / Pizzas <span class="spk" onclick="speakWord('die Pizzen')" data-page-node-id="CayThogJCymagrIdXlPTvH">🔊</span> <span class="spk" onclick="speakWord('die Pizza')" data-page-node-id="QHJiCo5SHS4pkFkqc8uICn">🔊</span></div>
+      <div class="l1" data-page-node-id="jsru8iP5yCUysK2AWPXxCC"><span class="art art-die" data-page-node-id="NF7x7sDFB22FeRo1H6PCXG">die</span><span class="word g-die" data-page-node-id="Q31zfOBcXEEnBz5w4lKBe0">Pizza</span> <span class="spk" onclick="speakWord('die Pizza')">🔊</span></div>
+      <div class="l2" data-page-node-id="jSouRx4XvAUPp8KkaqWtOd">Pl. <span class="art art-die">die</span> Pizzen / Pizzas <span class="spk" onclick="speakWord('die Pizzen')" data-page-node-id="CayThogJCymagrIdXlPTvH">🔊</span></div>
       <div class="l3" data-page-node-id="JqzHJAFbKmLb5mHmxFk063">pizza</div>
       <div class="l4" data-page-node-id="JIlasfuwTCjYnUgDVxAFQA"><span class="de-text" data-page-node-id="j7KB8IWEhdtSpjM5fEnm61">Ich möchte eine Pizza, bitte.</span> <span class="spk-sentence" data-page-node-id="HE0mU0L1TtoM1TyVPPGNQ2"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')" data-page-node-id="p6n6SoUAdVOD7CTJvQnIg8">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')" data-page-node-id="ul2SMejC6E6Xvhip2cgjgl">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')" data-page-node-id="C4sUrkZMntFbpAhGh8uDAr">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich möchte eine Pizza, bitte.')" data-page-node-id="FZz9GHvEz7qoOuvYt7SWqK">1.25×</button></span><span class="en-ex" data-page-node-id="j65fZbQSwebu4kEj7ERzY5">I would like a pizza, please.</span></div>
     </div>
 
     <div class="vcard art-das" data-word="das Restaurant" data-page-node-id="RhfRZySa49dI9BfJlRf3Gc">
       <span class="fav-star" onclick="toggleFav(this,'das Restaurant')" data-page-node-id="A6rfQeWOoRSlVANOE7Nnvo">☆</span>
-      <div class="l1" data-page-node-id="47s1fuiu4VmpDhCmZkHnnH"><span class="art art-das" data-page-node-id="CAZIInp1uAqP9qHwOH1kbM">das</span><span class="word g-das" data-page-node-id="Aq716nl5EvtxMdZpvczsVz">Restaurant</span></div>
-      <div class="l2" data-page-node-id="fpvUekn3t9JwY6RXhbb7EM">Pl. <span class="art art-die">die</span> Restaurants <span class="spk" onclick="speakWord('die Restaurants')" data-page-node-id="syYDEnPREWDWm3rB1vdFOG">🔊</span> <span class="spk" onclick="speakWord('das Restaurant')" data-page-node-id="nBRCCoxNXtVs0srBDqBB3b">🔊</span></div>
+      <div class="l1" data-page-node-id="47s1fuiu4VmpDhCmZkHnnH"><span class="art art-das" data-page-node-id="CAZIInp1uAqP9qHwOH1kbM">das</span><span class="word g-das" data-page-node-id="Aq716nl5EvtxMdZpvczsVz">Restaurant</span> <span class="spk" onclick="speakWord('das Restaurant')">🔊</span></div>
+      <div class="l2" data-page-node-id="fpvUekn3t9JwY6RXhbb7EM">Pl. <span class="art art-die">die</span> Restaurants <span class="spk" onclick="speakWord('die Restaurants')" data-page-node-id="syYDEnPREWDWm3rB1vdFOG">🔊</span></div>
       <div class="l3" data-page-node-id="J2Pf2wg6fiqqRhMYgLWvib">restaurant</div>
       <div class="l4" data-page-node-id="wYj5SAy4pFoN9g4rvq05qd"><span class="de-text" data-page-node-id="L5QNY9uKiqOGPsFHZb80fx">Das Restaurant ist sehr gut.</span> <span class="spk-sentence" data-page-node-id="CIvPIx2dl1l78MCfTZqVa0"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')" data-page-node-id="kycRgJV2owJqHTvG0wvkEr">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')" data-page-node-id="9nFTLSPBNsHmCj2FtWRYCo">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')" data-page-node-id="nnN1WyhUOM8UDrLeUPAa8R">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Das Restaurant ist sehr gut.')" data-page-node-id="rBtBALjhV0ZAftVcnVRiDB">1.25×</button></span><span class="en-ex" data-page-node-id="2BxA9wXp9kxPrmcLddqgT8">The restaurant is very good.</span></div>
     </div>
 
     <div class="vcard art-der" data-word="der Kaffee" data-page-node-id="Mj95S1S16v3HZzHDAUy0m2">
       <span class="fav-star" onclick="toggleFav(this,'der Kaffee')" data-page-node-id="Boa0bdWIozyHHSggIuEIID">☆</span>
-      <div class="l1" data-page-node-id="aDS9sA3AUS9EBWMlotVPot"><span class="art art-der" data-page-node-id="LjwXBsexRcZsBMBcGALGMq">der</span><span class="word g-der" data-page-node-id="GhZTI3NSIqkDyLITOVYWid">Kaffee</span></div>
-      <div class="l2" data-page-node-id="7cymvcg0M8M0uJnxG9EhC4">Pl. <span class="art art-die">die</span> Kaffees <span class="spk" onclick="speakWord('die Kaffees')" data-page-node-id="fu7i1VgagZt1vw4NDtyS14">🔊</span> <span class="spk" onclick="speakWord('der Kaffee')" data-page-node-id="klBylNWoQxTLc2rYQuXARA">🔊</span></div>
+      <div class="l1" data-page-node-id="aDS9sA3AUS9EBWMlotVPot"><span class="art art-der" data-page-node-id="LjwXBsexRcZsBMBcGALGMq">der</span><span class="word g-der" data-page-node-id="GhZTI3NSIqkDyLITOVYWid">Kaffee</span> <span class="spk" onclick="speakWord('der Kaffee')">🔊</span></div>
+      <div class="l2" data-page-node-id="7cymvcg0M8M0uJnxG9EhC4">Pl. <span class="art art-die">die</span> Kaffees <span class="spk" onclick="speakWord('die Kaffees')" data-page-node-id="fu7i1VgagZt1vw4NDtyS14">🔊</span></div>
       <div class="l3" data-page-node-id="UpqT3sXIVewTq7sXC9XCOD">coffee</div>
       <div class="l4" data-page-node-id="12OpytMgpetr4XGaMVE2oK"><span class="de-text" data-page-node-id="D330XrrCBqrqRNQxsPUkiy">Ein Kaffee, bitte!</span> <span class="spk-sentence" data-page-node-id="OV40sTpLG2KxSzHcayvFZj"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ein Kaffee, bitte!')" data-page-node-id="d8mVKOKbdzOBrfoVEQAGuB">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ein Kaffee, bitte!')" data-page-node-id="MHzJcK3rEkFeSGJy7PYmsU">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ein Kaffee, bitte!')" data-page-node-id="iPvUOLaLF07nrGxDCPgwpe">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ein Kaffee, bitte!')" data-page-node-id="kgT3yyQzS3G5WHWICHf8px">1.25×</button></span><span class="en-ex" data-page-node-id="vyc8JY1NFv1xpcUjJW1sBW">A coffee, please!</span></div>
     </div>
 
     <div class="vcard art-die" data-word="die Tomate" data-page-node-id="XgpF87FhqQpeDKJcTXY91C">
       <span class="fav-star" onclick="toggleFav(this,'die Tomate')" data-page-node-id="y0vCNO9tWIaPqyKmBGysB4">☆</span>
-      <div class="l1" data-page-node-id="s8JCmxfFhkwrR8aevkweQe"><span class="art art-die" data-page-node-id="LprYPeMX9jNZvrmXdSzBdO">die</span><span class="word g-die" data-page-node-id="9sGbAwuGoVs3ZQmAWn302v">Tomate</span></div>
-      <div class="l2" data-page-node-id="DjqW0afMyYveblpHa1BJtF">Pl. <span class="art art-die">die</span> Tomaten <span class="spk" onclick="speakWord('die Tomaten')" data-page-node-id="VQIA0ZrUUutzpRmYhi87A3">🔊</span> <span class="spk" onclick="speakWord('die Tomate')" data-page-node-id="R7svAVTtYLqhh2F2YeSVGP">🔊</span></div>
+      <div class="l1" data-page-node-id="s8JCmxfFhkwrR8aevkweQe"><span class="art art-die" data-page-node-id="LprYPeMX9jNZvrmXdSzBdO">die</span><span class="word g-die" data-page-node-id="9sGbAwuGoVs3ZQmAWn302v">Tomate</span> <span class="spk" onclick="speakWord('die Tomate')">🔊</span></div>
+      <div class="l2" data-page-node-id="DjqW0afMyYveblpHa1BJtF">Pl. <span class="art art-die">die</span> Tomaten <span class="spk" onclick="speakWord('die Tomaten')" data-page-node-id="VQIA0ZrUUutzpRmYhi87A3">🔊</span></div>
       <div class="l3" data-page-node-id="yjvxvUkOSUetO4FywpCeBv">tomato</div>
       <div class="l4" data-page-node-id="DvgJ6M1QmmCIPOwqYbvswN"><span class="de-text" data-page-node-id="XP8OWdX2V4v0nfYnVSsr20">Die Suppe hat Tomaten.</span> <span class="spk-sentence" data-page-node-id="R46FsgP3noz6v31MpHFL8o"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Suppe hat Tomaten.')" data-page-node-id="LNgvHSDHhi7Q5eFddeKB76">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Suppe hat Tomaten.')" data-page-node-id="28j6c6VlBG0c1uXEXvd3Go">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Suppe hat Tomaten.')" data-page-node-id="NtSAYC26CN2RrFOwkd3Obq">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Suppe hat Tomaten.')" data-page-node-id="vd71CaTWGmUiw1UeBAF3AX">1.25×</button></span><span class="en-ex" data-page-node-id="LilWCxW6yH384GowPFwXy5">The soup has tomatoes.</span></div>
     </div>
 
     <div class="vcard art-der" data-word="der Salat" data-page-node-id="1bgPSfdo04ooPWFeJVX513">
       <span class="fav-star" onclick="toggleFav(this,'der Salat')" data-page-node-id="VOObolZ3l8q82qZXkSwVoc">☆</span>
-      <div class="l1" data-page-node-id="BbtaMGcFLbMnp6Cw6ZnDZk"><span class="art art-der" data-page-node-id="Oo1RLYezeVO3nXExMAmnUn">der</span><span class="word g-der" data-page-node-id="Wewk9nhmV6CCrWRKHyy8gJ">Salat</span></div>
-      <div class="l2" data-page-node-id="mYkYOdminwLBpBxBcH1r1s">Pl. <span class="art art-die">die</span> Salate <span class="spk" onclick="speakWord('die Salate')" data-page-node-id="v7kZ6fjAMBHUMRaWuW9YXL">🔊</span> <span class="spk" onclick="speakWord('der Salat')" data-page-node-id="A0b7aUIACRhl3kiAADPewe">🔊</span></div>
+      <div class="l1" data-page-node-id="BbtaMGcFLbMnp6Cw6ZnDZk"><span class="art art-der" data-page-node-id="Oo1RLYezeVO3nXExMAmnUn">der</span><span class="word g-der" data-page-node-id="Wewk9nhmV6CCrWRKHyy8gJ">Salat</span> <span class="spk" onclick="speakWord('der Salat')">🔊</span></div>
+      <div class="l2" data-page-node-id="mYkYOdminwLBpBxBcH1r1s">Pl. <span class="art art-die">die</span> Salate <span class="spk" onclick="speakWord('die Salate')" data-page-node-id="v7kZ6fjAMBHUMRaWuW9YXL">🔊</span></div>
       <div class="l3" data-page-node-id="QvfdLdqx6FiLVd5e34yFB2">salad</div>
       <div class="l4" data-page-node-id="GYD1gb9lcrfHGfE7K0fbXO"><span class="de-text" data-page-node-id="2HopVMPbvOaP727EQAJhAV">Ich nehme den Salat.</span> <span class="spk-sentence" data-page-node-id="aXFZZthScoORnx3X6Ja6fq"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme den Salat.')" data-page-node-id="BgVKqdmZBGdtuKEVSKBmJN">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme den Salat.')" data-page-node-id="Oaz0mqb3BBLy0nTm2CswGr">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme den Salat.')" data-page-node-id="7EBBPoc6e5qaTSkpe08TrC">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme den Salat.')" data-page-node-id="qRmhypp6jtJBEmfaQtRry2">1.25×</button></span><span class="en-ex" data-page-node-id="B9B6Jk0JCYdfvqswLCcQ39">I'll take the salad.</span></div>
     </div>
@@ -241,35 +250,35 @@
 
     <div class="vcard" data-word="bestellen" data-page-node-id="g4UKvKKp2lYQGvQdzVFMdx">
       <span class="fav-star" onclick="toggleFav(this,'bestellen')" data-page-node-id="99PKn9GSzj5AjtuOx2fe0j">☆</span>
-      <div class="l1" data-page-node-id="tVTAjelqRXCHGLqUPBd6mL"><span class="word" data-page-node-id="vNVDKVe5UPBFSjpVQqj4ZA">bestellen</span> <span class="spk" onclick="speakWord('bestellen')" data-page-node-id="lDr3aBbscGlHFlCJSLT8jq">🔊</span> <span class="valence" onclick="openValence('bestellen','akkusativ')" data-page-node-id="mbBUXKgZjSrVivROOv246x">❓</span></div>
+      <div class="l1" data-page-node-id="tVTAjelqRXCHGLqUPBd6mL"><span class="verb-tag">Verb</span><span class="word" data-page-node-id="vNVDKVe5UPBFSjpVQqj4ZA">bestellen</span> <span class="spk" onclick="speakWord('bestellen')" data-page-node-id="lDr3aBbscGlHFlCJSLT8jq">🔊</span> <span class="valence" onclick="openValence('bestellen','akkusativ')" data-page-node-id="mbBUXKgZjSrVivROOv246x">❓</span></div>
       <div class="l3" data-page-node-id="GNuWjbfzcPxXTY4gHRVRFY">to order <span style="color:var(--muted);font-size:.88rem" data-page-node-id="phSDMHFkof3B3nFRuJY1Pd">(bestellt + Akk.)</span></div>
       <div class="l4" data-page-node-id="7KxV1BMloCM3O0C8gQrG66"><span class="de-text" data-page-node-id="jdq1t5CPhhjBHaV1GIYqIO">Ich bestelle eine Pizza.</span> <span class="spk-sentence" data-page-node-id="Sf0BTwazh3NMhxhgMDxEro"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="GqFipCApRibIVhz5dEhTHx">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="UN3JXIViyGOCtCuBA6gCG8">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="5WMym5BE9FVwurq7j52XRZ">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="4acWq775cjLiUtIJJ7w1WH">1.25×</button></span><span class="en-ex" data-page-node-id="ucC7Lrf4yP1ONBSGNB6wXI">I order a pizza.</span></div>
     </div>
 
     <div class="vcard" data-word="nehmen" data-page-node-id="s3Sv4rTs9hhfeYoRhUoQ2I">
       <span class="fav-star" onclick="toggleFav(this,'nehmen')" data-page-node-id="H9VVFwQCgNdLgTWtnWtKlZ">☆</span>
-      <div class="l1" data-page-node-id="JxKxz6mZ0D4vZ2Njn4P7V6"><span class="word" data-page-node-id="Ac0zeE6dDJW9Yqc1DQmcL1">nehmen</span> <span class="spk" onclick="speakWord('nehmen')" data-page-node-id="z3wMYSSM66S6dFCoBysqT5">🔊</span> <span class="valence" onclick="openValence('nehmen','akkusativ')" data-page-node-id="6dbJtRBGrXNbrxSdZmdDlb">❓</span></div>
+      <div class="l1" data-page-node-id="JxKxz6mZ0D4vZ2Njn4P7V6"><span class="verb-tag">Verb</span><span class="word" data-page-node-id="Ac0zeE6dDJW9Yqc1DQmcL1">nehmen</span> <span class="spk" onclick="speakWord('nehmen')" data-page-node-id="z3wMYSSM66S6dFCoBysqT5">🔊</span> <span class="valence" onclick="openValence('nehmen','akkusativ')" data-page-node-id="6dbJtRBGrXNbrxSdZmdDlb">❓</span></div>
       <div class="l3" data-page-node-id="jiLAwRxSWJlyc96bZhTYBw">to take <span style="color:var(--muted);font-size:.88rem" data-page-node-id="fTAJoVPHDGDYHksiZNl6BA">(nimmt + Akk.; stem vowel e→i)</span></div>
       <div class="l4" data-page-node-id="EOfETMQx0lvlZlSKraibH6"><span class="de-text" data-page-node-id="8F06OFl6P1IqBUgtjEIUPU">Er nimmt die Suppe.</span> <span class="spk-sentence" data-page-node-id="2paMJmf0jJhKLee0Bk1bWN"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Er nimmt die Suppe.')" data-page-node-id="hMpv8MkDJFVGPWIZFXXBki">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Er nimmt die Suppe.')" data-page-node-id="9BuKB8Whs6w3mzyiJRKv8K">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Er nimmt die Suppe.')" data-page-node-id="7GPVPYZ3XwzoiX2lOyHUBn">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Er nimmt die Suppe.')" data-page-node-id="M5xpgJ70GK02r15BzgZkkj">1.25×</button></span><span class="en-ex" data-page-node-id="C8Ng9C3MmLWnSp0r3dl0ty">He takes the soup.</span></div>
     </div>
 
     <div class="vcard" data-word="möchten" data-page-node-id="cilp04lU10rwetldzmWAZp">
       <span class="fav-star" onclick="toggleFav(this,'möchten')" data-page-node-id="UQfzCIZSJ9znVoSNUnp01c">☆</span>
-      <div class="l1" data-page-node-id="H0XOWionhDtKsZr35qOHu5"><span class="word" data-page-node-id="L7z90id4ctXqGUHYwiPjLc">möchten</span> <span class="spk" onclick="speakWord('möchten')" data-page-node-id="PW0EVIi5odIVWEkMsabWED">🔊</span> <span class="valence" onclick="openValence('möchten','akkusativ')" data-page-node-id="EsAiCB3d4BM7WsH4FFgVxj">❓</span></div>
+      <div class="l1" data-page-node-id="H0XOWionhDtKsZr35qOHu5"><span class="verb-tag">Verb</span><span class="word" data-page-node-id="L7z90id4ctXqGUHYwiPjLc">möchten</span> <span class="spk" onclick="speakWord('möchten')" data-page-node-id="PW0EVIi5odIVWEkMsabWED">🔊</span> <span class="valence" onclick="openValence('möchten','akkusativ')" data-page-node-id="EsAiCB3d4BM7WsH4FFgVxj">❓</span></div>
       <div class="l3" data-page-node-id="XsvaFClEtTP5PEjDc769uc">would like <span style="color:var(--muted);font-size:.88rem" data-page-node-id="WSUuGK7ogjSBvtUTWE1Jsq">(möchte + Akk.; Konjunktiv II of mögen)</span></div>
       <div class="l4" data-page-node-id="DoeKxSlkbnE7LNtshjoYqt"><span class="de-text" data-page-node-id="soPwtokhGgcrHo1GIZfPhp">Wir möchten zahlen.</span> <span class="spk-sentence" data-page-node-id="O5QycJaqIefJi9dRmZxrkq"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Wir möchten zahlen.')" data-page-node-id="hcCDDrfjGeHIAKXGx0cr0D">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Wir möchten zahlen.')" data-page-node-id="NQK4xhFLdMEtWi6LLRHukp">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Wir möchten zahlen.')" data-page-node-id="tq8H0QHj22focHEsfxtGft">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Wir möchten zahlen.')" data-page-node-id="uIoSMkBrDhwTSPB6LkK2Bj">1.25×</button></span><span class="en-ex" data-page-node-id="N3UCBpSQxG2fnqCZuYGG5J">We would like to pay.</span></div>
     </div>
 
     <div class="vcard" data-word="bezahlen" data-page-node-id="eq5Tv318ksxD6WzXFPXWoK">
       <span class="fav-star" onclick="toggleFav(this,'bezahlen')" data-page-node-id="DBxBVtrjyrdwAqdsOM5RiB">☆</span>
-      <div class="l1" data-page-node-id="gKn2SBhlu6g8rzjZsqvwCj"><span class="word" data-page-node-id="DD2ALavPVatBrfl67z3huC">bezahlen</span> <span class="spk" onclick="speakWord('bezahlen')" data-page-node-id="MRSAaCQ6DUAOJjWQkFSCeI">🔊</span> <span class="valence" onclick="openValence('bezahlen','akkusativ')" data-page-node-id="AiPylOip8oH6g1EZyFypV0">❓</span></div>
+      <div class="l1" data-page-node-id="gKn2SBhlu6g8rzjZsqvwCj"><span class="verb-tag">Verb</span><span class="word" data-page-node-id="DD2ALavPVatBrfl67z3huC">bezahlen</span> <span class="spk" onclick="speakWord('bezahlen')" data-page-node-id="MRSAaCQ6DUAOJjWQkFSCeI">🔊</span> <span class="valence" onclick="openValence('bezahlen','akkusativ')" data-page-node-id="AiPylOip8oH6g1EZyFypV0">❓</span></div>
       <div class="l3" data-page-node-id="YX5jpCfyvIBwNFLhXC3Gnl">to pay <span style="color:var(--muted);font-size:.88rem" data-page-node-id="E4ChOJluF5hXxLijBpRwRy">(bezahlt + Akk. — thing paid)</span></div>
       <div class="l4" data-page-node-id="8MnhlinZSyYMnkJi8E7lcG"><span class="de-text" data-page-node-id="p4xmsnboRr6PCyxCPtrCTW">Ich bezahle die Rechnung.</span> <span class="spk-sentence" data-page-node-id="I62fb0LPinYHPsjCQYhk8X"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bezahle die Rechnung.')" data-page-node-id="BrR24DHmaSclHOsDBSfleb">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bezahle die Rechnung.')" data-page-node-id="tQ4EZArTljleeICl1ZElpa">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bezahle die Rechnung.')" data-page-node-id="fDErFyascqn5GLLddT75WM">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bezahle die Rechnung.')" data-page-node-id="BCxf1GvjDf0mbz97bqwPJi">1.25×</button></span><span class="en-ex" data-page-node-id="IT9sNZSHBp6yS4Cj8d5pvb">I pay the bill.</span></div>
     </div>
 
     <div class="vcard" data-word="schmecken" data-page-node-id="4J0lv6jEpKnpfFKX13jqQk">
       <span class="fav-star" onclick="toggleFav(this,'schmecken')" data-page-node-id="32Lj3slH4tQxBCXdYsvcq4">☆</span>
-      <div class="l1" data-page-node-id="ArSMjEF1xLv1cCF9kF98pH"><span class="word" data-page-node-id="Jg2NsUzbgaB5RxD199J07N">schmecken</span> <span class="spk" onclick="speakWord('schmecken')" data-page-node-id="RW66GBvcvxameuXy02NyxK">🔊</span> <span class="valence" onclick="openValence('schmecken','dativ')" data-page-node-id="50WoRsfFJFZTAbpALHQ83N">❓</span></div>
+      <div class="l1" data-page-node-id="ArSMjEF1xLv1cCF9kF98pH"><span class="verb-tag">Verb</span><span class="word" data-page-node-id="Jg2NsUzbgaB5RxD199J07N">schmecken</span> <span class="spk" onclick="speakWord('schmecken')" data-page-node-id="RW66GBvcvxameuXy02NyxK">🔊</span> <span class="valence" onclick="openValence('schmecken','dativ')" data-page-node-id="50WoRsfFJFZTAbpALHQ83N">❓</span></div>
       <div class="l3" data-page-node-id="3QRKVzzGJ1pXn6izCBXAFG">to taste good (to someone) <span style="color:var(--muted);font-size:.88rem" data-page-node-id="PmXSVcMGbL5RGAdaG2P7hu">(schmeckt + Dativ — person who enjoys)</span></div>
       <div class="l4" data-page-node-id="SsV2wlGh1vzpJ5WfrSmCHj"><span class="de-text" data-page-node-id="AKNutmvtRmVYVQQJgvcT9b">Die Pizza schmeckt mir.</span> <span class="spk-sentence" data-page-node-id="UfnvLJhGJlmGKsxGZMQbJm"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="MPfNSOmbM2m674lhPNxZHZ">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="1FVyS1aHx9Nrbt55NOGTsZ">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="393YtBW4c6XC3QWFWfLvbO">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="NcWakxcDVn1jksn9iEDyec">1.25×</button></span><span class="en-ex" data-page-node-id="cF5jSZ8aYvERpez1cumb8O">The pizza tastes good to me.</span></div>
     </div>
@@ -278,38 +287,38 @@
 
     <div class="vcard art-der" data-word="der Kellner" data-page-node-id="OqtKxo3GAPlG1QNCIVyMpd">
       <span class="fav-star" onclick="toggleFav(this,'der Kellner')" data-page-node-id="cAdSYHfmXOEt7jgiWQc64C">☆</span>
-      <div class="l1" data-page-node-id="gWqYOqSFwHcAiDBIZmcQkQ"><span class="art art-der" data-page-node-id="NpocL6jUarkwfD0D7HieX1">der</span><span class="word g-der" data-page-node-id="obfBvkWJO79LOyrk8jGtF5">Kellner</span></div>
-      <div class="l2" data-page-node-id="DAQgdAe0UchxuIqu6cpybE">Pl. <span class="art art-die">die</span> Kellner <span class="spk" onclick="speakWord('die Kellner')" data-page-node-id="Q08HHfcFP67WXjCsFxxztv">🔊</span> <span class="spk" onclick="speakWord('der Kellner')" data-page-node-id="FWew1EGQyFzARhkN9mZNMc">🔊</span></div>
+      <div class="l1" data-page-node-id="gWqYOqSFwHcAiDBIZmcQkQ"><span class="art art-der" data-page-node-id="NpocL6jUarkwfD0D7HieX1">der</span><span class="word g-der" data-page-node-id="obfBvkWJO79LOyrk8jGtF5">Kellner</span> <span class="spk" onclick="speakWord('der Kellner')">🔊</span></div>
+      <div class="l2" data-page-node-id="DAQgdAe0UchxuIqu6cpybE">Pl. <span class="art art-die">die</span> Kellner <span class="spk" onclick="speakWord('die Kellner')" data-page-node-id="Q08HHfcFP67WXjCsFxxztv">🔊</span></div>
       <div class="l3" data-page-node-id="H10TEJfLjndWRhAvxtQy8F">waiter (male)</div>
     </div>
 
     <div class="vcard art-die" data-word="die Speisekarte" data-page-node-id="H2OF5rFtB1ZHU2iY9AV0rF">
       <span class="fav-star" onclick="toggleFav(this,'die Speisekarte')" data-page-node-id="sSzJbxeDfuMCAvwbSJU1Nq">☆</span>
-      <div class="l1" data-page-node-id="53SEOBNbnADwpnAzw2LuyY"><span class="art art-die" data-page-node-id="SqFu6jDCXDaQPrWxhBA8kG">die</span><span class="word g-die" data-page-node-id="qBH7gtnOJzAcAEtG0wSFC6">Speisekarte</span></div>
-      <div class="l2" data-page-node-id="dqD92AVKUtQqKpwvDlrFKE">Pl. <span class="art art-die">die</span> Speisekarten <span class="spk" onclick="speakWord('die Speisekarten')" data-page-node-id="6iKHZWh6qBzV3UWtAQy547">🔊</span> <span class="spk" onclick="speakWord('die Speisekarte')" data-page-node-id="MTNHEBKlpfUCiOGLyn3tK9">🔊</span></div>
+      <div class="l1" data-page-node-id="53SEOBNbnADwpnAzw2LuyY"><span class="art art-die" data-page-node-id="SqFu6jDCXDaQPrWxhBA8kG">die</span><span class="word g-die" data-page-node-id="qBH7gtnOJzAcAEtG0wSFC6">Speisekarte</span> <span class="spk" onclick="speakWord('die Speisekarte')">🔊</span></div>
+      <div class="l2" data-page-node-id="dqD92AVKUtQqKpwvDlrFKE">Pl. <span class="art art-die">die</span> Speisekarten <span class="spk" onclick="speakWord('die Speisekarten')" data-page-node-id="6iKHZWh6qBzV3UWtAQy547">🔊</span></div>
       <div class="l3" data-page-node-id="USoWP1DPyrNmRo8R80Lv4g">menu</div>
       <div class="l4" data-page-node-id="w4zvN0SOYdIDeFOsE2Wlzb"><span class="de-text" data-page-node-id="4SCJ0Utgx7e1rzpq9xgwCu">Die Speisekarte, bitte.</span> <span class="spk-sentence" data-page-node-id="pDfrLCph5RFBXC8BR23L4Q"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Speisekarte, bitte.')" data-page-node-id="pZZfPiSX0ibeGxlk3LhW7B">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Speisekarte, bitte.')" data-page-node-id="o5OKIgQpsJaJXVHxSghsx2">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Speisekarte, bitte.')" data-page-node-id="v5Q4jYkzuf6TrDnYhrCzS8">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Speisekarte, bitte.')" data-page-node-id="MXtdnXIw9933kwmDhhzui6">1.25×</button></span><span class="en-ex" data-page-node-id="4aG2c8sDGK95PXXht6qJ6e">The menu, please.</span></div>
     </div>
 
     <div class="vcard art-das" data-word="das Essen" data-page-node-id="Jf1VfUdN1TAPHzmMQEMDDc">
       <span class="fav-star" onclick="toggleFav(this,'das Essen')" data-page-node-id="CeWMNs6eYzd0SOzPDCLHsc">☆</span>
-      <div class="l1" data-page-node-id="c6xnuLk0DDnmZF3e9EVJek"><span class="art art-das" data-page-node-id="B13NvOilJOHt9ELdh1w8T5">das</span><span class="word g-das" data-page-node-id="0DDyO6Ct6YGShHS7NbX6zv">Essen</span></div>
-      <div class="l2" data-page-node-id="FPujOkwDudv5EvrUvgVECp">(no plural, substance noun) <span class="spk" onclick="speakWord('das Essen')" data-page-node-id="NfXfqFG3EQBoDbxZur8AeZ">🔊</span></div>
+      <div class="l1" data-page-node-id="c6xnuLk0DDnmZF3e9EVJek"><span class="art art-das" data-page-node-id="B13NvOilJOHt9ELdh1w8T5">das</span><span class="word g-das" data-page-node-id="0DDyO6Ct6YGShHS7NbX6zv">Essen</span> <span class="spk" onclick="speakWord('das Essen')">🔊</span></div>
+      <div class="l2" data-page-node-id="FPujOkwDudv5EvrUvgVECp">(no plural, substance noun)</div>
       <div class="l3" data-page-node-id="es59hUopJF1ZAQ1yBHHDq5">food (the meal/substance)</div>
       <div class="l4" data-page-node-id="0WYxjAEQHgMAnhKNTIc706"><span class="de-text" data-page-node-id="q2Cg5wPlseZqV2GZMA32kF">Das Essen ist lecker.</span> <span class="spk-sentence" data-page-node-id="jFBIkkP57s1xvaszkKpS5l"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Das Essen ist lecker.')" data-page-node-id="c2b6TfW1UbXxaOVmEKMfyR">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das Essen ist lecker.')" data-page-node-id="w8uxEw55XzGd2BUNDrm9fq">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Das Essen ist lecker.')" data-page-node-id="Ix42NIMX1MDgjpxDl6mc4F">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Das Essen ist lecker.')" data-page-node-id="nqIqJTGHZVQTbKSGDaaRbt">1.25×</button></span><span class="en-ex" data-page-node-id="IpjkjXnDu5gzkmGdOP9kVD">The food is tasty.</span></div>
     </div>
 
     <div class="vcard art-die" data-word="die Rechnung" data-page-node-id="SyMolOUeaugX48pmtnVz0E">
       <span class="fav-star" onclick="toggleFav(this,'die Rechnung')" data-page-node-id="nOFlezrlp1yiUfpBxTiHUB">☆</span>
-      <div class="l1" data-page-node-id="O0WZQ07cFr8rrKGBCcit6H"><span class="art art-die" data-page-node-id="DUBPiSuTa22al9GSHqpAhy">die</span><span class="word g-die" data-page-node-id="PYEozyLFh9U0bEFwJd9c7H">Rechnung</span></div>
-      <div class="l2" data-page-node-id="UQJF9cag8htLOZ4GPTb9WU">Pl. <span class="art art-die">die</span> Rechnungen <span class="spk" onclick="speakWord('die Rechnungen')" data-page-node-id="JERrb7tTEV6b679vGKSJLE">🔊</span> <span class="spk" onclick="speakWord('die Rechnung')" data-page-node-id="EZM5rMWbFWEf6YyF2kn5iD">🔊</span></div>
+      <div class="l1" data-page-node-id="O0WZQ07cFr8rrKGBCcit6H"><span class="art art-die" data-page-node-id="DUBPiSuTa22al9GSHqpAhy">die</span><span class="word g-die" data-page-node-id="PYEozyLFh9U0bEFwJd9c7H">Rechnung</span> <span class="spk" onclick="speakWord('die Rechnung')">🔊</span></div>
+      <div class="l2" data-page-node-id="UQJF9cag8htLOZ4GPTb9WU">Pl. <span class="art art-die">die</span> Rechnungen <span class="spk" onclick="speakWord('die Rechnungen')" data-page-node-id="JERrb7tTEV6b679vGKSJLE">🔊</span></div>
       <div class="l3" data-page-node-id="Gsa5BwhcqzR0azFfz6QaEi">bill / check</div>
     </div>
 
     <div class="vcard art-der" data-word="der Tisch" data-page-node-id="WTI347vdgvnbeRBlgVTGGO">
       <span class="fav-star" onclick="toggleFav(this,'der Tisch')" data-page-node-id="H0M4tXMdHwGIAuddxUBBwK">☆</span>
-      <div class="l1" data-page-node-id="6GlYAQkoKTS34mKVLnnk2e"><span class="art art-der" data-page-node-id="VflV2rPZAsRNWZoTAZCvcg">der</span><span class="word g-der" data-page-node-id="DXvSodg6idWJBUHIYpa3Hz">Tisch</span></div>
-      <div class="l2" data-page-node-id="yGUq8iYWIxWZrDKV8rlt7F">Pl. <span class="art art-die">die</span> Tische <span class="spk" onclick="speakWord('die Tische')" data-page-node-id="HIyfCF3NHnS9OYLbPNH8dn">🔊</span> <span class="spk" onclick="speakWord('der Tisch')" data-page-node-id="OCR0nW33KMweWP45NXbsyX">🔊</span></div>
+      <div class="l1" data-page-node-id="6GlYAQkoKTS34mKVLnnk2e"><span class="art art-der" data-page-node-id="VflV2rPZAsRNWZoTAZCvcg">der</span><span class="word g-der" data-page-node-id="DXvSodg6idWJBUHIYpa3Hz">Tisch</span> <span class="spk" onclick="speakWord('der Tisch')">🔊</span></div>
+      <div class="l2" data-page-node-id="yGUq8iYWIxWZrDKV8rlt7F">Pl. <span class="art art-die">die</span> Tische <span class="spk" onclick="speakWord('die Tische')" data-page-node-id="HIyfCF3NHnS9OYLbPNH8dn">🔊</span></div>
       <div class="l3" data-page-node-id="m6l8foKAoCwa0i0ZObCJ0i">table</div>
     </div>
 
@@ -343,7 +352,7 @@
       <button class="redo" onclick="redoQuiz('vq2')" data-page-node-id="F50dpHAZ7ak5jx9DYBxV6e">↻ Redo</button>
     </div>
     <div class="quiz" data-page-node-id="UBLBZ4kLQih5STEYZNnikm">
-      <div class="quiz-header" data-page-node-id="c0Ljafs30BzVNGliWgHRLJ"><div class="q" data-page-node-id="4zwlGyonnpQUrdZoG4QFgh">VQ3 · Listen: 🔊 <span class="spk" onclick="speakWord('die Rechnung')" data-page-node-id="9pWsAVHJeGSRjbBAcA2FYZ">🔊</span> — which word?</div></div>
+      <div class="quiz-header" data-page-node-id="c0Ljafs30BzVNGliWgHRLJ"><div class="q" data-page-node-id="4zwlGyonnpQUrdZoG4QFgh">VQ3 · Listen: <span class="spk" onclick="speakWord('die Rechnung')" data-page-node-id="9pWsAVHJeGSRjbBAcA2FYZ">🔊</span> — which word?</div></div>
       <div class="opts" data-q="vq3" data-page-node-id="DluZikd9ZlQxo14HGfxo2u">
         <button class="opt" onclick="answerOpt(this,false,'vq3','听力是 &quot;die Rechnung&quot; = bill. 考点: ch 音 vs sch 音区分, -ung 结尾阴性词性.')" data-page-node-id="tNZVSzEFasLg8oPzhhIb7I">Tisch</button>
         <button class="opt" onclick="answerOpt(this,true,'vq3','听力原文: &quot;die Rechnung&quot;. 对: 你听对了. 考点: ch 在 Rechnung 中的发音 + die 阴性.')" data-page-node-id="8KQe2AkfaptYv0NhFPMZpz">Rechnung</button>
@@ -376,6 +385,8 @@
       <button class="redo" onclick="redoQuiz('vq5')" data-page-node-id="ZvZHOKOqnvIsc6aaQ1vHGI">↻ Redo</button>
     </div>
   </div>
+
+  <button class="module-redo" onclick="redoModule('vocab')">↻ Redo this module · 5 questions</button>
 
   <div class="step-row" data-page-node-id="yXVH8CiC3ebKYK7kTa5sY8">
     <button onclick="goTab('home')" data-page-node-id="RDVfPDshTeYEluSIlTQKca">← Home</button>
@@ -517,12 +528,29 @@
     <div class="fb" id="fb-l3" data-page-node-id="22lJ6Q5o64vrfxHJMxys5B"></div>
     <div class="errcat" id="ec-l3" style="display:none" data-page-node-id="p6JjJLwrCi2pH3EeqxGcA4">If wrong, why? <span class="lab" onclick="pickErr(this,'l3','没听清')" data-page-node-id="h6u3VlWdkiMWg1SXJBioFA">没听清</span><span class="lab" onclick="pickErr(this,'l3','单词不认识')" data-page-node-id="tYjZlGkjNMgHn1zVIQlE4Z">单词不认识</span><span class="lab" onclick="pickErr(this,'l3','理解偏了')" data-page-node-id="pxbFW7p0LDnLdgMR6xbzGy">理解偏了</span><span class="lab" onclick="pickErr(this,'l3','粗心')" data-page-node-id="8AKAHciDD6mVYbJjRzSufE">粗心</span></div>
       <div class="transcript" id="ltr" data-page-node-id="8wA2BGwI4vEVFWMvSMqdkO">
-      <b data-page-node-id="lI2AWlIrstyPv2jZTZiVBd">Transcript</b>
-      <p class="de-text" data-page-node-id="WT8zr5QrjW5opeh9XsA7WD">Guten Tag! Heute haben wir zwei Specials. Erstens: eine Pizza mit Tomaten und Käse, neun Euro. Zweitens: die Suppe des Tages, sechs Euro. Dazu ein Kaffee für drei Euro oder ein Wasser für zwei Euro. Die Speisekarte finden Sie hier. Vielen Dank!</p>
+      <b data-page-node-id="lI2AWlIrstyPv2jZTZiVBd">Transcript</b> <span style="color:var(--muted);font-size:.85rem;font-weight:400">· tap any word to hear it; nouns colored by gender</span>
+      <div style="margin:8px 0">
+        <div class="de-text"><span class="tok" onclick="speakWord('Guten')">Guten</span> <span class="tok g-der" onclick="speakWord('Tag')">Tag</span>!</div>
+        <div class="en">Good day!</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Heute')">Heute</span> <span class="tok" onclick="speakWord('haben')">haben</span> <span class="tok" onclick="speakWord('wir')">wir</span> <span class="tok" onclick="speakWord('zwei')">zwei</span> <span class="tok" onclick="speakWord('Specials')">Specials</span>.</div>
+        <div class="en">Today we have two specials.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Erstens')">Erstens</span>: <span class="tok" onclick="speakWord('eine')">eine</span> <span class="tok g-die" onclick="speakWord('Pizza')">Pizza</span> <span class="tok" onclick="speakWord('mit')">mit</span> <span class="tok g-die" onclick="speakWord('Tomaten')">Tomaten</span> <span class="tok" onclick="speakWord('und')">und</span> <span class="tok g-der" onclick="speakWord('Käse')">Käse</span>, <span class="tok" onclick="speakWord('neun')">neun</span> <span class="tok g-das" onclick="speakWord('Euro')">Euro</span>.</div>
+        <div class="en">Firstly: a pizza with tomatoes and cheese, nine euros.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Zweitens')">Zweitens</span>: <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Suppe')">Suppe</span> <span class="tok" onclick="speakWord('des')">des</span> <span class="tok g-der" onclick="speakWord('Tages')">Tages</span>, <span class="tok" onclick="speakWord('sechs')">sechs</span> <span class="tok g-das" onclick="speakWord('Euro')">Euro</span>.</div>
+        <div class="en">Secondly: the soup of the day, six euros.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Dazu')">Dazu</span> <span class="tok" onclick="speakWord('ein')">ein</span> <span class="tok g-der" onclick="speakWord('Kaffee')">Kaffee</span> <span class="tok" onclick="speakWord('für')">für</span> <span class="tok" onclick="speakWord('drei')">drei</span> <span class="tok g-das" onclick="speakWord('Euro')">Euro</span> <span class="tok" onclick="speakWord('oder')">oder</span> <span class="tok" onclick="speakWord('ein')">ein</span> <span class="tok g-das" onclick="speakWord('Wasser')">Wasser</span> <span class="tok" onclick="speakWord('für')">für</span> <span class="tok" onclick="speakWord('zwei')">zwei</span> <span class="tok g-das" onclick="speakWord('Euro')">Euro</span>.</div>
+        <div class="en">Plus a coffee for three euros or a water for two euros.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Die')">Die</span> <span class="tok g-die" onclick="speakWord('Speisekarte')">Speisekarte</span> <span class="tok" onclick="speakWord('finden')">finden</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('hier')">hier</span>.</div>
+        <div class="en">You can find the menu here.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Vielen')">Vielen</span> <span class="tok" onclick="speakWord('Dank')">Dank</span>!</div>
+        <div class="en">Many thanks!</div>
+      </div>
     </div>
   </div>
 
   <p style="font-size:.88rem;color:var(--muted);margin-top:8px" data-page-node-id="dI26iu0fbvKuTn771v3aRF">Answer all 3 questions to unlock the transcript.</p>
+
+  <button class="module-redo" onclick="redoModule('listening')">↻ Redo this module · 3 questions + re-lock transcript</button>
 
   <div class="step-row" data-page-node-id="kyp3ZVAJRMaKDJ8C7e3wRw">
     <button onclick="goTab('dialogue')" data-page-node-id="pcMQYUfQ9aNA32Juc8AFeU">← Dialogue</button>
@@ -581,6 +609,8 @@
     <div class="errcat" id="ec-r3" style="display:none" data-page-node-id="07Ts8GPVZClbJD02vMYWOd">If wrong, why? <span class="lab" onclick="pickErr(this,'r3','单词不认识')" data-page-node-id="ztgo4tzUOQwxUFvjjgsV47">单词不认识</span><span class="lab" onclick="pickErr(this,'r3','语法没懂')" data-page-node-id="d4X2RxhjBsI3qgtU981v8n">语法没懂</span><span class="lab" onclick="pickErr(this,'r3','理解偏了')" data-page-node-id="9r7TYG8fJaaSW316tLBhSH">理解偏了</span><span class="lab" onclick="pickErr(this,'r3','粗心')" data-page-node-id="CegTDOS4w3SbBXjM0MI3QR">粗心</span></div>
   </div>
 
+  <button class="module-redo" onclick="redoModule('reading')">↻ Redo this module · 3 questions</button>
+
   <div class="step-row" data-page-node-id="K89l81NB1UXaBEjNrV9yfO">
     <button onclick="goTab('listening')" data-page-node-id="cp2uaWf9TsK7R4xw3BR3fP">← Listening</button>
     <button class="next" onclick="goTab('shadowing')" data-page-node-id="HTAmTExq3fFjyR3F5gEhJq">Next: Shadowing →</button>
@@ -594,7 +624,7 @@
 
   <div class="shad de-text" data-page-node-id="nB5esaVnNcC7AGVKA1NO8Q">
     <div class="row" data-page-node-id="E8jXJq9hWZc2yNn957XtUW">
-      <div data-page-node-id="98pWTLjbVjwe7d9NGXd4HQ">1. Ich <b>be</b>stelle <b>ei</b>ne <b>Piz</b>za.</div>
+      <div data-page-node-id="98pWTLjbVjwe7d9NGXd4HQ">1. <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('bestelle')"><b>be</b>stelle</span> <span class="tok" onclick="speakWord('eine')"><b>ei</b>ne</span> <span class="tok g-die" onclick="speakWord('Pizza')"><b>Piz</b>za</span>.</div>
       <div class="stress" data-page-node-id="NFQ9b15akBoATzLimFo1IN">Stress: ich · be-<b data-page-node-id="3MpC0DdQz9QNFv3RS7DcpM">STEL</b>-le · ei-ne · <b data-page-node-id="Juq5fpTvwyVkClePcJDsuH">PIZ</b>-za <span style="color:var(--muted);font-size:.85em">(规则: 动词重音多在第一音节 be-<b>STEL</b>-le)</span></div>
       <div class="ctrl" data-page-node-id="TsUYhnpQTpT3GDlaySv5dI">
         <span class="spk-sentence" data-page-node-id="yahZ8nhwdeBmTYDRGKNjOZ"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="sWKumxKarZQZMFKBz2s7lY">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="J6jIZ3AtdADCHl13m4KkV8">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="F5R55ywZFH9gY0ys4ekWyJ">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bestelle eine Pizza.')" data-page-node-id="fA33qFfnYNdbRMRI1C7Ek8">🔊 1.25×</button></span>
@@ -604,7 +634,7 @@
     </div>
 
     <div class="row" data-page-node-id="AVBeVW1UO1ohEKwU7lGoJs">
-      <div data-page-node-id="T7C27eD2FMko67IP9UM6jW">2. Die <b>Piz</b>za <b>schmeckt</b> mir.</div>
+      <div data-page-node-id="T7C27eD2FMko67IP9UM6jW">2. <span class="tok" onclick="speakWord('Die')">Die</span> <span class="tok g-die" onclick="speakWord('Pizza')"><b>Piz</b>za</span> <span class="tok" onclick="speakWord('schmeckt')"><b>schmeckt</b></span> <span class="tok" onclick="speakWord('mir')">mir</span>.</div>
       <div class="stress" data-page-node-id="ypRzDXs9KFwaH48CgNYwZ8">Stress: die · <b data-page-node-id="jvCOmbB6tKm2vLe10RyPoP">PIZ</b>-za · <b data-page-node-id="SDaXwE9usV2PeetMvAtFaL">SCHMECKT</b> · mir <span style="color:var(--muted);font-size:.85em">(规则: 名词重音多在第一音节, 动词 schmecken 重音在词根)</span></div>
       <div class="ctrl" data-page-node-id="TnxLbyulSIrHFMSb6wBHbS">
         <span class="spk-sentence" data-page-node-id="5wY4bBuy8sSZCGAUME4xdC"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="4C74eidHx4wLnXFHZNGJYI">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="SfOiUxFiO5wDoScEAHE4Qm">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="hEaJ3DNTAaZCjHsSq4HcrF">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Pizza schmeckt mir.')" data-page-node-id="gaP2WpdsUaCdLFaJRvrDp9">🔊 1.25×</button></span>
@@ -614,7 +644,7 @@
     </div>
 
     <div class="row" data-page-node-id="slq8i7YDdm4W25QSl8HMmH">
-      <div data-page-node-id="5D4eXKmaif0d8f74vN9OBe">3. <b>Wür</b>den Sie <b>bit</b>te die <b>rech</b>nung <b>brin</b>gen?</div>
+      <div data-page-node-id="5D4eXKmaif0d8f74vN9OBe">3. <span class="tok" onclick="speakWord('Würden')"><b>Wür</b>den</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('bitte')"><b>bit</b>te</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Rechnung')"><b>rech</b>nung</span> <span class="tok" onclick="speakWord('bringen')"><b>brin</b>gen</span>?</div>
       <div class="stress" data-page-node-id="hz5ZLoE5luRfJYWITU7E9D">Stress: <b data-page-node-id="EBWfZj9tcsNJkgbaNVo4jN">WÜR</b>-den · Sie · <b data-page-node-id="ZjmNvjhHjQ2YQkD9H4qP3J">BIT</b>-te · die · <b data-page-node-id="xE2vDCwFmU37OPjF66fCR1">RECH</b>-nung · <b data-page-node-id="WpI7D9EPehEQI9orgwixsS">BRIN</b>-gen <span style="color:var(--muted);font-size:.85em">(规则: 助动词 würden 弱化, 实义动词 bringen 重读第一音节)</span></div>
       <div class="ctrl" data-page-node-id="FzrzPw5IqOCeyppiCCgsaM">
         <span class="spk-sentence" data-page-node-id="Uy1soq0pWwziuAp6KDIGpA"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')" data-page-node-id="6AZpkUn0kWe8GpWkbr4KIU">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')" data-page-node-id="BIkSmID0p3FMoZO0GRvawx">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')" data-page-node-id="I5n9B1PHNOigzES0S2IyYG">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Würden Sie bitte die Rechnung bringen?')" data-page-node-id="PJkudo01mGY5NoUEWtshWr">🔊 1.25×</button></span>
@@ -624,7 +654,7 @@
     </div>
 
     <div class="row" data-page-node-id="boDcu2SV7o3ntsAgFCsIcT">
-      <div data-page-node-id="LE1sYEeucpUMwNnTddBkBv">4. Ich <b>neh</b>me die <b>Sup</b>pe <b>heu</b>te.</div>
+      <div data-page-node-id="LE1sYEeucpUMwNnTddBkBv">4. <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('nehme')"><b>neh</b>me</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Suppe')"><b>Sup</b>pe</span> <span class="tok" onclick="speakWord('heute')"><b>heu</b>te</span>.</div>
       <div class="stress" data-page-node-id="lz7yWrCS0cFJXEdWGKbimO">Stress: ich · <b data-page-node-id="fNhTxu5ww6GS1oKAqz8Bpp">NEH</b>-me · die · <b data-page-node-id="qX4QveGju1uGCNyTJGh21P">SUP</b>-pe · <b data-page-node-id="bbLmAhlcoolEPfZevIVUf5">HEU</b>-te <span style="color:var(--muted);font-size:.85em">(规则: 动词 nehme + 名词 Suppe 重音均第一音节, 时间副词 heute 亦然)</span></div>
       <div class="ctrl" data-page-node-id="oz5R2NcPEECgW2YChDOnn1">
         <span class="spk-sentence" data-page-node-id="5xSyECVLEgzooSs82FqHMj"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme die Suppe heute.')" data-page-node-id="f3V7WXPU1x6BFDZXXc1N0D">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme die Suppe heute.')" data-page-node-id="IHharqDmh1IryIlSPHjCd7">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme die Suppe heute.')" data-page-node-id="dk1Fc56f8B06B90zJkkVln">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme die Suppe heute.')" data-page-node-id="3LIA0D76eB4qHPSeUnEtWT">🔊 1.25×</button></span>
@@ -634,7 +664,7 @@
     </div>
 
     <div class="row" data-page-node-id="CBOH35bq3L76sDgd4CDElR">
-      <div data-page-node-id="aJwe5nByuJz0EWRyUiv7AY">5. <b>Kos</b>ten die <b>Ge</b>tränke <b>wirk</b>lich so <b>viel</b>?</div>
+      <div data-page-node-id="aJwe5nByuJz0EWRyUiv7AY">5. <span class="tok" onclick="speakWord('Kosten')"><b>Kos</b>ten</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Getränke')"><b>Ge</b>tränke</span> <span class="tok" onclick="speakWord('wirklich')"><b>wirk</b>lich</span> <span class="tok" onclick="speakWord('so')">so</span> <span class="tok" onclick="speakWord('viel')"><b>viel</b></span>?</div>
       <div class="stress" data-page-node-id="tC69wbjDemndAWDaZGFxle">Stress: <b data-page-node-id="hYoIqDnBAx4RJf4fRapDJF">KOS</b>-ten · die · <b data-page-node-id="wseMlGtAlrsNRuo2xAzUad">GE</b>-trän-ke · <b data-page-node-id="4C3cyOdF3vMXatIhyxKhFj">WIRK</b>-lich · so · <b data-page-node-id="WfKiCAGyCnWYLBAifJ0CKT">VIEL</b> <span style="color:var(--muted);font-size:.85em">(规则: 复合名词 Getränke 重音在前缀 GE-, 形容词 wirklich 第一音节)</span></div>
       <div class="ctrl" data-page-node-id="fPHMbhrpUQDMR5UI2mq81z">
         <span class="spk-sentence" data-page-node-id="3aycempMNLu0yAcarRVgKN"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')" data-page-node-id="F7g46FKHBF6mFhtQLSj6pf">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')" data-page-node-id="nljMXtKx71MbMQb84mkDZi">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')" data-page-node-id="fG5uspibaqg3MocDUR91BU">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Kosten die Getränke wirklich so viel?')" data-page-node-id="AktimI7KPqAQdpm5j8GzyF">🔊 1.25×</button></span>
@@ -689,10 +719,21 @@ Mit freundlichen Grüßen
     <details class="model-answer" style="margin-top:14px;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--panel)">
       <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📄 Model answer <span style="color:var(--muted);font-weight:400;font-size:.88em">(写完再点开)</span></summary>
       <div style="margin-top:10px">
-        <p class="de-text" style="margin:6px 0">Sehr geehrte Damen und Herren,</p>
-        <p class="de-text" style="margin:6px 0">ich möchte gerne einen Tisch für <b>drei Personen</b> am Samstag, den 5. Oktober, um <b>19:00 Uhr</b> reservieren. Wir würden gerne <b>am Fenster</b> sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — <b>gibt es eine vegetarische Option</b> auf der Speisekarte?</p>
-        <p class="de-text" style="margin:6px 0">Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung.</p>
-        <p class="de-text" style="margin:6px 0">Mit freundlichen Grüßen<br>Tom Becker</p>
+        <p class="de-text" style="margin:6px 0 2px">Sehr geehrte Damen und Herren,</p>
+        <p style="margin:0 0 10px;font-size:.9rem;color:var(--muted)">Dear Sir or Madam,</p>
+        <p class="de-text" style="margin:6px 0 2px">ich möchte gerne einen Tisch für <b>drei Personen</b> am Samstag, den 5. Oktober, um <b>19:00 Uhr</b> reservieren. Wir würden gerne <b>am Fenster</b> sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — <b>gibt es eine vegetarische Option</b> auf der Speisekarte?</p>
+        <p style="margin:0 0 10px;font-size:.9rem;color:var(--muted)">I would like to reserve a table for three people on Saturday, 5 October, at 19:00. We would prefer to sit by the window, if possible. One companion is vegetarian — is there a vegetarian option on the menu?</p>
+        <p class="de-text" style="margin:6px 0 2px">Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung.</p>
+        <p style="margin:0 0 10px;font-size:.9rem;color:var(--muted)">Many thanks in advance. I look forward to your confirmation.</p>
+        <p class="de-text" style="margin:6px 0 2px">Mit freundlichen Grüßen<br>Tom Becker</p>
+        <p style="margin:0 0 10px;font-size:.9rem;color:var(--muted)">Yours sincerely,<br>Tom Becker</p>
+        <div class="spk-sentence" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px">
+          <span style="color:var(--muted);font-size:.85rem;display:block;margin-bottom:6px">🔊 Full text · choose a speed:</span>
+          <button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Sehr geehrte Damen und Herren, ich möchte gerne einen Tisch für drei Personen am Samstag, den 5. Oktober, um 19:00 Uhr reservieren. Wir würden gerne am Fenster sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — gibt es eine vegetarische Option auf der Speisekarte? Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung. Mit freundlichen Grüßen, Tom Becker.')">0.5×</button>
+          <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Sehr geehrte Damen und Herren, ich möchte gerne einen Tisch für drei Personen am Samstag, den 5. Oktober, um 19:00 Uhr reservieren. Wir würden gerne am Fenster sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — gibt es eine vegetarische Option auf der Speisekarte? Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung. Mit freundlichen Grüßen, Tom Becker.')">0.75×</button>
+          <button class="spbtn" data-rate="1" onclick="speakSentence(this,'Sehr geehrte Damen und Herren, ich möchte gerne einen Tisch für drei Personen am Samstag, den 5. Oktober, um 19:00 Uhr reservieren. Wir würden gerne am Fenster sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — gibt es eine vegetarische Option auf der Speisekarte? Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung. Mit freundlichen Grüßen, Tom Becker.')">1×</button>
+          <button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Sehr geehrte Damen und Herren, ich möchte gerne einen Tisch für drei Personen am Samstag, den 5. Oktober, um 19:00 Uhr reservieren. Wir würden gerne am Fenster sitzen, wenn möglich. Eine Begleitperson isst vegetarisch — gibt es eine vegetarische Option auf der Speisekarte? Vielen Dank im Voraus. Ich freue mich auf Ihre Bestätigung. Mit freundlichen Grüßen, Tom Becker.')">1.25×</button>
+        </div>
         <p style="margin-top:10px;font-size:.88rem;color:var(--muted)"><b>亮点句式</b>:</p>
         <ul style="margin:4px 0 0;padding-left:18px;font-size:.86rem;color:var(--muted)">
           <li><b>«ich möchte gerne ... reservieren»</b> — 礼貌请求（möchte + gerne + 动词不定式）</li>
@@ -782,6 +823,9 @@ Mit freundlichen Grüßen
   <p style="margin-top:18px" data-page-node-id="UQFudONojazooMCRMuFsln"><b data-page-node-id="zxpQ5t54ff3DaA4oIjL8M2">30-second skim</b>: Cover Day 1 & Day 2 word lists, try to recall each article + plural.</p>
 
   <button class="mark-studied" id="markBtn" onclick="markStudied()" data-page-node-id="xwHxYxEsYgfAlziNee5XqD">Mark Day 3 as studied ✅</button>
+  <button class="reset-day" onclick="resetDay()">↻ Reset Day 3 progress</button>
+
+  <button class="module-redo" onclick="redoModule('review')">↻ Redo this module · 5 questions</button>
 
   <div class="step-row" data-page-node-id="PB10gya3AZRcvDQ4SSG8vb">
     <button onclick="goTab('writing')" data-page-node-id="JshvpNiJAT0NxjvsIL68gE">← Writing</button>
@@ -932,6 +976,8 @@ function openValence(word,caseAnchor){
   html+='<tr><th>Dat.</th><td>dem</td><td>der</td><td>dem</td><td>den +n</td></tr>';
   html+='<tr><th>Gen.</th><td>des</td><td>der</td><td>des</td><td>der</td></tr>';
   html+='</table>';
+  // v5.2 §12.A-3: clarify verbs have no gender
+  html+='<p style="font-size:.85rem;margin-top:10px;color:var(--muted);background:var(--tap-bg);padding:8px 10px;border-radius:6px">⚠️ 动词按配价支配格，本身无词性（三性 der/die/das 只适用于名词）。</p>';
   html+='<p style="font-size:.85rem;margin-top:8px"><a href="../reference/cases.html#'+caseAnchor+'" target="_blank">→ 打开四格讲解专页 (cases.html#'+caseAnchor+')</a></p>';
   document.getElementById('valInner').innerHTML=html;
   document.getElementById('valCard').classList.add('show');
@@ -1100,6 +1146,22 @@ function redoQuiz(qid){
     document.getElementById('ltr').classList.remove('show');
   }
 }
+
+// v5.2 §12.A-1: module-level redo — clear all questions in a module
+function redoModule(mod){
+  var map={
+    vocab:['vq1','vq2','vq3','vq4','vq5'],
+    listening:['l1','l2','l3'],
+    reading:['r1','r2','r3'],
+    review:['rq1','rq2','rq3','rq4','rq5']
+  };
+  var qs=map[mod]||[];
+  qs.forEach(function(q){ redoQuiz(q); });
+  // listening: also reset the player to start state
+  if(mod==='listening' && typeof stopListen==='function'){ stopListen(); }
+  // scroll to top of the section for a clean redo feel
+  try{ document.querySelector('#t-'+(mod==='review'?'review':mod)).scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+}
 // restore quiz state on load
 try{
   document.querySelectorAll('.opts[data-q]').forEach(function(c){
@@ -1180,6 +1242,40 @@ function markStudied(){
   }catch(e){ alert('Could not save (private mode?)'); }
 }
 try{ if(localStorage.getItem('day-003-studied')){ var b=document.getElementById('markBtn'); b.classList.add('done'); b.textContent='✅ Day 3 studied (tap to undo)'; } }catch(e){}
+
+// ---------- v5.2 §12.A-7: Reset Day 3 progress (keep favorites) ----------
+function resetDay(){
+  if(!confirm('Reset all Day 3 progress?\n\nThis clears quiz answers and "studied" status.\nFavorites (⭐) are kept.')) return;
+  try{
+    var toDel=[];
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k && (k.indexOf('quiz:day3:')===0 || k==='day-003-studied')){
+        toDel.push(k);
+      }
+    }
+    toDel.forEach(function(k){ localStorage.removeItem(k); });
+    // reset all quiz UI in the page
+    document.querySelectorAll('.opts[data-q]').forEach(function(c){
+      var opts=c.querySelectorAll('.opt');
+      opts.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+      var qid=c.getAttribute('data-q');
+      var fb=document.getElementById('fb-'+qid);
+      if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+      var ec=document.getElementById('ec-'+qid);
+      if(ec) ec.style.display='none';
+    });
+    // re-lock transcript
+    var ltr=document.getElementById('ltr');
+    if(ltr) ltr.classList.remove('show');
+    // reset studied button
+    var mb=document.getElementById('markBtn');
+    if(mb){ mb.classList.remove('done'); mb.textContent='Mark Day 3 as studied ✅'; }
+    // reset listening player
+    if(typeof stopListen==='function'){ stopListen(); }
+    alert('Day 3 progress reset. ⭐ Favorites kept.');
+  }catch(e){ alert('Reset failed: '+e.message); }
+}
 </script>
 </body>
 </html>
