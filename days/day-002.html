@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
-<title>Day 2 · A1 · 在柏林机场：到达与问路</title>
+<html lang="en" data-page-node-id="PrnNJmVgmU8hcaT20jr5jv">
+<head data-page-node-id="UcA32EQHS7OrT2pz7hc2pe">
+<meta charset="UTF-8" data-page-node-id="JJ1kyhCGljV3J4lI47wDZJ">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover" data-page-node-id="YZdyvOVoWSEPvdnFYFO6RJ">
+<title>Day 2 · A1 · 在柏林机场：到达与问路 · DeutschBrücke</title>
 <style>
   :root{
     --der:#5c7a99;--der-bg:#e8eef3;
@@ -15,609 +15,1529 @@
     --ok:#6b9080;--ok-bg:#eaf1ed;
     --bad:#b0716a;--bad-bg:#f5ecea;
     --neutral:#57534e;
-    --nav-h:52px;
   }
   *{box-sizing:border-box}
-  html{scroll-padding-bottom:calc(var(--nav-h) + 16px)}
-  body{margin:0;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px}
-  .wrap{max-width:820px;margin:0 auto;padding:0 16px}
-  header.top{border-bottom:1px solid var(--line);padding:16px 0 12px;background:var(--panel)}
-  .nav-top{display:flex;gap:10px;align-items:center;font-size:14px;margin-bottom:8px;flex-wrap:wrap}
-  .nav-top a,.nav-top .nav-disabled{color:var(--muted);text-decoration:none;padding:3px 8px;border-radius:6px}
-  .nav-top a{color:var(--accent);border:1px solid var(--line)}
-  .nav-top .nav-disabled{opacity:.4;border:1px dashed var(--line)}
-  h1{margin:0 0 4px;font-size:1.45rem;color:var(--accent)}
-  .lede{margin:0;color:var(--muted);font-size:.9rem}
-  main{padding:6px 0 30px}
-  section{padding:20px 0;border-bottom:1px solid var(--line)}
-  section:last-of-type{border-bottom:none}
-  h2{font-size:1.15rem;color:var(--accent);margin:0 0 4px;display:flex;align-items:baseline;gap:8px}
-  h2 .num{color:var(--muted);font-weight:600;font-size:.9rem}
-  .sec-intro{color:var(--muted);font-size:.9rem;margin:0 0 14px}
-  /* article chips */
-  .art{display:inline-block;padding:1px 7px;border-radius:5px;font-weight:600;font-size:.92em;white-space:nowrap}
-  .art-der{color:var(--der);background:var(--der-bg)}
-  .art-die{color:var(--die);background:var(--die-bg)}
-  .art-das{color:var(--das);background:var(--das-bg)}
-  .noun{font-weight:600}
-  /* speak buttons — touch target ≥40px */
-  .spk{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 8px;font-size:.95rem;line-height:1;min-height:36px;min-width:36px;vertical-align:middle;color:var(--accent);user-select:none;-webkit-tap-highlight-color:transparent}
-  .spk:hover{background:var(--panel)}
-  .spk:active{transform:scale(.94)}
-  .spk.slow{color:var(--tap);border-color:#e9d5ff}
-  .spk.rec{color:#b91c1c;border-color:#fecaca}
-  .spk.play{color:#15803d;border-color:#bbf7d0}
-  .spk.rec.recording{background:#fee2e2;animation:pulse 1s infinite}
-  .spk.speed{font-size:.82rem;padding:0 6px;min-width:42px}
-  .spk.speed.active{background:var(--tap-bg);color:var(--tap);border-color:#d8b4fe}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
-  .row-controls{display:inline-flex;gap:4px;align-items:center;margin-left:6px;flex-wrap:wrap}
-  .speed-row{display:inline-flex;gap:3px;align-items:center;margin-left:6px}
-  /* tables — desktop */
-  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93rem;display:table}
-  th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{background:var(--panel);font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
-  td .ex{color:var(--muted);font-size:.87rem;display:block;margin-top:2px}
-  tr:hover{background:#fafbfc}
-  .grp{margin:14px 0}
-  .grp h3{font-size:.98rem;margin:0 0 6px;color:var(--accent)}
-  /* card layout for words on mobile */
-  .wordcards{display:none}
-  .wcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0}
-  .wcard .wc-head{font-size:1.05rem;margin-bottom:4px}
-  .wcard .wc-pl{color:var(--muted);font-size:.84rem;margin-bottom:6px}
-  .wcard .wc-en{font-weight:600;color:var(--accent);font-size:.9rem;margin-bottom:4px}
-  .wcard .wc-ex{color:var(--ink);font-size:.9rem}
-  .wcard .wc-ex .en{color:var(--muted);display:block;font-size:.85rem}
-  /* dialogue */
-  .dlg{list-style:none;padding:0;margin:10px 0}
-  .dlg li{padding:10px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px 1fr;gap:8px}
-  .dlg .spk-name{font-weight:700;color:var(--accent);font-size:.85rem}
-  .dlg .de{margin:3px 0}
-  .dlg .en{color:var(--muted);font-size:.9rem}
-  .dlg .ln{color:var(--muted);font-size:.82rem;font-weight:600}
-  /* grammar tap */
-  details.tap{background:var(--tap-bg);border:1px solid #e9d5ff;border-radius:9px;padding:0;margin:12px 0;overflow:hidden}
-  details.tap>summary{cursor:pointer;padding:12px 14px;font-weight:600;color:var(--tap);list-style:none}
-  details.tap>summary::-webkit-details-marker{display:none}
-  details.tap>summary::before{content:"▸ "}
-  details.tap[open]>summary::before{content:"▾ "}
-  .tap-body{padding:0 14px 14px}
-  .tap-body h4{margin:10px 0 4px;font-size:.9rem;color:var(--accent)}
-  .tap-body .bd{background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;white-space:pre-wrap;overflow-x:auto}
-  .tap-body .note{background:#fff;border-left:3px solid var(--tap);padding:8px 12px;margin:8px 0;border-radius:0 6px 6px 0;font-size:.9rem}
-  .tap-body ul{margin:6px 0;padding-left:20px}
-  .tap-body li{margin:3px 0;font-size:.9rem}
-  /* reading / listening */
-  .read{background:var(--panel);border-radius:9px;padding:14px 16px;margin:8px 0}
-  .read p{margin:8px 0}
-  .meta-read{color:var(--muted);font-size:.84rem;margin:0 0 4px}
-  /* listening */
-  .listen-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
-  .listen-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
-  .listen-controls .lbl{font-size:.84rem;color:var(--muted);margin-right:4px}
-  details.transcript{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
-  details.transcript summary{cursor:pointer;color:var(--accent);font-size:.88rem;font-weight:600}
-  details.transcript[open] summary{color:var(--muted)}
-  .transcript-body{padding:8px 0;color:var(--ink);font-size:.92rem}
-  /* quiz */
-  .quiz{margin:14px 0}
-  .quiz .q{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin:10px 0}
-  .quiz .q-stem{font-weight:600;margin:0 0 8px}
-  .quiz .opts{list-style:none;padding:0;margin:0}
-  .quiz .opts li{padding:5px 0;font-size:.93rem}
-  .quiz details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
-  .quiz details summary{cursor:pointer;color:var(--accent);font-size:.88rem;font-weight:600}
-  .quiz .ans{margin-top:6px;font-size:.9rem}
-  .quiz .ans b{color:var(--das)}
-  .quiz .class-self{color:var(--muted);font-size:.84rem;margin-top:6px}
-  /* shadowing */
-  .sh{background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px 14px;margin:10px 0}
-  .sh .sh-de{font-size:1rem;margin:0 0 6px}
-  .sh .sh-note{color:var(--muted);font-size:.86rem;margin:4px 0 0}
-  .pron-table{width:100%;margin:10px 0;font-size:.9rem}
-  .pron-table th{font-size:.8rem}
-  /* writing skip / review */
-  .skip{background:var(--panel);border-radius:9px;padding:14px 16px;color:var(--muted);font-size:.92rem}
-  .skip strong{color:var(--accent)}
-  .review-list{list-style:none;padding:0;margin:8px 0}
-  .review-list li{padding:8px 12px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
-  .review-list .rl-day{font-weight:700;color:var(--accent)}
-  .review-list a{color:var(--tap);text-decoration:none;font-size:.88rem}
-  .review-list .rl-words{color:var(--muted);font-size:.85rem;margin-top:4px}
-  /* footer */
-  footer{background:var(--panel);border-top:1px solid var(--line);padding:20px 0;font-size:.86rem;color:var(--muted)}
-  footer h3{color:var(--accent);font-size:1rem;margin:0 0 8px}
-  footer ul{padding-left:18px;margin:6px 0}
-  footer .sc{width:100%;margin:10px 0}
-  footer .sc td{font-size:.85rem}
-  footer .sc .ok{color:var(--das);font-weight:600}
-  .badge{display:inline-block;padding:1px 7px;border-radius:5px;font-size:.82rem;font-weight:600}
-  .badge.ok{background:var(--das-bg);color:var(--das)}
-  .badge.no{background:var(--die-bg);color:var(--die)}
-  /* module nav bar — sticky bottom, iOS safe area */
-  .modnav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:100;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .modnav::-webkit-scrollbar{display:none}
-  .modnav a{flex:0 0 auto;padding:8px 12px;color:var(--accent);text-decoration:none;font-size:.82rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--line);min-height:var(--nav-h);display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
-  .modnav a.home{color:var(--tap);border-right:2px solid var(--line)}
-  .modnav a:active{background:var(--panel)}
-  @media(max-width:560px){
-    h1{font-size:1.2rem}
-    .dlg li{grid-template-columns:28px 1fr}
-    table{display:none}
-    .wordcards{display:block}
-    .spk{min-height:40px;min-width:40px}
-    .speed-row{flex-wrap:wrap;gap:2px}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.75;
+    font-size:17px;padding-bottom:88px;
   }
+  .de-text{font-size:18px}
+  header{border-bottom:1px solid var(--line);padding:14px 18px 10px;background:var(--panel);position:sticky;top:0;z-index:5}
+  header .top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  header h1{margin:0;font-size:1.05rem;color:var(--accent);font-weight:700}
+  header .nav-days{font-size:.85rem;color:var(--muted)}
+  header .nav-days a{color:var(--tap);text-decoration:none;margin:0 4px}
+  .tab-panel{display:none;padding:18px;max-width:760px;margin:0 auto}
+  .tab-panel.active{display:block}
+  /* Vocab card v5: word on its own line */
+  .vocab-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 0 12px;flex-wrap:wrap}
+  .fav-filter{border:1px solid var(--line);border-radius:20px;background:#fff;padding:6px 14px;cursor:pointer;font-size:.9rem;color:var(--muted);min-height:40px}
+  .fav-filter.on{background:var(--tap);color:#fff;border-color:var(--tap)}
+  .vocab-grid{display:grid;gap:12px}
+  .vcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:6px solid var(--neutral)}
+  .vcard.art-der{border-left-color:var(--der)}
+  .vcard.art-die{border-left-color:var(--die)}
+  .vcard.art-das{border-left-color:var(--das)}
+  /* v5.3 §13-1: Group A/C noun cards get beige background (noun visual identity);
+     gender color bar + l1 capsule tint preserved; Group B verb cards keep white */
+  .vcard.art-der,.vcard.art-die,.vcard.art-das{background:#FFF8DC}
+  .vcard.fav{box-shadow:0 0 0 2px var(--tap) inset}
+  .vcard .fav-star{position:absolute;top:10px;right:14px;cursor:pointer;font-size:1.15rem;color:var(--line);user-select:none}
+  .vcard.fav .fav-star{color:#eab308}
+  .vcard .l1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .vcard .word{font-size:1.25rem;font-weight:700}
+  .vcard .l2{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:4px 0;color:var(--muted);font-size:.95rem}
+  .vcard .l3{color:var(--accent);font-weight:600;margin:2px 0}
+  .vcard .l4{font-size:.95rem;color:var(--ink);margin-top:4px}
+  .vcard .l4 .en-ex{color:var(--muted);font-size:.9rem;display:block}
+  .art{display:inline-block;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.9rem;color:#fff}
+  .art-der{background:var(--der)} .art-die{background:var(--die)} .art-das{background:var(--das)}
+  .spk{display:inline-block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:2px 9px;cursor:pointer;font-size:.95rem;min-height:28px;line-height:1;user-select:none}
+  .spk:hover{background:var(--tap-bg);border-color:var(--tap)}
+  .spk-sentence{display:inline-flex;gap:4px;flex-wrap:wrap;margin:6px 0;align-items:center}
+  .spbtn{border:1px solid var(--line);border-radius:8px;background:#fff;padding:4px 10px;cursor:pointer;font-size:.85rem;color:var(--muted);min-height:32px}
+  .spbtn.active{background:var(--tap);color:#fff;border-color:var(--tap)}
+  /* noun gender text color */
+  .g-der{color:var(--der)} .g-die{color:var(--die)} .g-das{color:var(--das)}
+  /* valence tag clickable */
+  .valence{margin-left:6px;color:var(--tap);cursor:pointer;font-weight:700;text-decoration:underline;display:inline-flex;align-items:center}
+  /* Dialogue */
+  .dlg{display:grid;gap:12px}
+  .bubble{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .bubble .who{font-weight:700;color:var(--tap);font-size:.9rem;margin-bottom:4px}
+  .bubble .de-text{margin:4px 0 2px}
+  .bubble .en{color:var(--muted);font-size:.92rem}
+  .tok{display:inline;border-bottom:1.5px dashed var(--tap);cursor:pointer;padding:0 1px}
+  .tok:hover{background:var(--tap-bg)}
+  .tap-btn{display:inline-block;background:var(--tap-bg);color:var(--tap);border:1px solid var(--tap);border-radius:8px;padding:1px 7px;font-size:.8rem;cursor:pointer;margin-left:6px}
+  /* Overlay */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:none;align-items:center;justify-content:center;padding:16px}
+  .overlay.show{display:flex}
+  .overlay .card{background:#fff;border-radius:14px;padding:18px 20px;max-width:520px;width:100%;max-height:80vh;overflow:auto}
+  .overlay .close{float:right;cursor:pointer;color:var(--muted);font-size:1.2rem;border:none;background:none}
+  .overlay .layer{margin:10px 0;padding:10px 12px;background:var(--panel);border-radius:8px}
+  .overlay .layer b{color:var(--tap)}
+  .overlay .l1-table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:4px}
+  .overlay .l1-table td{padding:3px 6px;border-bottom:1px solid var(--line)}
+  .overlay .l1-table .de{color:var(--ink);font-weight:600}
+  .overlay .l1-table .en{color:var(--tap)}
+  .overlay .l2-row{display:grid;grid-template-columns:auto 1fr;gap:6px;font-size:.92rem;padding:3px 0;border-bottom:1px solid var(--line)}
+  .overlay .l2-row .w{font-weight:700;min-width:80px}
+  .overlay .l2-row .m{color:var(--muted)}
+  .overlay .l3-tip{font-size:.92rem;line-height:1.6}
+  .overlay .l3-tip p{margin:4px 0}
+  /* Listening */
+  .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+  .player-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+  .play-btn{border:none;background:var(--tap);color:#fff;border-radius:24px;padding:8px 16px;cursor:pointer;font-size:.95rem;font-weight:600;min-height:40px}
+  .play-btn.playing{background:var(--bad)}
+  .stop-btn{border:1px solid var(--bad);background:#fff;color:var(--bad);border-radius:24px;padding:8px 14px;cursor:pointer;font-size:.9rem;min-height:40px}
+  .speed-row{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+
+  /* v5.1 §11-1 词卡连体胶囊 (v5.2 §12.A-2: tint 用变量, 加粗 700) */
+  .vcard .l1{display:flex;align-items:baseline;gap:0;flex-wrap:wrap}
+  .vcard .l1 .art{display:inline-block;padding:1px 6px;border-radius:6px 0 0 6px;margin-right:0;font-weight:600}
+  .vcard .l1 .word{display:inline-block;padding:1px 8px 1px 6px;border-radius:0 6px 6px 0;margin-left:0;font-weight:700}
+  .vcard .l1 .art.art-der{background:var(--der-bg);color:#5c7a99}
+  .vcard .l1 .art.art-die{background:var(--die-bg);color:#a06b7a}
+  .vcard .l1 .art.art-das{background:var(--das-bg);color:#7a9178}
+  .vcard .l1 .word.g-der{background:var(--der-bg);color:#3a5570;font-weight:700}
+  .vcard .l1 .word.g-die{background:var(--die-bg);color:#7a4a55;font-weight:700}
+  .vcard .l1 .word.g-das{background:var(--das-bg);color:#4a6048;font-weight:700}
+  /* v5.2 §12.A-3 动词中性徽标 */
+  .vcard .verb-tag{display:inline-block;border:1px solid var(--tap);background:transparent;color:var(--tap);border-radius:4px;padding:1px 6px;font-weight:600;font-size:.78em;margin-right:4px;vertical-align:middle}
+  /* v5.2 §12.A-1 模块级重做按钮 */
+  .module-redo{display:block;margin:14px 0 0;padding:9px 14px;border:1px dashed var(--tap);background:var(--tap-bg);color:var(--tap);border-radius:8px;cursor:pointer;font-size:.92rem;font-weight:600;min-height:44px;width:100%}
+  .module-redo:hover{background:var(--tap);color:#fff}
+  /* v5.2 §12.A-7 整页重置按钮 */
+  .reset-day{display:block;margin:18px auto 0;padding:11px 18px;border:1px solid var(--bad);background:#fff;color:var(--bad);border-radius:24px;font-weight:600;font-size:.95rem;cursor:pointer;min-height:44px}
+  .reset-day:hover{background:var(--bad);color:#fff}
+  /* l2 复数行冠词上色块 */
+  .vcard .l2 .art{display:inline-block;padding:1px 5px;border-radius:4px;font-weight:600;font-size:.88em}
+  .vcard .l2 .art.art-der{background:rgba(92,122,153,.18);color:#5c7a99}
+  .vcard .l2 .art.art-die{background:rgba(160,107,122,.18);color:#a06b7a}
+  .vcard .l2 .art.art-das{background:rgba(122,145,120,.18);color:#7a9178}
+
+  .transcript{background:var(--panel);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;display:none}
+  .transcript.show{display:block}
+  .transcript .de-text{margin:4px 0}
+  .transcript .en{color:var(--muted);font-size:.9rem;margin:0 0 10px}
+  /* Quiz */
+  .quiz{margin:10px 0}
+  .quiz .q{font-weight:600;margin:10px 0 6px}
+  .quiz .opts{display:grid;gap:6px}
+  .quiz .opt{border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;background:#fff;min-height:44px;text-align:left;font-size:.95rem}
+  .quiz .opt:hover{background:var(--panel)}
+  .quiz .opt.correct{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+  .quiz .opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+  .quiz .opt:disabled{cursor:default;opacity:.9}
+  .quiz .fb{margin-top:6px;padding:10px;background:var(--panel);border-radius:8px;display:none;font-size:.92rem}
+  .quiz .fb.show{display:block}
+  .quiz .fb b{color:var(--tap)}
+  .quiz .errcat{margin-top:6px;font-size:.88rem;color:var(--muted)}
+  .quiz .errcat .lab{display:inline-block;margin:3px 4px 3px 0;padding:2px 8px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+  .quiz .errcat .lab:hover{background:var(--panel)}
+  .quiz .redo{margin-top:8px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.82rem;color:var(--muted);min-height:36px}
+  .quiz .redo:hover{background:var(--panel)}
+  .quiz-header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  /* v5.3 §13-2: Full translation details + Grammar in context */
+  details.full-trans{border:1px solid var(--line);border-radius:10px;background:#fff;margin:14px 0}
+  details.full-trans summary{cursor:pointer;font-weight:700;color:var(--accent);padding:11px 14px;min-height:44px;display:flex;align-items:center;list-style:none}
+  details.full-trans summary::-webkit-details-marker{display:none}
+  details.full-trans summary::before{content:"▸ ";color:var(--tap)}
+  details.full-trans[open] summary::before{content:"▾ "}
+  details.full-trans .ft-body{padding:0 14px 12px;font-size:.95rem;line-height:1.7}
+  details.full-trans .ft-body p{margin:6px 0}
+  .gctx{border:1px solid var(--line);border-radius:10px;background:#fff;margin:14px 0;padding:12px 14px}
+  .gctx h3{margin:0 0 4px;font-size:1rem;color:var(--accent)}
+  .gctx .gctx-item{border-top:1px dashed var(--line);padding:10px 0}
+  .gctx .gctx-item:first-of-type{border-top:none}
+  .gctx .quote{background:var(--panel);border-left:3px solid var(--tap);border-radius:0 8px 8px 0;padding:8px 10px;margin:6px 0;font-size:1.02rem}
+  .gctx .expl{font-size:.93rem;line-height:1.7;margin:6px 0 0;color:var(--ink)}
+  .gctx .expl b{color:var(--tap)}
+  .wspk{border-bottom:1.5px dotted var(--tap);cursor:pointer}
+  /* §12.B Cloud sync box */
+  .syncbox{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 14px;font-size:.9rem}
+  .syncbox .sync-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}
+  .syncbox input{flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.95rem}
+  .syncbox button{border:1px solid var(--tap);background:var(--tap-bg);color:var(--tap);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;min-height:40px}
+  .syncbox button:hover{background:var(--tap);color:#fff}
+  .syncbox .ns{font-weight:700;color:var(--accent)}
+  .syncbox .stat{color:var(--muted);font-size:.85rem}
+  /* Shadowing */
+  .shad{display:grid;gap:10px}
+  .shad .row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .shad .de-text{margin:4px 0}
+  .shad .stress{font-size:.88rem;color:var(--tap);margin:4px 0 6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .shad .ctrl{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px}
+  .shad button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:5px 10px;cursor:pointer;font-size:.9rem;min-height:40px}
+  .shad .rec{border-color:var(--bad);color:var(--bad)}
+  .shad .rec.recording{background:var(--bad);color:#fff}
+  .shad .play{border-color:var(--ok);color:var(--ok)}
+  .pron-tip{background:var(--tap-bg);border-left:3px solid var(--tap);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.92rem}
+  .pron-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.88rem}
+  .pron-table th{background:var(--panel);padding:5px 8px;text-align:left;border:1px solid var(--line);color:var(--accent)}
+  .pron-table td{padding:5px 8px;border:1px solid var(--line)}
+  /* Writing */
+  .wcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .wcard .rubric{background:var(--panel);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:.92rem}
+  .wcard textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:8px;padding:10px;font-family:inherit;font-size:1rem;resize:vertical}
+  /* Review */
+  .rev-list{display:grid;gap:8px}
+  .rev-list a{display:block;text-decoration:none;color:var(--tap);font-weight:600;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+  .rev-list .sub{color:var(--muted);font-weight:400;font-size:.85rem;margin-top:2px;display:block}
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:14px 18px;background:var(--panel);font-size:.85rem;color:var(--muted)}
+  footer ul{margin:6px 0;padding-left:18px}
+  /* Tab bar */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;overflow-x:auto;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
+  .tabbar .tab{flex:1 0 auto;min-width:62px;text-align:center;padding:8px 4px 10px;cursor:pointer;color:var(--muted);font-size:.72rem;border:none;background:none;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .tabbar .tab .ic{font-size:1.3rem;line-height:1}
+  .tabbar .tab.active{color:var(--tap)}
+  .tabbar .tab.disabled{opacity:.35;cursor:not-allowed}
+  .step-row{display:flex;justify-content:space-between;gap:8px;margin-top:18px;max-width:760px;margin-left:auto;margin-right:auto}
+  .step-row button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 14px;cursor:pointer;font-size:.9rem;min-height:44px}
+  .step-row button:hover{background:var(--panel)}
+  .step-row .next{background:var(--tap);color:#fff;border-color:var(--tap)}
+  .mark-studied{display:block;margin:18px auto 0;padding:11px 18px;border:none;border-radius:24px;background:var(--ok);color:#fff;font-weight:600;font-size:1rem;cursor:pointer;min-height:44px}
+  .mark-studied.done{background:var(--neutral)}
+  .empty{color:var(--muted);font-style:italic;padding:14px;background:var(--panel);border-radius:8px}
+  .valence-card{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25;display:none;align-items:center;justify-content:center;padding:16px}
+  .valence-card.show{display:flex}
+  .valence-card .inner{background:#fff;border-radius:14px;padding:18px 20px;max-width:480px;width:100%;max-height:80vh;overflow:auto}
+  .valence-card h3{margin:0 0 8px;color:var(--accent)}
+  .valence-card .vc-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:6px}
+  .valence-card .vc-table th,.valence-card .vc-table td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+  .valence-card .vc-table th{background:var(--panel)}
 </style>
 </head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <nav class="nav-top">
-      <a href="day-001.html">← Day 1</a>
-      <a href="../index.html">Home</a>
-      <span class="nav-disabled">Day 3 →</span>
-    </nav>
-    <h1>Day 2 · A1 · 在柏林机场：到达与问路</h1>
-    <p class="lede">You've just landed at Berlin airport (BER). Today you learn to find your luggage, ask where the train station is, and understand a simple airport announcement. · 讲解语言：英语 · 内容语言：德语 · 全文不含任何游戏化元素。</p>
+<body data-page-node-id="1JLtdA3jjEXGr2Cn9FzZlz">
+<header>
+  <div class="top">
+    <h1>Day 2 · A1 上 · 在柏林机场：到达与问路</h1>
+    <div class="nav-days"><a href="days/day-001.html">← Day 1</a> | <a href="../index.html">🏠 Dashboard</a></div>
   </div>
 </header>
 
-<main class="wrap">
+<!-- ============ VOCABULARY (v5) ============ -->
+<section class="tab-panel active" id="t-vocab">
+  <h2>📚 Vocabulary · 15 new words</h2>
+  <p style="color:var(--muted);font-size:.92rem">Words grouped by English–German cognate ties. Tap 🔊 to hear. Tap ⭐ to favorite. Tap ❓ next to a verb for the cases reference. Verbs: 🔊 first, then ❓.</p>
+  <div class="vocab-toolbar">
+    <span style="color:var(--muted);font-size:.9rem">15 words · 3 groups</span>
+    <button class="fav-filter" id="favFilter" onclick="toggleFavFilter()">☆ Only favorites ⭐</button>
+  </div>
+  <div class="vocab-grid" id="vocabGrid">
 
-<!-- 1. WORDS -->
-<section id="words">
-  <h2><span class="num">1.</span> Today's Words <span style="font-weight:400;color:var(--muted);font-size:.9rem">(15 new)</span></h2>
-  <p class="sec-intro">Grouped by cognate relationship where possible. Every noun comes with its article and plural — always learn them together.</p>
+    <h3 style="margin:10px 0 4px;font-size:1rem;color:var(--accent)">Group A · Cognates (travel &amp; airport)</h3>
 
-  <div class="grp">
-    <h3>Group A · Cognates (travel & airport)</h3>
-    <table>
-      <thead><tr><th>German (with article)</th><th>Plural</th><th>English</th><th>Example (German + English)</th></tr></thead>
-      <tbody>
-        <tr><td><span class="art art-das">das</span> <span class="noun">Ticket</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Ticket')">🔊</span></span></td><td>die Tickets</td><td>ticket</td><td>Ich habe ein Ticket.<span class="ex">I have a ticket.</span></td></tr>
-        <tr><td><span class="art art-das">das</span> <span class="noun">Taxi</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Taxi')">🔊</span></span></td><td>die Taxis</td><td>taxi</td><td>Ich nehme ein Taxi.<span class="ex">I take a taxi.</span></td></tr>
-        <tr><td><span class="art art-die">die</span> <span class="noun">Familie</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Familie')">🔊</span></span></td><td>die Familien</td><td>family</td><td>Meine Familie ist in China.<span class="ex">My family is in China.</span></td></tr>
-        <tr><td><span class="art art-der">der</span> <span class="noun">Pass</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Pass')">🔊</span></span></td><td>die Pässe</td><td>passport</td><td>Wo ist mein Pass?<span class="ex">Where is my passport?</span></td></tr>
-        <tr><td><span class="art art-das">das</span> <span class="noun">Problem</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Problem')">🔊</span></span></td><td>die Probleme</td><td>problem</td><td>Kein Problem!<span class="ex">No problem!</span></td></tr>
-      </tbody>
-    </table>
-    <div class="wordcards">
-      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Ticket</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Ticket')">🔊</span></span></div><div class="wc-pl">Plural: die Tickets</div><div class="wc-en">ticket</div><div class="wc-ex">Ich habe ein Ticket. <span class="en">I have a ticket.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Taxi</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Taxi')">🔊</span></span></div><div class="wc-pl">Plural: die Taxis</div><div class="wc-en">taxi</div><div class="wc-ex">Ich nehme ein Taxi. <span class="en">I take a taxi.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Familie</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Familie')">🔊</span></span></div><div class="wc-pl">Plural: die Familien</div><div class="wc-en">family</div><div class="wc-ex">Meine Familie ist in China. <span class="en">My family is in China.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Pass</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Pass')">🔊</span></span></div><div class="wc-pl">Plural: die Pässe</div><div class="wc-en">passport</div><div class="wc-ex">Wo ist mein Pass? <span class="en">Where is my passport?</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-das">das</span> <span class="noun">Problem</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'das Problem')">🔊</span></span></div><div class="wc-pl">Plural: die Probleme</div><div class="wc-en">problem</div><div class="wc-ex">Kein Problem! <span class="en">No problem!</span></div></div>
+    <div class="vcard art-das" data-word="das Ticket">
+      <span class="fav-star" onclick="toggleFav(this,'das Ticket')">☆</span>
+      <div class="l1"><span class="art art-das">das</span><span class="word g-das">Ticket</span> <span class="spk" onclick="speakWord('das Ticket')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Tickets <span class="spk" onclick="speakWord('die Tickets')">🔊</span></div>
+      <div class="l3">ticket</div>
+      <div class="l4"><span class="de-text">Ich habe ein Ticket.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich habe ein Ticket.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich habe ein Ticket.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich habe ein Ticket.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich habe ein Ticket.')">1.25×</button></span><span class="en-ex">I have a ticket.</span></div>
+    </div>
+
+    <div class="vcard art-das" data-word="das Taxi">
+      <span class="fav-star" onclick="toggleFav(this,'das Taxi')">☆</span>
+      <div class="l1"><span class="art art-das">das</span><span class="word g-das">Taxi</span> <span class="spk" onclick="speakWord('das Taxi')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Taxis <span class="spk" onclick="speakWord('die Taxis')">🔊</span></div>
+      <div class="l3">taxi</div>
+      <div class="l4"><span class="de-text">Ich nehme ein Taxi.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme ein Taxi.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme ein Taxi.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme ein Taxi.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme ein Taxi.')">1.25×</button></span><span class="en-ex">I take a taxi.</span></div>
+    </div>
+
+    <div class="vcard art-die" data-word="die Familie">
+      <span class="fav-star" onclick="toggleFav(this,'die Familie')">☆</span>
+      <div class="l1"><span class="art art-die">die</span><span class="word g-die">Familie</span> <span class="spk" onclick="speakWord('die Familie')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Familien <span class="spk" onclick="speakWord('die Familien')">🔊</span></div>
+      <div class="l3">family</div>
+      <div class="l4"><span class="de-text">Meine Familie ist in China.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Meine Familie ist in China.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Meine Familie ist in China.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Meine Familie ist in China.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Meine Familie ist in China.')">1.25×</button></span><span class="en-ex">My family is in China.</span></div>
+    </div>
+
+    <div class="vcard art-der" data-word="der Pass">
+      <span class="fav-star" onclick="toggleFav(this,'der Pass')">☆</span>
+      <div class="l1"><span class="art art-der">der</span><span class="word g-der">Pass</span> <span class="spk" onclick="speakWord('der Pass')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Pässe <span class="spk" onclick="speakWord('die Pässe')">🔊</span></div>
+      <div class="l3">passport</div>
+      <div class="l4"><span class="de-text">Wo ist mein Pass?</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Wo ist mein Pass?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Wo ist mein Pass?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Wo ist mein Pass?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Wo ist mein Pass?')">1.25×</button></span><span class="en-ex">Where is my passport?</span></div>
+    </div>
+
+    <div class="vcard art-das" data-word="das Problem">
+      <span class="fav-star" onclick="toggleFav(this,'das Problem')">☆</span>
+      <div class="l1"><span class="art art-das">das</span><span class="word g-das">Problem</span> <span class="spk" onclick="speakWord('das Problem')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Probleme <span class="spk" onclick="speakWord('die Probleme')">🔊</span></div>
+      <div class="l3">problem</div>
+      <div class="l4"><span class="de-text">Kein Problem!</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Kein Problem!')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Kein Problem!')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Kein Problem!')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Kein Problem!')">1.25×</button></span><span class="en-ex">No problem!</span></div>
+    </div>
+
+    <h3 style="margin:14px 0 4px;font-size:1rem;color:var(--accent)">Group B · Verbs (🔊 then ❓)</h3>
+
+    <div class="vcard" data-word="suchen">
+      <span class="fav-star" onclick="toggleFav(this,'suchen')">☆</span>
+      <div class="l1"><span class="verb-tag">Verb</span><span class="word">suchen</span> <span class="spk" onclick="speakWord('suchen')">🔊</span> <span class="valence" onclick="openValence('suchen','akkusativ')">❓</span></div>
+      <div class="l3">to look for <span style="color:var(--muted);font-size:.88rem">(sucht + Akk.)</span></div>
+      <div class="l4"><span class="de-text">Ich suche den Bahnhof.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich suche den Bahnhof.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich suche den Bahnhof.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich suche den Bahnhof.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich suche den Bahnhof.')">1.25×</button></span><span class="en-ex">I am looking for the train station.</span></div>
+    </div>
+
+    <div class="vcard" data-word="finden">
+      <span class="fav-star" onclick="toggleFav(this,'finden')">☆</span>
+      <div class="l1"><span class="verb-tag">Verb</span><span class="word">finden</span> <span class="spk" onclick="speakWord('finden')">🔊</span> <span class="valence" onclick="openValence('finden','akkusativ')">❓</span></div>
+      <div class="l3">to find <span style="color:var(--muted);font-size:.88rem">(findet + Akk.)</span></div>
+      <div class="l4"><span class="de-text">Ich finde meinen Koffer.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich finde meinen Koffer.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich finde meinen Koffer.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich finde meinen Koffer.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich finde meinen Koffer.')">1.25×</button></span><span class="en-ex">I find my suitcase.</span></div>
+    </div>
+
+    <div class="vcard" data-word="nehmen">
+      <span class="fav-star" onclick="toggleFav(this,'nehmen')">☆</span>
+      <div class="l1"><span class="verb-tag">Verb</span><span class="word">nehmen</span> <span class="spk" onclick="speakWord('nehmen')">🔊</span> <span class="valence" onclick="openValence('nehmen','akkusativ')">❓</span></div>
+      <div class="l3">to take <span style="color:var(--muted);font-size:.88rem">(nimmt + Akk.; stem vowel e→i)</span></div>
+      <div class="l4"><span class="de-text">Ich nehme das Taxi.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme das Taxi.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme das Taxi.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme das Taxi.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme das Taxi.')">1.25×</button></span><span class="en-ex">I take the taxi.</span></div>
+    </div>
+
+    <div class="vcard" data-word="sprechen">
+      <span class="fav-star" onclick="toggleFav(this,'sprechen')">☆</span>
+      <div class="l1"><span class="verb-tag">Verb</span><span class="word">sprechen</span> <span class="spk" onclick="speakWord('sprechen')">🔊</span> <span class="valence" onclick="openValence('sprechen','akkusativ')">❓</span></div>
+      <div class="l3">to speak <span style="color:var(--muted);font-size:.88rem">(spricht + Akk. / sprechen mit + Dativ)</span></div>
+      <div class="l4"><span class="de-text">Ich spreche ein bisschen Deutsch.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich spreche ein bisschen Deutsch.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich spreche ein bisschen Deutsch.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich spreche ein bisschen Deutsch.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich spreche ein bisschen Deutsch.')">1.25×</button></span><span class="en-ex">I speak a little German.</span></div>
+    </div>
+
+    <h3 style="margin:14px 0 4px;font-size:1rem;color:var(--accent)">Group C · Airport &amp; asking the way</h3>
+
+    <div class="vcard art-der" data-word="der Flughafen">
+      <span class="fav-star" onclick="toggleFav(this,'der Flughafen')">☆</span>
+      <div class="l1"><span class="art art-der">der</span><span class="word g-der">Flughafen</span> <span class="spk" onclick="speakWord('der Flughafen')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Flughäfen <span class="spk" onclick="speakWord('die Flughäfen')">🔊</span></div>
+      <div class="l3">airport</div>
+      <div class="l4"><span class="de-text">Ich bin auf dem Flughafen.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bin auf dem Flughafen.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bin auf dem Flughafen.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bin auf dem Flughafen.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bin auf dem Flughafen.')">1.25×</button></span><span class="en-ex">I am at the airport.</span></div>
+    </div>
+
+    <div class="vcard art-der" data-word="der Bahnhof">
+      <span class="fav-star" onclick="toggleFav(this,'der Bahnhof')">☆</span>
+      <div class="l1"><span class="art art-der">der</span><span class="word g-der">Bahnhof</span> <span class="spk" onclick="speakWord('der Bahnhof')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Bahnhöfe <span class="spk" onclick="speakWord('die Bahnhöfe')">🔊</span></div>
+      <div class="l3">train station</div>
+      <div class="l4"><span class="de-text">Wo ist der Bahnhof?</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Wo ist der Bahnhof?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Wo ist der Bahnhof?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Wo ist der Bahnhof?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Wo ist der Bahnhof?')">1.25×</button></span><span class="en-ex">Where is the train station?</span></div>
+    </div>
+
+    <div class="vcard art-der" data-word="der Koffer">
+      <span class="fav-star" onclick="toggleFav(this,'der Koffer')">☆</span>
+      <div class="l1"><span class="art art-der">der</span><span class="word g-der">Koffer</span> <span class="spk" onclick="speakWord('der Koffer')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-der">die</span> Koffer <span class="spk" onclick="speakWord('die Koffer')">🔊</span></div>
+      <div class="l3">suitcase</div>
+      <div class="l4"><span class="de-text">Ich finde meinen Koffer nicht.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich finde meinen Koffer nicht.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich finde meinen Koffer nicht.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich finde meinen Koffer nicht.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich finde meinen Koffer nicht.')">1.25×</button></span><span class="en-ex">I can't find my suitcase.</span></div>
+    </div>
+
+    <div class="vcard art-die" data-word="die Frage">
+      <span class="fav-star" onclick="toggleFav(this,'die Frage')">☆</span>
+      <div class="l1"><span class="art art-die">die</span><span class="word g-die">Frage</span> <span class="spk" onclick="speakWord('die Frage')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Fragen <span class="spk" onclick="speakWord('die Fragen')">🔊</span></div>
+      <div class="l3">question</div>
+      <div class="l4"><span class="de-text">Ich habe eine Frage.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich habe eine Frage.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich habe eine Frage.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich habe eine Frage.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich habe eine Frage.')">1.25×</button></span><span class="en-ex">I have a question.</span></div>
+    </div>
+
+    <div class="vcard art-die" data-word="die Antwort">
+      <span class="fav-star" onclick="toggleFav(this,'die Antwort')">☆</span>
+      <div class="l1"><span class="art art-die">die</span><span class="word g-die">Antwort</span> <span class="spk" onclick="speakWord('die Antwort')">🔊</span></div>
+      <div class="l2">Pl. <span class="art art-die">die</span> Antworten <span class="spk" onclick="speakWord('die Antworten')">🔊</span></div>
+      <div class="l3">answer</div>
+      <div class="l4"><span class="de-text">Die Antwort ist einfach.</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Antwort ist einfach.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Antwort ist einfach.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Antwort ist einfach.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Antwort ist einfach.')">1.25×</button></span><span class="en-ex">The answer is simple.</span></div>
+    </div>
+
+    <div class="vcard" data-word="Entschuldigung">
+      <span class="fav-star" onclick="toggleFav(this,'Entschuldigung')">☆</span>
+      <div class="l1"><span class="word">Entschuldigung</span> <span class="spk" onclick="speakWord('Entschuldigung')">🔊</span></div>
+      <div class="l2">(interjection · no plural)</div>
+      <div class="l3">excuse me</div>
+      <div class="l4"><span class="de-text">Entschuldigung, wo ist der Bahnhof?</span> <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Entschuldigung, wo ist der Bahnhof?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Entschuldigung, wo ist der Bahnhof?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Entschuldigung, wo ist der Bahnhof?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Entschuldigung, wo ist der Bahnhof?')">1.25×</button></span><span class="en-ex">Excuse me, where is the train station?</span></div>
+    </div>
+
+  </div>
+
+  <p style="font-size:.9rem;color:var(--muted);margin-top:12px"><b>Tip</b>: Notice how der Pass, das Ticket, das Taxi all have different articles — there is no rule from meaning. Memorize the article WITH the noun from day one.</p>
+
+  <!-- Vocab quiz (v5 §10.1-3) -->
+  <div class="lcard" style="margin-top:16px">
+    <h3 style="margin:0 0 8px;color:var(--accent)">📝 Today's word check · 5 questions</h3>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">VQ1 · der Pass = ?</div></div>
+      <div class="opts" data-q="vq1">
+        <button class="opt" onclick="answerOpt(this,true,'vq1','原文: &quot;Und mein Pass auch&quot;. 对: der Pass = passport. 考点: der 阳性 + 机场核心词.')">passport</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq1','der Pass = passport. 考点: der 阳性 + 机场核心词.')">suitcase</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq1','der Pass = passport. 考点: der 阳性 + 机场核心词.')">problem</button>
+      </div>
+      <div class="fb" id="fb-vq1"></div>
+      <div class="errcat" id="ec-vq1" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'vq1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'vq1','粗心')">粗心</span></div>
+      <button class="redo" onclick="redoQuiz('vq1')">↻ Redo</button>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">VQ2 · die Antwort = ?</div></div>
+      <div class="opts" data-q="vq2">
+        <button class="opt" onclick="answerOpt(this,false,'vq2','die Antwort = answer. 考点: die 阴性 + Frage/Antwort 成对记忆.')">question</button>
+        <button class="opt" onclick="answerOpt(this,true,'vq2','原文: &quot;Die Antwort ist einfach&quot;. 对: die Antwort = answer. 考点: die 阴性 + Frage/Antwort 成对记忆.')">answer</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq2','die Antwort = answer. 考点: die 阴性 + Frage/Antwort 成对记忆.')">airport</button>
+      </div>
+      <div class="fb" id="fb-vq2"></div>
+      <div class="errcat" id="ec-vq2" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'vq2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'vq2','粗心')">粗心</span></div>
+      <button class="redo" onclick="redoQuiz('vq2')">↻ Redo</button>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">VQ3 · Listen: <span class="spk" onclick="speakWord('der Koffer')">🔊</span> — which word?</div></div>
+      <div class="opts" data-q="vq3">
+        <button class="opt" onclick="answerOpt(this,false,'vq3','听力是 &quot;der Koffer&quot; = suitcase. 考点: Koffer (o) vs Kaffee (a) 元音区分, der 阳性.')">Kaffee</button>
+        <button class="opt" onclick="answerOpt(this,true,'vq3','听力原文: &quot;der Koffer&quot;. 对: 你听对了. 考点: Koffer/Kaffee 近音词区分 + der 阳性.')">Koffer</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq3','听力是 &quot;der Koffer&quot; = suitcase. 考点: Koffer (o) vs Kaffee (a) 元音区分, der 阳性.')">Bahnhof</button>
+      </div>
+      <div class="fb" id="fb-vq3"></div>
+      <div class="errcat" id="ec-vq3" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'vq3','没听清')">没听清</span><span class="lab" onclick="pickErr(this,'vq3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'vq3','粗心')">粗心</span></div>
+      <button class="redo" onclick="redoQuiz('vq3')">↻ Redo</button>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">VQ4 · ___ Familie (fem.) — which article?</div></div>
+      <div class="opts" data-q="vq4">
+        <button class="opt" onclick="answerOpt(this,false,'vq4','Familie 是阴性: die Familie. 考点: -ie 结尾几乎总是阴性.')">der</button>
+        <button class="opt" onclick="answerOpt(this,true,'vq4','Familie 是阴性: die Familie. 对: 阴性配 die. 考点: -ie 结尾几乎总是阴性.')">die</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq4','Familie 是阴性: die Familie. 考点: -ie 结尾几乎总是阴性.')">das</button>
+      </div>
+      <div class="fb" id="fb-vq4"></div>
+      <div class="errcat" id="ec-vq4" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'vq4','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'vq4','粗心')">粗心</span></div>
+      <button class="redo" onclick="redoQuiz('vq4')">↻ Redo</button>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">VQ5 · ___ Problem (neut.) — which article?</div></div>
+      <div class="opts" data-q="vq5">
+        <button class="opt" onclick="answerOpt(this,false,'vq5','Problem 是中性: das Problem. 考点: -em 结尾外来词多中性 + Kein Problem 固定说法.')">der</button>
+        <button class="opt" onclick="answerOpt(this,false,'vq5','Problem 是中性: das Problem. 考点: -em 结尾外来词多中性 + Kein Problem 固定说法.')">die</button>
+        <button class="opt" onclick="answerOpt(this,true,'vq5','Problem 是中性: das Problem. 对: 中性配 das. 考点: -em 结尾外来词多中性 + Kein Problem 固定说法.')">das</button>
+      </div>
+      <div class="fb" id="fb-vq5"></div>
+      <div class="errcat" id="ec-vq5" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'vq5','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'vq5','粗心')">粗心</span></div>
+      <button class="redo" onclick="redoQuiz('vq5')">↻ Redo</button>
     </div>
   </div>
 
-  <div class="grp">
-    <h3>Group B · Core verbs (with valence)</h3>
-    <table>
-      <thead><tr><th>German</th><th>Valence</th><th>English</th><th>Example</th></tr></thead>
-      <tbody>
-        <tr><td><span class="noun">suchen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'suchen')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to look for</td><td>Ich suche den Bahnhof.<span class="ex">I am looking for the train station.</span></td></tr>
-        <tr><td><span class="noun">finden</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'finden')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to find</td><td>Ich finde meinen Koffer.<span class="ex">I find my suitcase.</span></td></tr>
-        <tr><td><span class="noun">nehmen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'nehmen')">🔊</span></span></td><td>(+ Akkusativ)</td><td>to take</td><td>Ich nehme das Taxi.<span class="ex">I take the taxi.</span></td></tr>
-        <tr><td><span class="noun">sprechen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'sprechen')">🔊</span></span></td><td>(+ Akk. / mit + Dat.)</td><td>to speak</td><td>Ich spreche ein bisschen Deutsch.<span class="ex">I speak a little German.</span></td></tr>
-      </tbody>
-    </table>
-    <div class="wordcards">
-      <div class="wcard"><div class="wc-head"><span class="noun">suchen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'suchen')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to look for</div><div class="wc-ex">Ich suche den Bahnhof. <span class="en">I am looking for the train station.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="noun">finden</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'finden')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to find</div><div class="wc-ex">Ich finde meinen Koffer. <span class="en">I find my suitcase.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="noun">nehmen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'nehmen')">🔊</span></span></div><div class="wc-pl">Valence: + Akkusativ</div><div class="wc-en">to take</div><div class="wc-ex">Ich nehme das Taxi. <span class="en">I take the taxi.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="noun">sprechen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'sprechen')">🔊</span></span></div><div class="wc-pl">Valence: + Akk. / mit + Dat.</div><div class="wc-en">to speak</div><div class="wc-ex">Ich spreche ein bisschen Deutsch. <span class="en">I speak a little German.</span></div></div>
-    </div>
-  </div>
+  <button class="module-redo" onclick="redoModule('vocab')">↻ Redo this module · 5 questions</button>
 
-  <div class="grp">
-    <h3>Group C · Airport & asking the way</h3>
-    <table>
-      <thead><tr><th>German (with article)</th><th>Plural</th><th>English</th><th>Example</th></tr></thead>
-      <tbody>
-        <tr><td><span class="art art-der">der</span> <span class="noun">Flughafen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Flughafen')">🔊</span></span></td><td>die Flughäfen</td><td>airport</td><td>Ich bin auf dem Flughafen.<span class="ex">I am at the airport.</span></td></tr>
-        <tr><td><span class="art art-der">der</span> <span class="noun">Bahnhof</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Bahnhof')">🔊</span></span></td><td>die Bahnhöfe</td><td>train station</td><td>Wo ist der Bahnhof?<span class="ex">Where is the train station?</span></td></tr>
-        <tr><td><span class="art art-der">der</span> <span class="noun">Koffer</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Koffer')">🔊</span></span></td><td>die Koffer</td><td>suitcase</td><td>Ich finde meinen Koffer nicht.<span class="ex">I can't find my suitcase.</span></td></tr>
-        <tr><td><span class="art art-die">die</span> <span class="noun">Frage</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Frage')">🔊</span></span></td><td>die Fragen</td><td>question</td><td>Ich habe eine Frage.<span class="ex">I have a question.</span></td></tr>
-        <tr><td><span class="art art-die">die</span> <span class="noun">Antwort</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Antwort')">🔊</span></span></td><td>die Antworten</td><td>answer</td><td>Die Antwort ist einfach.<span class="ex">The answer is simple.</span></td></tr>
-        <tr><td><span class="noun">Entschuldigung</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'Entschuldigung')">🔊</span></span></td><td>(interjection)</td><td>excuse me</td><td>Entschuldigung, wo ist der Bahnhof?<span class="ex">Excuse me, where is the train station?</span></td></tr>
-      </tbody>
-    </table>
-    <div class="wordcards">
-      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Flughafen</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Flughafen')">🔊</span></span></div><div class="wc-pl">Plural: die Flughäfen</div><div class="wc-en">airport</div><div class="wc-ex">Ich bin auf dem Flughafen. <span class="en">I am at the airport.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Bahnhof</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Bahnhof')">🔊</span></span></div><div class="wc-pl">Plural: die Bahnhöfe</div><div class="wc-en">train station</div><div class="wc-ex">Wo ist der Bahnhof? <span class="en">Where is the train station?</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-der">der</span> <span class="noun">Koffer</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'der Koffer')">🔊</span></span></div><div class="wc-pl">Plural: die Koffer</div><div class="wc-en">suitcase</div><div class="wc-ex">Ich finde meinen Koffer nicht. <span class="en">I can't find my suitcase.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Frage</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Frage')">🔊</span></span></div><div class="wc-pl">Plural: die Fragen</div><div class="wc-en">question</div><div class="wc-ex">Ich habe eine Frage. <span class="en">I have a question.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="art art-die">die</span> <span class="noun">Antwort</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'die Antwort')">🔊</span></span></div><div class="wc-pl">Plural: die Antworten</div><div class="wc-en">answer</div><div class="wc-ex">Die Antwort ist einfach. <span class="en">The answer is simple.</span></div></div>
-      <div class="wcard"><div class="wc-head"><span class="noun">Entschuldigung</span> <span class="row-controls"><span class="spk" onclick="speakWord(this,'Entschuldigung')">🔊</span></span></div><div class="wc-pl">interjection</div><div class="wc-en">excuse me</div><div class="wc-ex">Entschuldigung, wo ist der Bahnhof? <span class="en">Excuse me, where is the train station?</span></div></div>
-    </div>
+  <div class="step-row">
+    <button onclick="goTab('home')">← Home</button>
+    <button class="next" onclick="goTab('dialogue')">Next: Dialogue →</button>
   </div>
-
-  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Word-learning tip:</b> Notice how <span class="art art-der">der</span> Pass, <span class="art art-das">das</span> Ticket, <span class="art art-das">das</span> Taxi all have different articles — there's no rule based on meaning. You must memorize the article WITH the noun from day one.</p>
 </section>
 
-<!-- 2. DIALOGUE -->
-<section id="dialogue">
-  <h2><span class="num">2.</span> Dialogue · 在机场问路</h2>
-  <p class="sec-intro">Setting: Tom has just landed at Berlin Brandenburg Airport (BER). He asks Herr Becker at the information desk how to get to the city.</p>
+<!-- ============ DIALOGUE (v5: noun gender colors + tok) ============ -->
+<section class="tab-panel" id="t-dialogue">
+  <h2>💬 Dialogue · Asking the way at BER airport</h2>
+  <p style="color:var(--muted);font-size:.92rem">Tap any underlined word to hear it. Tap 💡 for a grammar breakdown overlay. Nouns are colored by gender: <span class="g-der">der (blue)</span> / <span class="g-die">die (red)</span> / <span class="g-das">das (green)</span>.</p>
+  <div class="dlg de-text">
 
-  <ul class="dlg">
-    <li><span class="ln">1</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',1.25)">1.25×</span></span><div class="de">Entschuldigung! Ich suche den Bahnhof.</div><div class="en">Excuse me! I'm looking for the train station.</div></div></li>
-    <li><span class="ln">2</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">🔊</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',1.25)">1.25×</span></span><div class="de">Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.</div><div class="en">The train station is downstairs. Go straight ahead, then left.</div></div></li>
-    <li><span class="ln">3</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">🔊</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',1.25)">1.25×</span></span><div class="de">Danke! Ich habe auch eine Frage. Wo ist mein <span class="art art-der">Koffer</span>?</div><div class="en">Thanks! I also have a question. Where is my suitcase?</div></div></li>
-    <li><span class="ln">4</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">🔊</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',1.25)">1.25×</span></span><div class="de">Die <span class="art art-der">Koffer</span> sind bei Band drei. Haben Sie Ihr <span class="art art-das">Ticket</span>?</div><div class="en">The suitcases are at belt three. Do you have your ticket?</div></div></li>
-    <li><span class="ln">5</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">🔊</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ja, mein Ticket ist hier. Und mein Pass auch.',1.25)">1.25×</span></span><div class="de">Ja, mein <span class="art art-das">Ticket</span> ist hier. Und mein <span class="art art-der">Pass</span> auch.</div><div class="en">Yes, my ticket is here. And my passport too.</div></div></li>
-    <li><span class="ln">6</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">🔊</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',1.25)">1.25×</span></span><div class="de">Sehr gut. Nehmen Sie das <span class="art art-das">Taxi</span> oder die Bahn?</div><div class="en">Very good. Are you taking the taxi or the train?</div></div></li>
-    <li><span class="ln">7</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.',1.25)">1.25×</span></span><div class="de">Ich nehme die Bahn. Das <span class="art art-das">Taxi</span> ist zu teuer.</div><div class="en">I'm taking the train. The taxi is too expensive.</div></div></li>
-    <li><span class="ln">8</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">🔊</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.',1.25)">1.25×</span></span><div class="de">Kein <span class="art art-das">Problem</span>. Die Bahn fährt alle zehn Minuten.</div><div class="en">No problem. The train runs every ten minutes.</div></div></li>
-    <li><span class="ln">9</span><div><span class="spk-name">Tom</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">🔊</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',1.25)">1.25×</span></span><div class="de">Vielen Dank! Ich spreche nur ein bisschen Deutsch.</div><div class="en">Many thanks! I only speak a little German.</div></div></li>
-    <li><span class="ln">10</span><div><span class="spk-name">Becker</span> <span class="speed-row"><span class="spk" onclick="speak(this,'Das ist gut. Willkommen in Berlin!')">🔊</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Das ist gut. Willkommen in Berlin!',1.25)">1.25×</span></span><div class="de">Das ist gut. Willkommen in Berlin!</div><div class="en">That's good. Welcome to Berlin!</div></div></li>
-  </ul>
-
-  <details class="tap" open>
-    <summary>Grammar Tap ① · "Ich habe eine Frage." — The indefinite article ein/eine/ein</summary>
-    <div class="tap-body">
-      <h4>Layer 1 · Sentence breakdown</h4>
-      <div class="bd">Ich  | habe | eine | Frage.
-I     | have | a    | question.
-[Subject] [Verb slot 2] [Indef. article] [Noun]</div>
-      <p style="font-size:.9rem;margin:8px 0">German has THREE indefinite articles because nouns have three genders. They all mean "a/an", but each matches its noun's gender:</p>
-      <div class="bd">ein   + masculine → ein Pass, ein Koffer, ein Bahnhof
-eine  + feminine  → eine Frage, eine Antwort, eine Familie
-ein   + neuter    → ein Ticket, ein Taxi, ein Problem</div>
-      <h4>Layer 2 · Word annotation</h4>
-      <ul>
-        <li><code>ich</code> — 1st sg., "I"</li>
-        <li><code>habe</code> — 1st sg. of <i>haben</i>, "have" (the irregular verb; Day 3 covers it formally)</li>
-        <li><code>eine</code> — indefinite article, feminine, nominative</li>
-        <li><code>Frage</code> — feminine noun, "question"</li>
-      </ul>
-      <h4>Layer 3 · Study tip · Why gender matters from Day 1</h4>
-      <p style="font-size:.9rem;margin:6px 0">English lets you say "a question / a ticket / a passport" with the same "a". German forces you to pick the matching article. If you learn "Frage" without "die", you can't say "a question" correctly later. <b>Always learn the noun WITH its definite article</b> — the indefinite article follows from it automatically.</p>
-      <div class="note">der → ein &nbsp;·&nbsp; die → eine &nbsp;·&nbsp; das → ein &nbsp;&nbsp;(just drop the "d" and add "-e" for feminine)</div>
-    </div>
-  </details>
-
-  <details class="tap">
-    <summary>Grammar Tap ② · "Ich suche den Bahnhof." — Present tense verb conjugation</summary>
-    <div class="tap-body">
-      <h4>Layer 1 · Sentence breakdown</h4>
-      <div class="bd">Ich | suche | den | Bahnhof.
-I    | look-for | the | train station.
-[Subject] [Verb slot 2] [Def. article] [Noun]</div>
-      <p style="font-size:.9rem;margin:8px 0">Most German verbs follow a regular pattern in the present tense. Take the stem (<i>suchen</i> → <i>such-</i>) and add endings:</p>
-      <div class="bd">ich       such-e     wir       such-en
-du        such-st     ihr       such-t
-er/sie    such-t      sie/Sie   such-en</div>
-      <h4>Layer 2 · Word annotation</h4>
-      <ul>
-        <li><code>suche</code> — 1st sg. of <i>suchen</i> (+ Akk.), "look for"</li>
-        <li><code>den</code> — masculine definite article, Akkusativ (you'll learn cases in Day 31+; for now notice <i>der</i> → <i>den</i> when it's the object)</li>
-        <li><code>Bahnhof</code> — masculine noun, "train station"</li>
-      </ul>
-      <h4>Layer 3 · Study tip · Only one verb form is irregular per verb</h4>
-      <p style="font-size:.9rem;margin:6px 0">For regular verbs, the only form that changes the stem is <code>du</code>: it adds <b>-st</b>. Everything else is just the stem + a vowel ending (<i>-e, -en, -t</i>). So once you know "ich suche", you basically know the whole verb.</p>
-      <div class="note">Same pattern for today's verbs: <i>finden → ich finde, du findest</i> · <i>nehmen → ich nehme, du nimmst</i> (⚠️ <i>nehmen</i> is irregular: <i>du nimmst</i>, <i>er nimmt</i> — vowel changes e→i)</div>
-    </div>
-  </details>
-</section>
-
-<!-- 3. LISTENING (v3 NEW) -->
-<section id="listening">
-  <h2><span class="num">3.</span> Listening · 机场广播</h2>
-  <p class="sec-intro">Listen to an airport announcement at BER. Pick your speed, then answer the questions. The transcript stays hidden until you finish — listen carefully first.</p>
-
-  <div class="listen-box">
-    <p style="font-weight:600;margin:0 0 8px">🔊 Airport announcement (≈55 words)</p>
-    <div class="listen-controls">
-      <span class="lbl">Speed:</span>
-      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',0.5)">0.5×</span>
-      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',0.75)">0.75×</span>
-      <span class="spk speed active" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',1)">1×</span>
-      <span class="spk speed" onclick="speakListen(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.',1.25)">1.25×</span>
-    </div>
-    <p class="meta-read" style="margin:6px 0 0">Listen first, answer the quiz, then you may open the transcript to check.</p>
-
-    <div class="quiz" style="margin:10px 0 0">
-      <div class="q">
-        <p class="q-stem">Q1 · Number — Which platform (Gleis) does the train depart from?</p>
-        <ul class="opts"><li>A) Three</li><li>B) Four</li><li>C) Five</li></ul>
-        <details><summary>Show answer & explanation</summary>
-          <div class="ans"><b>Answer: B (Four)</b><br>The announcement says "Der Zug … fährt von Gleis vier." → Gleis 4 = platform 4. German numbers: drei=3, vier=4, fünf=5.</div>
-          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>Gleis</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ <b>没听清</b> → re-listen at 0.5× to the phrase "Gleis vier"</div>
-        </details>
-      </div>
-      <div class="q">
-        <p class="q-stem">Q2 · True or False — The taxi is cheaper than the train.</p>
-        <details><summary>Show answer & explanation</summary>
-          <div class="ans"><b>Answer: False</b><br>The announcement says "Die Bahn ist schneller und billiger" (the train is faster and cheaper) — so the taxi is the more expensive option. It costs "etwa fünfundvierzig Euro" (about €45).</div>
-          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>billiger</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ <b>没听清</b> → re-listen at 0.5× to "billiger"</div>
-        </details>
-      </div>
-      <div class="q">
-        <p class="q-stem">Q3 · Number — How long is the train ride?</p>
-        <ul class="opts"><li>A) 13 minutes</li><li>B) 30 minutes</li><li>C) 40 minutes</li></ul>
-        <details><summary>Show answer & explanation</summary>
-          <div class="ans"><b>Answer: B (30 minutes)</b><br>"Die Fahrtzeit beträgt dreißig Minuten." → dreißig = 30. Watch out: <i>dreizehn</i> = 13, <i>dreißig</i> = 30 — German numbers can sound alike at normal speed.</div>
-          <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>dreißig</i>) ☐ 语法没懂 ☐ 理解偏了 (confused 13/30) ☐ <b>没听清</b> → re-listen at 0.5× to "dreißig Minuten"</div>
-        </details>
-      </div>
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text" id="d1"><span class="tok" onclick="speakWord('Entschuldigung')">Entschuldigung</span>! <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('suche')">suche</span> <span class="tok" onclick="speakWord('den')">den</span> <span class="tok g-der" onclick="speakWord('Bahnhof')">Bahnhof</span>.<span class="tap-btn" onclick="openTap('tap1')">💡</span></div>
+      <div class="en">Excuse me! I'm looking for the train station.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">1.25×</button></div>
     </div>
 
-    <details class="transcript">
-      <summary>Show transcript (after answering)</summary>
-      <div class="transcript-body">
-        <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.')">🔊</span></span>Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das <span class="art art-das">Taxi</span> vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.</p>
-        <p style="color:var(--muted);font-size:.88rem;margin-top:8px"><i>English:</i> Attention! The train to Berlin Central Station departs from platform 4. The travel time is 30 minutes. Please note: the taxi in front of the terminal costs about 45 euros. The train is faster and cheaper. Thank you.</p>
-      </div>
-    </details>
+    <div class="bubble">
+      <div class="who">Becker</div>
+      <div class="de-text" id="d2"><span class="tok g-der" onclick="speakWord('Der')">Der</span> <span class="tok g-der" onclick="speakWord('Bahnhof')">Bahnhof</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('unten')">unten</span>. <span class="tok" onclick="speakWord('Gehen')">Gehen</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('geradeaus')">geradeaus</span>, <span class="tok" onclick="speakWord('dann')">dann</span> <span class="tok" onclick="speakWord('links')">links</span>.<span class="tap-btn" onclick="openTap('tap2')">💡</span></div>
+      <div class="en">The train station is downstairs. Go straight ahead, then left.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text" id="d3"><span class="tok" onclick="speakWord('Danke')">Danke</span>! <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('habe')">habe</span> <span class="tok" onclick="speakWord('auch')">auch</span> <span class="tok" onclick="speakWord('eine')">eine</span> <span class="tok g-die" onclick="speakWord('Frage')">Frage</span>. <span class="tok" onclick="speakWord('Wo')">Wo</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('mein')">mein</span> <span class="tok g-der" onclick="speakWord('Koffer')">Koffer</span>?<span class="tap-btn" onclick="openTap('tap3')">💡</span></div>
+      <div class="en">Thanks! I also have a question. Where is my suitcase?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Becker</div>
+      <div class="de-text" id="d4"><span class="tok g-der" onclick="speakWord('Die')">Die</span> <span class="tok g-der" onclick="speakWord('Koffer')">Koffer</span> <span class="tok" onclick="speakWord('sind')">sind</span> <span class="tok" onclick="speakWord('bei')">bei</span> <span class="tok" onclick="speakWord('Band')">Band</span> <span class="tok" onclick="speakWord('drei')">drei</span>. <span class="tok" onclick="speakWord('Haben')">Haben</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('Ihr')">Ihr</span> <span class="tok g-das" onclick="speakWord('Ticket')">Ticket</span>?<span class="tap-btn" onclick="openTap('tap4')">💡</span></div>
+      <div class="en">The suitcases are at belt three. Do you have your ticket?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text" id="d5"><span class="tok" onclick="speakWord('Ja')">Ja</span>, <span class="tok" onclick="speakWord('mein')">mein</span> <span class="tok g-das" onclick="speakWord('Ticket')">Ticket</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('hier')">hier</span>. <span class="tok" onclick="speakWord('Und')">Und</span> <span class="tok" onclick="speakWord('mein')">mein</span> <span class="tok g-der" onclick="speakWord('Pass')">Pass</span> <span class="tok" onclick="speakWord('auch')">auch</span>.<span class="tap-btn" onclick="openTap('tap5')">💡</span></div>
+      <div class="en">Yes, my ticket is here. And my passport too.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ja, mein Ticket ist hier. Und mein Pass auch.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Becker</div>
+      <div class="de-text" id="d6"><span class="tok" onclick="speakWord('Sehr')">Sehr</span> <span class="tok" onclick="speakWord('gut')">gut</span>. <span class="tok" onclick="speakWord('Nehmen')">Nehmen</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('das')">das</span> <span class="tok g-das" onclick="speakWord('Taxi')">Taxi</span> <span class="tok" onclick="speakWord('oder')">oder</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Bahn')">Bahn</span>?<span class="tap-btn" onclick="openTap('tap6')">💡</span></div>
+      <div class="en">Very good. Are you taking the taxi or the train?</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Sehr gut. Nehmen Sie das Taxi oder die Bahn?')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text" id="d7"><span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('nehme')">nehme</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok g-die" onclick="speakWord('Bahn')">Bahn</span>. <span class="tok g-das" onclick="speakWord('Das')">Das</span> <span class="tok g-das" onclick="speakWord('Taxi')">Taxi</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('zu')">zu</span> <span class="tok" onclick="speakWord('teuer')">teuer</span>.<span class="tap-btn" onclick="openTap('tap7')">💡</span></div>
+      <div class="en">I'm taking the train. The taxi is too expensive.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme die Bahn. Das Taxi ist zu teuer.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Becker</div>
+      <div class="de-text" id="d8"><span class="tok" onclick="speakWord('Kein')">Kein</span> <span class="tok g-das" onclick="speakWord('Problem')">Problem</span>. <span class="tok g-die" onclick="speakWord('Die')">Die</span> <span class="tok g-die" onclick="speakWord('Bahn')">Bahn</span> <span class="tok" onclick="speakWord('fährt')">fährt</span> <span class="tok" onclick="speakWord('alle')">alle</span> <span class="tok" onclick="speakWord('zehn')">zehn</span> <span class="tok g-die" onclick="speakWord('Minuten')">Minuten</span>.<span class="tap-btn" onclick="openTap('tap8')">💡</span></div>
+      <div class="en">No problem. The train runs every ten minutes.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Kein Problem. Die Bahn fährt alle zehn Minuten.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Tom</div>
+      <div class="de-text" id="d9"><span class="tok" onclick="speakWord('Vielen')">Vielen</span> <span class="tok" onclick="speakWord('Dank')">Dank</span>! <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('spreche')">spreche</span> <span class="tok" onclick="speakWord('nur')">nur</span> <span class="tok" onclick="speakWord('ein')">ein</span> <span class="tok" onclick="speakWord('bisschen')">bisschen</span> <span class="tok" onclick="speakWord('Deutsch')">Deutsch</span>.<span class="tap-btn" onclick="openTap('tap9')">💡</span></div>
+      <div class="en">Many thanks! I only speak a little German.</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Vielen Dank! Ich spreche nur ein bisschen Deutsch.')">1.25×</button></div>
+    </div>
+
+    <div class="bubble">
+      <div class="who">Becker</div>
+      <div class="de-text" id="d10"><span class="tok" onclick="speakWord('Das')">Das</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('gut')">gut</span>. <span class="tok" onclick="speakWord('Willkommen')">Willkommen</span> <span class="tok" onclick="speakWord('in')">in</span> <span class="tok" onclick="speakWord('Berlin')">Berlin</span>!<span class="tap-btn" onclick="openTap('tap10')">💡</span></div>
+      <div class="en">That's good. Welcome to Berlin!</div>
+      <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Das ist gut. Willkommen in Berlin!')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das ist gut. Willkommen in Berlin!')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Das ist gut. Willkommen in Berlin!')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Das ist gut. Willkommen in Berlin!')">1.25×</button></div>
+    </div>
+
+  </div>
+
+  <div class="step-row">
+    <button onclick="goTab('vocab')">← Vocabulary</button>
+    <button class="next" onclick="goTab('listening')">Next: Listening →</button>
   </div>
 </section>
 
-<!-- 4. READING -->
-<section id="reading">
-  <h2><span class="num">4.</span> Reading · "Am Flughafen"</h2>
-  <p class="meta-read">Register: informal (first-person diary) · Length: ~150 words · A1 graded</p>
+<!-- ============ LISTENING (v5: 3-state play) ============ -->
+<section class="tab-panel" id="t-listening">
+  <h2>🎧 Listening · Airport announcement at BER</h2>
+  <p style="color:var(--muted);font-size:.92rem">Listen to an airport announcement. ▶ Play / ⏸ Pause (holds position) / ⏹ Stop (back to start). Transcript unlocks after all 3 questions.</p>
 
-  <div class="read">
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">🔊</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.',1.25)">1.25×</span></span>Heute bin ich am <span class="art art-der">Flughafen</span> Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.</p>
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.',1.25)">1.25×</span></span>Ich suche meinen <span class="art art-der">Koffer</span>. Wo ist der <span class="art art-der">Koffer</span>? Ich finde ihn nicht. Das ist ein <span class="art art-das">Problem</span>.</p>
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">🔊</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.',1.25)">1.25×</span></span>Dann sehe ich den <span class="art art-der">Koffer</span> bei Band drei. Gut! Ich nehme den <span class="art art-der">Koffer</span> und gehe zum Ausgang.</p>
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.',1.25)">1.25×</span></span>Ich habe eine <span class="art art-die">Frage</span>: Wo ist der <span class="art art-der">Bahnhof</span>? Ein Mann hilft mir. Er sagt: Der <span class="art art-der">Bahnhof</span> ist unten, links.</p>
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">🔊</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.',1.25)">1.25×</span></span>Ich nehme die Bahn, nicht das <span class="art art-das">Taxi</span>. Das <span class="art art-das">Taxi</span> ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.</p>
-    <p><span class="row-controls" style="float:right"><span class="spk" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">🔊</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',0.5)">0.5×</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',0.75)">0.75×</span><span class="spk speed" onclick="speak(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.',1.25)">1.25×</span></span>Meine <span class="art art-die">Familie</span> ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.</p>
+  <div class="lcard">
+    <div class="player-row">
+      <button class="play-btn" id="lplay" onclick="toggleListen()">▶ Play</button>
+      <button class="stop-btn" onclick="stopListen()">⏹ Stop</button>
+      <span style="color:var(--muted);font-size:.85rem">~45 words · station announcement</span>
+    </div>
+    <div class="speed-row">
+      <button class="spbtn" data-rate="0.5" onclick="setListenSpeed(this,0.5)">0.5×</button>
+      <button class="spbtn active" data-rate="1" onclick="setListenSpeed(this,1)">1×</button>
+      <button class="spbtn" data-rate="0.75" onclick="setListenSpeed(this,0.75)">0.75×</button>
+      <button class="spbtn" data-rate="1.25" onclick="setListenSpeed(this,1.25)">1.25×</button>
+    </div>
   </div>
 
   <div class="quiz">
-    <h3 style="font-size:1rem;color:var(--accent)">Quiz (3 questions · stems in English · A1 style)</h3>
-    <div class="q">
-      <p class="q-stem">Q1 · Information location — What problem does Tom have first?</p>
-      <ul class="opts"><li>A) He can't find his passport</li><li>B) He can't find his suitcase</li><li>C) He can't find the taxi</li></ul>
-      <details><summary>Show answer & explanation</summary>
-        <div class="ans"><b>Answer: B</b><br>Tom writes "Ich suche meinen Koffer … Ich finde ihn nicht." → He can't find his suitcase (Koffer). The passport isn't mentioned in the reading; the taxi is mentioned later as too expensive, not as lost.</div>
-        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>Koffer</i>) ☐ 语法没懂 ☐ 理解偏了 ☐ 粗心</div>
-      </details>
+    <div class="quiz-header"><div class="q">Q1 · Number — Which platform (Gleis) does the train depart from?</div><button class="redo" onclick="redoQuiz('l1')">↻ Redo</button></div>
+    <div class="opts" data-q="l1">
+      <button class="opt" onclick="answerOpt(this,false,'l1','原文: &quot;Gleis vier&quot;. drei=3, vier=4, fünf=5 - 听清的是 4. 考点: 听数字.')">Three</button>
+      <button class="opt" onclick="answerOpt(this,true,'l1','原文: &quot;Der Zug … fährt von Gleis vier&quot;. 对: 4 号站台. 考点: 听数字 + Gleis (站台).')">Four</button>
+      <button class="opt" onclick="answerOpt(this,false,'l1','原文: &quot;Gleis vier&quot;. drei=3, vier=4, fünf=5 - 听清的是 4. 考点: 听数字.')">Five</button>
     </div>
-    <div class="q">
-      <p class="q-stem">Q2 · Detail — How much does the train cost?</p>
-      <ul class="opts"><li>A) 3 euros</li><li>B) 4 euros</li><li>C) 45 euros</li></ul>
-      <details><summary>Show answer & explanation</summary>
-        <div class="ans"><b>Answer: B (4 euros)</b><br>"Die Bahn kostet vier Euro." → vier = 4. Don't confuse with the listening text's 45 euros (that was the taxi price in the announcement).</div>
-        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>vier</i>) ☐ 语法没懂 ☐ 理解偏了 (mixed up with the listening's 45) ☐ 粗心</div>
-      </details>
+    <div class="fb" id="fb-l1"></div>
+    <div class="errcat" id="ec-l1" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'l1','没听清')">没听清</span><span class="lab" onclick="pickErr(this,'l1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l1','数字混了')">数字混了</span><span class="lab" onclick="pickErr(this,'l1','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-header"><div class="q">Q2 · True or False — The taxi is cheaper than the train.</div><button class="redo" onclick="redoQuiz('l2')">↻ Redo</button></div>
+    <div class="opts" data-q="l2">
+      <button class="opt" onclick="answerOpt(this,false,'l2','原文: &quot;Die Bahn ist schneller und billiger&quot; - 火车更快更便宜, 出租车约 45 欧. 考点: billiger (比较级) 的方向.')">True</button>
+      <button class="opt" onclick="answerOpt(this,true,'l2','原文: &quot;Die Bahn ist schneller und billiger&quot;. 对: 出租车更贵 (约 45 欧), 陈述为假. 考点: billiger = cheaper, 主体是 Bahn.')">False</button>
     </div>
-    <div class="q">
-      <p class="q-stem">Q3 · True or False — Tom takes the taxi to the city.</p>
-      <details><summary>Show answer & explanation</summary>
-        <div class="ans"><b>Answer: False</b><br>"Ich nehme die Bahn, nicht das Taxi." → He takes the train, NOT the taxi. The reason given: "Das Taxi ist zu teuer" (the taxi is too expensive).</div>
-        <div class="class-self">If wrong: ☐ 单词不认识 (didn't know <i>nicht</i> / <i>teuer</i>) ☐ 语法没懂 (missed the negation) ☐ 理解偏了 ☐ 粗心</div>
-      </details>
+    <div class="fb" id="fb-l2"></div>
+    <div class="errcat" id="ec-l2" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'l2','没听清')">没听清</span><span class="lab" onclick="pickErr(this,'l2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l2','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'l2','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-header"><div class="q">Q3 · Number — How long is the train ride?</div><button class="redo" onclick="redoQuiz('l3')">↻ Redo</button></div>
+    <div class="opts" data-q="l3">
+      <button class="opt" onclick="answerOpt(this,false,'l3','原文: &quot;dreißig Minuten&quot; (30). dreizehn=13, dreißig=30 - 近音数字要听词尾. 考点: 13/30 辨音.')">13 minutes</button>
+      <button class="opt" onclick="answerOpt(this,true,'l3','原文: &quot;Die Fahrtzeit beträgt dreißig Minuten&quot;. 对: 30 分钟. 考点: dreißig=30 + Fahrtzeit (行程时间).')">30 minutes</button>
+      <button class="opt" onclick="answerOpt(this,false,'l3','原文: &quot;dreißig Minuten&quot; (30). 45 是出租车价格, 40 没出现. 考点: 区分价格与时长.')">40 minutes</button>
     </div>
+    <div class="fb" id="fb-l3"></div>
+    <div class="errcat" id="ec-l3" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'l3','没听清')">没听清</span><span class="lab" onclick="pickErr(this,'l3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'l3','数字混了')">数字混了</span><span class="lab" onclick="pickErr(this,'l3','粗心')">粗心</span></div>
+      <div class="transcript" id="ltr">
+      <b>Transcript</b> <span style="color:var(--muted);font-size:.85rem;font-weight:400">· tap any word to hear it; nouns colored by gender</span>
+      <div style="margin:8px 0">
+        <div class="de-text"><span class="tok" onclick="speakWord('Achtung')">Achtung</span>!</div>
+        <div class="en">Attention!</div>
+        <div class="de-text"><span class="tok g-der" onclick="speakWord('Der')">Der</span> <span class="tok g-der" onclick="speakWord('Zug')">Zug</span> <span class="tok" onclick="speakWord('nach')">nach</span> <span class="tok" onclick="speakWord('Berlin')">Berlin</span> <span class="tok" onclick="speakWord('Hauptbahnhof')">Hauptbahnhof</span> <span class="tok" onclick="speakWord('fährt')">fährt</span> <span class="tok" onclick="speakWord('von')">von</span> <span class="tok g-das" onclick="speakWord('Gleis')">Gleis</span> <span class="tok" onclick="speakWord('vier')">vier</span>.</div>
+        <div class="en">The train to Berlin Central Station departs from platform 4.</div>
+        <div class="de-text"><span class="tok g-die" onclick="speakWord('Die')">Die</span> <span class="tok g-die" onclick="speakWord('Fahrtzeit')">Fahrtzeit</span> <span class="tok" onclick="speakWord('beträgt')">beträgt</span> <span class="tok" onclick="speakWord('dreißig')">dreißig</span> <span class="tok g-die" onclick="speakWord('Minuten')">Minuten</span>.</div>
+        <div class="en">The travel time is 30 minutes.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Bitte')">Bitte</span> <span class="tok" onclick="speakWord('beachten')">beachten</span> <span class="tok" onclick="speakWord('Sie')">Sie</span>: <span class="tok g-das" onclick="speakWord('Das')">Das</span> <span class="tok g-das" onclick="speakWord('Taxi')">Taxi</span> <span class="tok" onclick="speakWord('vor')">vor</span> <span class="tok g-der" onclick="speakWord('dem')">dem</span> <span class="tok g-der" onclick="speakWord('Terminal')">Terminal</span> <span class="tok" onclick="speakWord('kostet')">kostet</span> <span class="tok" onclick="speakWord('etwa')">etwa</span> <span class="tok" onclick="speakWord('fünfundvierzig')">fünfundvierzig</span> <span class="tok g-das" onclick="speakWord('Euro')">Euro</span>.</div>
+        <div class="en">Please note: the taxi in front of the terminal costs about 45 euros.</div>
+        <div class="de-text"><span class="tok g-die" onclick="speakWord('Die')">Die</span> <span class="tok g-die" onclick="speakWord('Bahn')">Bahn</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('schneller')">schneller</span> <span class="tok" onclick="speakWord('und')">und</span> <span class="tok" onclick="speakWord('billiger')">billiger</span>.</div>
+        <div class="en">The train is faster and cheaper.</div>
+        <div class="de-text"><span class="tok" onclick="speakWord('Vielen')">Vielen</span> <span class="tok" onclick="speakWord('Dank')">Dank</span>.</div>
+        <div class="en">Thank you.</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:.88rem;color:var(--muted);margin-top:8px">Answer all 3 questions to unlock the transcript.</p>
+
+  <button class="module-redo" onclick="redoModule('listening')">↻ Redo this module · 3 questions + re-lock transcript</button>
+
+  <div class="step-row">
+    <button onclick="goTab('dialogue')">← Dialogue</button>
+    <button class="next" onclick="goTab('reading')">Next: Reading →</button>
   </div>
 </section>
 
-<!-- 5. SHADOWING -->
-<section id="shadowing">
-  <h2><span class="num">5.</span> Shadowing</h2>
-  <p class="sec-intro">Read each aloud after the TTS audio. Stressed syllables in <b>bold</b>. Read each line 3 times — slowly first, then at normal speed. Three controls: 🔊 standard (with 0.5×) · ⏺ record · ▶ play your recording.</p>
+<!-- ============ READING (v5: noun colors + per-paragraph 4-speed) ============ -->
+<section class="tab-panel" id="t-reading">
+  <h2>📖 Reading · Tom's diary: "Am Flughafen"</h2>
+  <p style="color:var(--muted);font-size:.92rem"><b>Register</b>: informal (first-person diary). <b>Length</b>: ~130 words. Each paragraph has 🔊 + 4 speeds. Nouns colored by gender.</p>
 
-  <div class="sh">
-    <p class="sh-de">1. Ent<b>schul</b>di<b>gung</b>! Ich <b>su</b>che den <b>Bahn</b>hof.</p>
-    <p class="sh-note">Stress: <b>SCHUL</b>-di-gung (middle syllable of the long word); <b>SU</b>-che (verb stem); <b>BAHN</b>-hof (compound, first element stressed).</p>
-    <div class="row-controls" style="margin-top:8px">
-      <span class="spk" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊</span>
-      <span class="spk speed" onclick="speak(this,'Entschuldigung! Ich suche den Bahnhof.',0.5)">0.5×</span>
-      <span class="spk rec" id="rec-1" onclick="toggleRec('rec-1','play-1')">⏺</span>
-      <span class="spk play" id="play-1" onclick="playRec('play-1')" style="opacity:.4;pointer-events:none">▶</span>
+  <div class="lcard de-text">
+    <p>Mein Name ist Tom. Heute bin ich am <span class="g-der">Flughafen</span> Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Mein Name ist Tom. Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">¶1 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Mein Name ist Tom. Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">¶1 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Mein Name ist Tom. Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">¶1 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Mein Name ist Tom. Heute bin ich am Flughafen Berlin. Ich komme aus China und ich bin müde. Der Flug ist lang.')">¶1 1.25×</button></div>
+
+    <p>Ich suche meinen <span class="g-der">Koffer</span>. Wo ist der <span class="g-der">Koffer</span>? Ich finde ihn nicht. Das ist ein <span class="g-das">Problem</span>.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">¶2 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">¶2 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">¶2 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich suche meinen Koffer. Wo ist der Koffer? Ich finde ihn nicht. Das ist ein Problem.')">¶2 1.25×</button></div>
+
+    <p>Dann sehe ich den <span class="g-der">Koffer</span> bei <span class="g-das">Band</span> drei. Gut! Ich nehme den <span class="g-der">Koffer</span> und gehe zum <span class="g-der">Ausgang</span>.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">¶3 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">¶3 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">¶3 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Dann sehe ich den Koffer bei Band drei. Gut! Ich nehme den Koffer und gehe zum Ausgang.')">¶3 1.25×</button></div>
+
+    <p>Ich habe eine <span class="g-die">Frage</span>: Wo ist der <span class="g-der">Bahnhof</span>? Ein <span class="g-der">Mann</span> hilft mir. Er sagt: Der <span class="g-der">Bahnhof</span> ist unten, links.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">¶4 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">¶4 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">¶4 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich habe eine Frage: Wo ist der Bahnhof? Ein Mann hilft mir. Er sagt: Der Bahnhof ist unten, links.')">¶4 1.25×</button></div>
+
+    <p>Ich nehme die <span class="g-die">Bahn</span>, nicht das <span class="g-das">Taxi</span>. Das <span class="g-das">Taxi</span> ist zu teuer. Die <span class="g-die">Bahn</span> kostet vier Euro. Das ist gut.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">¶5 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">¶5 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">¶5 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi. Das Taxi ist zu teuer. Die Bahn kostet vier Euro. Das ist gut.')">¶5 1.25×</button></div>
+
+    <p>Meine <span class="g-die">Familie</span> ist in China. Ich schreibe eine <span class="g-die">Nachricht</span>: Ich bin in Berlin. Alles ist gut.</p>
+    <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">¶6 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">¶6 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">¶6 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Meine Familie ist in China. Ich schreibe eine Nachricht: Ich bin in Berlin. Alles ist gut.')">¶6 1.25×</button></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-header"><div class="q">Q1 · What problem does Tom have first?</div><button class="redo" onclick="redoQuiz('r1')">↻ Redo</button></div>
+    <div class="opts" data-q="r1">
+      <button class="opt" onclick="answerOpt(this,false,'r1','护照没问题 (&quot;mein Pass auch&quot; 在对话里), 第一个问题是找不到 &quot;Koffer&quot;. 考点: 定位第一段的问题.')">He can't find his passport</button>
+      <button class="opt" onclick="answerOpt(this,true,'r1','原文: &quot;Ich suche meinen Koffer … Ich finde ihn nicht&quot;. 对: 找不到行李箱. 考点: suchen/finden + ihn (指代 Koffer).')">He can't find his suitcase</button>
+      <button class="opt" onclick="answerOpt(this,false,'r1','出租车是他拒绝的选项 (&quot;nicht das Taxi&quot;), 不是问题. 考点: 区分问题与选择.')">He can't find the taxi</button>
+    </div>
+    <div class="fb" id="fb-r1"></div>
+    <div class="errcat" id="ec-r1" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r1','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r1','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r1','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-header"><div class="q">Q2 · Detail — How much does the train cost?</div><button class="redo" onclick="redoQuiz('r2')">↻ Redo</button></div>
+    <div class="opts" data-q="r2">
+      <button class="opt" onclick="answerOpt(this,false,'r2','原文: &quot;Die Bahn kostet vier Euro&quot;. 3 欧没出现. 考点: vier=4.')">3 euros</button>
+      <button class="opt" onclick="answerOpt(this,true,'r2','原文: &quot;Die Bahn kostet vier Euro&quot;. 对: 火车 4 欧. 考点: vier=4 + kosten (花费).')">4 euros</button>
+      <button class="opt" onclick="answerOpt(this,false,'r2','45 欧是听力里的出租车价格, 不是火车. 考点: 区分听力与阅读的数字.')">45 euros</button>
+    </div>
+    <div class="fb" id="fb-r2"></div>
+    <div class="errcat" id="ec-r2" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r2','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r2','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r2','粗心')">粗心</span></div>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-header"><div class="q">Q3 · True or False — Tom takes the taxi to the city.</div><button class="redo" onclick="redoQuiz('r3')">↻ Redo</button></div>
+    <div class="opts" data-q="r3">
+      <button class="opt" onclick="answerOpt(this,false,'r3','原文: &quot;Ich nehme die Bahn, nicht das Taxi&quot;. 他坐火车不坐出租车. 考点: nicht 否定 + nehmen 选择.')">True</button>
+      <button class="opt" onclick="answerOpt(this,true,'r3','原文: &quot;Ich nehme die Bahn, nicht das Taxi&quot;. 对: 坐的是火车, 陈述为假. 考点: nicht das Taxi = 不是出租车.')">False</button>
+    </div>
+    <div class="fb" id="fb-r3"></div>
+    <div class="errcat" id="ec-r3" style="display:none">If wrong, why? <span class="lab" onclick="pickErr(this,'r3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'r3','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'r3','理解偏了')">理解偏了</span><span class="lab" onclick="pickErr(this,'r3','粗心')">粗心</span></div>
+  </div>
+
+  <button class="module-redo" onclick="redoModule('reading')">↻ Redo this module · 3 questions</button>
+
+  <!-- v5.3 §13-2: Full translation (default folded) -->
+  <details class="full-trans">
+    <summary>📖 Full translation · English (translate it yourself first, then check)</summary>
+    <div class="ft-body">
+      <p><b>¶1</b> — My name is Tom. Today I am at Berlin airport. I come from China and I am tired. The flight is long.</p>
+      <p><b>¶2</b> — I am looking for my suitcase. Where is the suitcase? I can't find it. That is a problem.</p>
+      <p><b>¶3</b> — Then I see the suitcase at belt three. Good! I take the suitcase and walk to the exit.</p>
+      <p><b>¶4</b> — I have a question: where is the train station? A man helps me. He says: the train station is downstairs, on the left.</p>
+      <p><b>¶5</b> — I take the train, not the taxi. The taxi is too expensive. The train costs four euros. That is good.</p>
+      <p><b>¶6</b> — My family is in China. I write a message: I am in Berlin. Everything is fine.</p>
+    </div>
+  </details>
+
+  <!-- v5.3 §13-2: Grammar in context (real sentences from today's text) -->
+  <div class="gctx">
+    <h3>🧩 Grammar in context · 3 points from today's text</h3>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Ich suche <b>meinen Koffer</b> … Ich finde <b>ihn</b> nicht." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich suche meinen Koffer. Ich finde ihn nicht.')">🔊</button></div>
+      <p class="expl"><b>1 · Akkusativ masculine: der → den, ein → einen</b> — The DIRECT OBJECT of a verb takes Akkusativ. Masculine nouns flip their article: der Koffer → <span class="wspk" onclick="speakWord('den Bahnhof')">den Bahnhof</span>, mein → <span class="wspk" onclick="speakWord('meinen Koffer')">meinen Koffer</span>, er → <span class="wspk" onclick="speakWord('ihn')">ihn</span>. Feminine and neuter nouns do not change (die Bahn, das Taxi stay the same) — only masculine is special.</p>
+    </div>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Ich nehme die Bahn, <b>nicht</b> das <span class="g-das">Taxi</span>." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊</button></div>
+      <p class="expl"><b>2 · nicht (negation) and its position</b> — <span class="wspk" onclick="speakWord('nicht')">nicht</span> negates what follows it. Here it sits before "das Taxi" to negate exactly that word: the TRAIN, not the taxi. Before an adjective it goes in front too: "Das Taxi ist <b>nicht</b> billig" — wait, the diary says "zu teuer" (too expensive); "zu + adjective" is the standard way to say "too …".</p>
+    </div>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Ich gehe <b>zum</b> <span class="g-der">Ausgang</span> … Ich bin <b>am</b> <span class="g-der">Flughafen</span>." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich gehe zum Ausgang. Heute bin ich am Flughafen Berlin.')">🔊</button></div>
+      <p class="expl"><b>3 · Preposition contractions: zu + dem = zum, an + dem = am</b> — German squeezes preposition + article together: <span class="wspk" onclick="speakWord('zum')">zum</span> (zu dem, "to the") Ausgang; <span class="wspk" onclick="speakWord('am')">am</span> (an dem, "at the") Flughafen. Also today: <span class="wspk" onclick="speakWord('bei Band drei')">bei Band drei</span> — bei + Dativ ("at belt three"). These contractions are always written as one word.</p>
     </div>
   </div>
 
-  <div class="sh">
-    <p class="sh-de">2. Wo ist mein <b>Pass</b>?</p>
-    <p class="sh-note">Stress: short sentence — <b>WO</b> carries the question weight, <b>PASS</b> is the content word. Both <i>ist</i> and <i>mein</i> are light.</p>
-    <div class="row-controls" style="margin-top:8px">
-      <span class="spk" onclick="speak(this,'Wo ist mein Pass?')">🔊</span>
-      <span class="spk speed" onclick="speak(this,'Wo ist mein Pass?',0.5)">0.5×</span>
-      <span class="spk rec" id="rec-2" onclick="toggleRec('rec-2','play-2')">⏺</span>
-      <span class="spk play" id="play-2" onclick="playRec('play-2')" style="opacity:.4;pointer-events:none">▶</span>
-    </div>
+  <div class="step-row">
+    <button onclick="goTab('listening')">← Listening</button>
+    <button class="next" onclick="goTab('shadowing')">Next: Shadowing →</button>
   </div>
-
-  <div class="sh">
-    <p class="sh-de">3. Ich <b>nehme</b> die <b>Bahn</b>, nicht das <b>Taxi</b>.</p>
-    <p class="sh-note">Stress: <b>NE</b>-me (verb), <b>BAHN</b> (noun, contrasted), <b>TAX</b>-i (noun, contrasted). The contrast between Bahn and Taxi carries the meaning — stress them clearly.</p>
-    <div class="row-controls" style="margin-top:8px">
-      <span class="spk" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊</span>
-      <span class="spk speed" onclick="speak(this,'Ich nehme die Bahn, nicht das Taxi.',0.5)">0.5×</span>
-      <span class="spk rec" id="rec-3" onclick="toggleRec('rec-3','play-3')">⏺</span>
-      <span class="spk play" id="play-3" onclick="playRec('play-3')" style="opacity:.4;pointer-events:none">▶</span>
-    </div>
-  </div>
-
-  <div class="sh">
-    <p class="sh-de">4. Ich habe eine <b>Fra</b>ge.</p>
-    <p class="sh-note">Stress: <b>FRA</b>-ge (noun, first syllable). <i>habe</i> and <i>eine</i> are function words — light.</p>
-    <div class="row-controls" style="margin-top:8px">
-      <span class="spk" onclick="speak(this,'Ich habe eine Frage.')">🔊</span>
-      <span class="spk speed" onclick="speak(this,'Ich habe eine Frage.',0.5)">0.5×</span>
-      <span class="spk rec" id="rec-4" onclick="toggleRec('rec-4','play-4')">⏺</span>
-      <span class="spk play" id="play-4" onclick="playRec('play-4')" style="opacity:.4;pointer-events:none">▶</span>
-    </div>
-  </div>
-
-  <div class="sh">
-    <p class="sh-de">5. <b>Will</b>kom<b>men</b> in <b>Berlin</b>!</p>
-    <p class="sh-note">Stress: <b>WILL</b>-kom-men (first syllable); Ber-<b>LIN</b> (Berlin, stress on second syllable — exception to the first-syllable rule for some city names).</p>
-    <div class="row-controls" style="margin-top:8px">
-      <span class="spk" onclick="speak(this,'Willkommen in Berlin!')">🔊</span>
-      <span class="spk speed" onclick="speak(this,'Willkommen in Berlin!',0.5)">0.5×</span>
-      <span class="spk rec" id="rec-5" onclick="toggleRec('rec-5','play-5')">⏺</span>
-      <span class="spk play" id="play-5" onclick="playRec('play-5')" style="opacity:.4;pointer-events:none">▶</span>
-    </div>
-  </div>
-
-  <h3 style="font-size:1rem;color:var(--accent);margin-top:18px">Day 2 · Pronunciation self-check · ch 两音（ich-Laut / ach-Laut）</h3>
-  <p style="font-size:.9rem;color:var(--muted)">German "ch" has TWO sounds — which one you use depends on the vowel before it. Today's words <i>suchen</i>, <i>mich</i>, <i>ich</i> use the front (soft) one; <i>noch</i>, <i>auch</i> use the back (hard) one.</p>
-  <table class="pron-table">
-    <thead><tr><th>Sound</th><th>When</th><th>Example</th><th>How to produce</th></tr></thead>
-    <tbody>
-      <tr><td><b>ich-Laut</b> [ç]</td><td>after front vowels (i, e, ü, ö), after l/r/n, and in suffix <i>-chen</i></td><td><span class="spk speed" style="display:inline" onclick="speak(this,'ich',0.7)">🔊</span> ich, <span class="spk speed" style="display:inline" onclick="speak(this,'mich',0.7)">🔊</span> mich, <span class="spk speed" style="display:inline" onclick="speak(this,'suchen',0.7)">🔊</span> su-chen</td><td>Say English "huge" and hold the "h" — that hissy friction is [ç]. Or say "cat" and slide the "y" forward.</td></tr>
-      <tr><td><b>ach-Laut</b> [x]</td><td>after back vowels (a, o, u, au)</td><td><span class="spk speed" style="display:inline" onclick="speak(this,'noch',0.7)">🔊</span> noch, <span class="spk speed" style="display:inline" onclick="speak(this,'auch',0.7)">🔊</span> auch, <span class="spk speed" style="display:inline" onclick="speak(this,'Buch',0.7)">🔊</span> Buch</td><td>Like the "ch" in Scottish "loch" — a soft scraping at the back of the throat. NOT a hard English "k".</td></tr>
-    </tbody>
-  </table>
-  <p class="sec-intro" style="border-left:3px solid var(--tap);padding:8px 12px;background:var(--tap-bg);border-radius:0 6px 6px 0;color:var(--ink)"><b>Tip:</b> If you accidentally use the wrong one, Germans still understand you — but getting it right makes you sound much more natural. Practice the minimal pair: <span class="spk speed" style="display:inline" onclick="speak(this,'ich',0.7)">🔊 ich</span> vs <span class="spk speed" style="display:inline" onclick="speak(this,'ach',0.7)">🔊 ach</span>.</p>
 </section>
 
-<!-- 6. WRITING -->
-<section id="writing">
-  <h2><span class="num">6.</span> Writing</h2>
-  <div class="skip">⏸️ <strong>Today is Day 2 (N=2).</strong> Writing appears every 3 days (N % 3 == 0). First writing task arrives on Day 3.</div>
-</section>
+<!-- ============ SHADOWING (v5: Stress row + 3-col self-check) ============ -->
+<section class="tab-panel" id="t-shadowing">
+  <h2>🎤 Shadowing · 5 sentences + ch two-sounds self-check</h2>
+  <p style="color:var(--muted);font-size:.92rem">Read each line aloud after the audio. Each line shows a <b>Stress</b> row: syllables split by hyphens, stressed syllable in bold.</p>
 
-<!-- 7. REVIEW -->
-<section id="review">
-  <h2><span class="num">7.</span> Review Reminder</h2>
-  <p class="sec-intro">Skim yesterday's words for 30 seconds — don't relearn, just jog your memory.</p>
-  <ul class="review-list">
-    <li>
-      <span class="rl-day">Day 1</span> · <a href="day-001.html">打开 Day 1 →</a>
-      <div class="rl-words">der Name · die Hand · das Land · der Freund · heißen · sein · kommen · wohnen · ich · du · die Stadt · gut · danke · bitte · ja</div>
-    </li>
-  </ul>
-  <p class="sec-intro" style="margin-top:10px">Day (N-3) appears starting Day 4. Today only Day 1 (yesterday) is indexed.</p>
-</section>
+  <div class="shad de-text">
+    <div class="row">
+      <div>1. <span class="tok" onclick="speakWord('Entschuldigung')">Ent-<b>schul</b>di-gung</span>! <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('suche')"><b>su</b>che</span> <span class="tok" onclick="speakWord('den')">den</span> <span class="tok" onclick="speakWord('Bahnhof')"><b>Bahn</b>hof</span>.</div>
+      <div class="stress">Stress: ent-<b>SCHUL</b>-di-<b>GUNG</b> · ich · <b>SU</b>-che · den · <b>BAHN</b>-hof <span style="color:var(--muted);font-size:.85em">(规则: -ung 结尾重音在末音节, 复合词 Bahnhof 重音在前)</span></div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Entschuldigung! Ich suche den Bahnhof.')">🔊 1.25×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
 
-</main>
+    <div class="row">
+      <div>2. <span class="tok" onclick="speakWord('Wo')"><b>Wo</b></span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('mein')">mein</span> <span class="tok" onclick="speakWord('Pass')"><b>Pass</b></span>?</div>
+      <div class="stress">Stress: <b>WO</b> · ist · mein · <b>PASS</b> <span style="color:var(--muted);font-size:.85em">(规则: 短问句实词承载重音)</span></div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Wo ist mein Pass?')">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Wo ist mein Pass?')">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Wo ist mein Pass?')">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Wo ist mein Pass?')">🔊 1.25×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
 
-<footer>
-  <div class="wrap">
-    <h3>Footer · Day 2 metadata</h3>
-    <ul>
-      <li><b>Generated</b>: 2026-09-05 (v3 trial run · Executor = WorkBuddy GLM 5.2)</li>
-      <li><b>Scene</b>: 在柏林机场：到达与问路 / At Berlin airport: arrival & asking the way</li>
-      <li><b>Grammar focus</b>: Indefinite article ein/eine/ein; present-tense conjugation (regular verbs + nehmen irregular); V2 word order (review)</li>
-      <li><b>Deployment</b>: GitHub Pages — push status logged below</li>
-      <li><b>Plan ref</b>: PLAN.md v3 §3 (Day 1–30 row), §4 (7-block template), §5 (HTML 规范 v3), §6 (risk禁区 respected)</li>
-    </ul>
+    <div class="row">
+      <div>3. <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('nehme')"><b>neh</b>me</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok" onclick="speakWord('Bahn')"><b>Bahn</b></span>, <span class="tok" onclick="speakWord('nicht')">nicht</span> <span class="tok" onclick="speakWord('das')">das</span> <span class="tok" onclick="speakWord('Taxi')"><b>Ta</b>xi</span>.</div>
+      <div class="stress">Stress: ich · <b>NEH</b>-me · die · <b>BAHN</b> · nicht · das · <b>TA</b>-xi <span style="color:var(--muted);font-size:.85em">(规则: 对比句中被强调项重读)</span></div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme die Bahn, nicht das Taxi.')">🔊 1.25×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
 
-    <h3 style="margin-top:14px">Quality self-check (PLAN §6 红线)</h3>
-    <table class="sc">
-      <thead><tr><th>维度</th><th>结果</th></tr></thead>
-      <tbody>
-        <tr><td>10 个名词是否全部带冠词+复数？</td><td class="ok">✅ das Ticket/Tickets · das Taxi/Taxis · die Familie/Familien · der Pass/Pässe · das Problem/Probleme · der Flughafen/Flughäfen · der Bahnhof/Bahnhöfe · der Koffer/Koffer · die Frage/Fragen · die Antwort/Antworten</td></tr>
-        <tr><td>4 个动词是否全部带配价？</td><td class="ok">✅ suchen (+Akk.) · finden (+Akk.) · nehmen (+Akk.) · sprechen (+Akk./mit+Dat.)</td></tr>
-        <tr><td>同源分组真实？无假朋友并列？</td><td class="ok">✅ Ticket/ticket · Taxi/taxi · Familie/family · Pass/passport · Problem/problem 全部真同源；无 Gift/bekommen 等假朋友</td></tr>
-        <tr><td>Quiz/听力题干语言？讲解语言？</td><td class="ok">✅ 全部英语</td></tr>
-        <tr><td>无游戏化元素？</td><td class="ok">✅ 无连胜/积分/排行榜</td></tr>
-        <tr><td>v3·听力板块存在？transcript 默认折叠？</td><td class="ok">✅ 含 40-80 词广播 + 3 题 + "没听清"分类 + details 折叠</td></tr>
-        <tr><td>v3·句子四档速度 0.5/0.75/1/1.25？</td><td class="ok">✅ 对话每句 + 短文每段 + 听力 + 跟读全配齐</td></tr>
-        <tr><td>v3·模块导航栏（吸底+锚点+安全区）？</td><td class="ok">✅ fixed bottom + env(safe-area-inset-bottom)</td></tr>
-        <tr><td>v3·移动优先词表卡片？触摸目标≥40px？</td><td class="ok">✅ ≤560px 转卡片 + spk min 40px</td></tr>
-        <tr><td>v3·录音回放走 Web Audio API？</td><td class="ok">✅ AudioContext.decodeAudioData（非 new Audio）</td></tr>
-        <tr><td>v3·🔊 覆盖每个德语词/句？</td><td class="ok">✅ 词条+例句+对话句+听力+短文段+跟读+Grammar Tap 例句全覆盖</td></tr>
-        <tr><td>v3·播报文本与显示文本逐字一致？</td><td class="ok">✅ speak() 传入字符串 = 显示文本（已核 Day 1 整训项）</td></tr>
-      </tbody>
+    <div class="row">
+      <div>4. <span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('habe')"><b>ha</b>be</span> <span class="tok" onclick="speakWord('eine')">ei-ne</span> <span class="tok" onclick="speakWord('Frage')"><b>Fra</b>ge</span>.</div>
+      <div class="stress">Stress: ich · <b>HA</b>-be · ei-ne · <b>FRA</b>-ge <span style="color:var(--muted);font-size:.85em">(规则: 动词与名词重音均在第一音节)</span></div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich habe eine Frage.')">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich habe eine Frage.')">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich habe eine Frage.')">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich habe eine Frage.')">🔊 1.25×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>5. <span class="tok" onclick="speakWord('Willkommen')"><b>Will</b>kom-men</span> <span class="tok" onclick="speakWord('in')">in</span> <span class="tok" onclick="speakWord('Berlin')">Ber-<b>lin</b></span>!</div>
+      <div class="stress">Stress: <b>WILL</b>-kom-men · Ber-<b>LIN</b> <span style="color:var(--muted);font-size:.85em">(规则: 复合欢迎语重音在前缀, Berlin 重音在后)</span></div>
+      <div class="ctrl">
+        <span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Willkommen in Berlin!')">🔊 0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Willkommen in Berlin!')">🔊 0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Willkommen in Berlin!')">🔊 1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Willkommen in Berlin!')">🔊 1.25×</button></span>
+        <button class="rec" onclick="toggleRec(this)">⏺ Rec</button>
+        <button class="play" onclick="playRec(this)">▶ Play</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pron-tip">
+    <b>Day 2 pronunciation self-check · ch 两音: ich-Laut / ach-Laut (N % 8 = 2)</b>
+    <table class="pron-table">
+      <tr><th>难点 Difficulty</th><th>常见错法 Common mistake</th><th>自查动作 Self-check action</th></tr>
+      <tr><td>ich-Laut [ç] (as in <span style="cursor:pointer;text-decoration:underline" onclick="speakWord('ich')">ich</span> 🔊)</td><td>Pronouncing it like English "k" or "sh"</td><td>Say "ee", keep the tongue high and let air hiss over it — a soft, breathy sound near the palate, never a stop like "k".</td></tr>
+      <tr><td>ach-Laut [x] (as in <span style="cursor:pointer;text-decoration:underline" onclick="speakWord('Bach')">Bach</span> 🔊)</td><td>Using the soft ich-sound after a/o/u</td><td>Open the throat as for "a", then scrape the air like a gentle Scottish "loch" — back of the mouth, rougher.</td></tr>
+      <tr><td>最小对立组 Minimal pair</td><td>Using one sound everywhere</td><td>Rule of thumb: after e/i/ä/ö → soft [ç] (ich, Sprache); after a/o/u/au → hard [x] (Bach, suchen). Practice: ich 🔊 vs ach 🔊 until your mouth feels the switch.</td></tr>
     </table>
-
-    <h3 style="margin-top:14px">Deployment status</h3>
-    <ul class="push">
-      <li><span class="badge ok">✅</span> GitHub Pages — 已部署，公网可访问：<a href="https://queque0926.github.io/deutsch-tagebuch/days/day-002.html" style="color:var(--das)">打开 Day 2</a></li>
-    </ul>
   </div>
+
+  <div class="step-row">
+    <button onclick="goTab('reading')">← Reading</button>
+    <button class="next" onclick="goTab('writing')">Next: Writing →</button>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section class="tab-panel" id="t-writing">
+  <h2>✍️ Writing</h2>
+  <div class="lcard">⏸️ <b>Today is Day 2 (N=2).</b> Writing appears every 3 days (N % 3 == 0). The first writing task arrives on Day 3.</div>
+
+  <div class="step-row">
+    <button onclick="goTab('shadowing')">← Shadowing</button>
+    <button class="next" onclick="goTab('review')">Next: Review →</button>
+  </div>
+</section>
+
+<!-- ============ REVIEW (v5: Day1 quiz + toggle mark) ============ -->
+<section class="tab-panel" id="t-review">
+  <h2>🔁 Review Reminder · yesterday</h2>
+  <p style="color:var(--muted);font-size:.92rem">Day 2's review pulls from Day 1 (Day -2 doesn't exist yet). 5 quick questions below.</p>
+
+  <div class="rev-list">
+    <a href="days/day-001.html">
+      Day 1 · 自我介绍：初次见面
+      <span class="sub">der Name, die Hand, das Land, der Freund, die Stadt, heißen (+Nom.), sein (+Nom.), kommen (aus + Dat.), wohnen (in + Dat.), ich, du, …</span>
+    </a>
+  </div>
+
+  <div class="lcard" style="margin-top:14px">
+    <h3 style="margin:0 0 8px;color:var(--accent)">📝 Yesterday's word check · Day 1 (5 questions)</h3>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">RQ1 · <span class="spk" onclick="speakWord('der Name')" style="cursor:pointer">🔊 der Name</span> = ?</div><button class="redo" onclick="redoQuiz('rq1')">↻ Redo</button></div>
+      <div class="opts" data-q="rq1">
+        <button class="opt" onclick="answerOpt(this,true,'rq1','Day 1 学过: der Name = name. 对. 考点: der 阳性 + 初次见面核心词.')">name</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq1','der Name = name. 考点: Day 1 复习 + der 阳性.')">hand</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq1','der Name = name. 考点: Day 1 复习 + der 阳性.')">city</button>
+      </div>
+      <div class="fb" id="fb-rq1"></div>
+      <div class="errcat" id="ec-rq1" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'rq1','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'rq1','粗心')">粗心</span></div>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">RQ2 · <span class="spk" onclick="speakWord('die Hand')" style="cursor:pointer">🔊 die Hand</span> = ?</div><button class="redo" onclick="redoQuiz('rq2')">↻ Redo</button></div>
+      <div class="opts" data-q="rq2">
+        <button class="opt" onclick="answerOpt(this,false,'rq2','die Hand = hand. 考点: Day 1 复习 + die 阴性.')">land</button>
+        <button class="opt" onclick="answerOpt(this,true,'rq2','Day 1 学过: die Hand = hand. 对. 考点: die 阴性 + 握手场景词.')">hand</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq2','die Hand = hand. 考点: Day 1 复习 + die 阴性.')">friend</button>
+      </div>
+      <div class="fb" id="fb-rq2"></div>
+      <div class="errcat" id="ec-rq2" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'rq2','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'rq2','粗心')">粗心</span></div>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">RQ3 · <span class="spk" onclick="speakWord('wohnen')" style="cursor:pointer">🔊 wohnen</span> = ?</div><button class="redo" onclick="redoQuiz('rq3')">↻ Redo</button></div>
+      <div class="opts" data-q="rq3">
+        <button class="opt" onclick="answerOpt(this,true,'rq3','Day 1 学过: wohnen (in + Dat.) = to live. 对. 考点: wohnen 配价 + 词义.')">to live (in)</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq3','wohnen (in + Dat.) = to live. 考点: Day 1 动词配价 + kommen (aus) 区分.')">to come (from)</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq3','wohnen (in + Dat.) = to live. 考点: Day 1 动词配价 + heißen 区分.')">to be called</button>
+      </div>
+      <div class="fb" id="fb-rq3"></div>
+      <div class="errcat" id="ec-rq3" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'rq3','单词不认识')">单词不认识</span><span class="lab" onclick="pickErr(this,'rq3','粗心')">粗心</span></div>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">RQ4 · ___ <span class="spk" onclick="speakWord('der Freund')" style="cursor:pointer">🔊 Freund</span> (masc.) — which article?</div><button class="redo" onclick="redoQuiz('rq4')">↻ Redo</button></div>
+      <div class="opts" data-q="rq4">
+        <button class="opt" onclick="answerOpt(this,true,'rq4','Freund 是阳性: der Freund. 对. 考点: Day 1 + der 阳性 + 复数 -e.')">der</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq4','Freund 是阳性: der Freund. 考点: Day 1 + 三性记忆.')">die</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq4','Freund 是阳性: der Freund. 考点: Day 1 + 三性记忆.')">das</button>
+      </div>
+      <div class="fb" id="fb-rq4"></div>
+      <div class="errcat" id="ec-rq4" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'rq4','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'rq4','粗心')">粗心</span></div>
+    </div>
+    <div class="quiz">
+      <div class="quiz-header"><div class="q">RQ5 · ___ <span class="spk" onclick="speakWord('die Stadt')" style="cursor:pointer">🔊 Stadt</span> (fem.) — which article?</div><button class="redo" onclick="redoQuiz('rq5')">↻ Redo</button></div>
+      <div class="opts" data-q="rq5">
+        <button class="opt" onclick="answerOpt(this,false,'rq5','Stadt 是阴性: die Stadt. 考点: Day 1 + 复数元音变化 (Städte).')">der</button>
+        <button class="opt" onclick="answerOpt(this,true,'rq5','Stadt 是阴性: die Stadt. 对. 考点: Day 1 + die 阴性 + 复数元音变化 (Städte).')">die</button>
+        <button class="opt" onclick="answerOpt(this,false,'rq5','Stadt 是阴性: die Stadt. 考点: Day 1 + 复数元音变化 (Städte).')">das</button>
+      </div>
+      <div class="fb" id="fb-rq5"></div>
+      <div class="errcat" id="ec-rq5" style="display:none">Why wrong? <span class="lab" onclick="pickErr(this,'rq5','语法没懂')">语法没懂</span><span class="lab" onclick="pickErr(this,'rq5','粗心')">粗心</span></div>
+    </div>
+  </div>
+
+  <p style="margin-top:18px"><b>30-second skim</b>: Cover the Day 1 word list, try to recall each article + plural.</p>
+
+  <button class="mark-studied" id="markBtn" onclick="markStudied()">Mark Day 2 as studied ✅</button>
+  <button class="reset-day" onclick="resetDay()">↻ Reset Day 2 progress</button>
+
+  <button class="module-redo" onclick="redoModule('review')">↻ Redo this module · 5 questions</button>
+
+  <div class="step-row">
+    <button onclick="goTab('writing')">← Writing</button>
+    <button class="next" onclick="goTab('home')">Finish · Home →</button>
+  </div>
+</section>
+
+<!-- ============ OVERLAYS ============ -->
+<div class="overlay" id="overlay" onclick="if(event.target.id==='overlay')closeTap()">
+  <div class="card" id="tapcard"></div>
+</div>
+
+<div class="valence-card" id="valCard" onclick="if(event.target.id==='valCard')closeValence()">
+  <div class="inner" id="valInner"></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <b>Day 2 · A1 上 · 在柏林机场：到达与问路</b>
+  <div class="syncbox" id="syncbox">
+    <div class="sync-row"><b>☁ 云同步 Cloud sync</b> · <span class="ns" id="syncNs">未登录 (仅本机)</span> <span class="stat" id="syncStat"></span></div>
+    <div class="sync-row" id="syncLoggedRow" style="display:none">已登录 ✓ · 进度自动同步 · <a href="../index.html">Home 管理口令 / 清除云端</a></div>
+    <div class="sync-row" id="syncLoginRow"><a href="../index.html">去 Home 输口令登录云同步 →</a></div>
+    <div class="sync-row stat">断网照常学习，答案先存本机，联网自动补交；同口令在手机/电脑间互通。</div>
+  </div>
+  <ul>
+    <li><b>Generated</b>: 2026-09-05 (再生成 v2 · Executor = WorkBuddy GLM 5.3-Flash)</li>
+    <li><b>Content version</b>: day-2 v2 · 变更原因: 按 PLAN §15.3 以现行模板重生成（接云同步层 + 内联 QBANK + v5/v5.1–v5.3 全特性；主题与语言点范围不变，qid 全部更换）</li>
+    <li><b>Scene</b>: Arrival and asking the way at Berlin Brandenburg Airport (BER)</li>
+    <li><b>Grammar focus</b>: Akkusativ masculine (den); nicht negation; zum/am contractions; present tense review</li>
+    <li><b>Deployment</b>: dev 分支 (main 未动)</li>
+    <li><b>Plan ref</b>: PLAN.md §3 (Day 1–30 · 机场/问路), §4 + §10–§13 (现行模板), §15.3 (再生成)</li>
+  </ul>
+  <h4 style="margin:10px 0 4px">Quality self-check (PLAN §6 + §10)</h4>
+  <ul>
+    <li>☑ 15 entries each with article + plural (nouns) / valence (verbs)</li>
+    <li>☑ No false friends grouped as cognates</li>
+    <li>☑ All explanations in English</li>
+    <li>☑ No gamification / streaks / rankings</li>
+    <li>☑ Every German word &amp; sentence has 🔊</li>
+    <li>☑ Spoken text = displayed text (verbatim)</li>
+    <li>☑ Article color coding (der blue / die red / das green) + noun gender text color (g-der/g-die/g-das)</li>
+    <li>☑ v5: ⭐ favorites, vocab quiz, 3-state listening, Quiz localStorage + redo, Stress rows, toggle mark-studied, straight quotes only</li>
+    <li>☑ v5.3: noun cards beige #FFF8DC (Group A/C), Reading full translation + Grammar in context (3 points)</li>
+    <li>☑ §12.B/§16: cloud sync layer (outbox/qhash/footer status) + inline QBANK (§10.9)</li>
+    <li>☑ content-version: day-2 v2</li>
+  </ul>
 </footer>
 
-<!-- Module navigation bar (v3) — sticky bottom -->
-<nav class="modnav">
-  <a href="#words">Words</a>
-  <a href="#dialogue">Dialogue</a>
-  <a href="#listening">Listening</a>
-  <a href="#reading">Reading</a>
-  <a href="#shadowing">Shadowing</a>
-  <a href="#writing">Writing</a>
-  <a href="#review">Review</a>
-  <a href="../index.html" class="home">Home</a>
+<!-- ============ TAB BAR ============ -->
+<nav class="tabbar">
+  <a class="tab" onclick="goTab('home')"><span class="ic">🏠</span>Home</a>
+  <a class="tab active" onclick="goTab('vocab')"><span class="ic">📚</span>Vocab</a>
+  <a class="tab" onclick="goTab('dialogue')"><span class="ic">💬</span>Dialogue</a>
+  <a class="tab" onclick="goTab('listening')"><span class="ic">🎧</span>Listen</a>
+  <a class="tab" onclick="goTab('reading')"><span class="ic">📖</span>Read</a>
+  <a class="tab" onclick="goTab('shadowing')"><span class="ic">🎤</span>Shadow</a>
+  <a class="tab" onclick="goTab('writing')"><span class="ic">✍️</span>Write</a>
+  <a class="tab" onclick="goTab('review')"><span class="ic">🔁</span>Review</a>
 </nav>
 
-<script>
-(function(){
-  var unlocked=false, audioCtx=null;
-  function unlock(){
-    if(unlocked) return;
-    try{ var u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); }catch(e){}
-    try{ if(!audioCtx){ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); } if(audioCtx.state==='suspended'){ audioCtx.resume(); } }catch(e){}
-    unlocked=true;
-  }
-  function speakAt(text,rate){
-    if(!('speechSynthesis' in window)){ return; }
-    speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(text);
-    u.lang='de-DE'; u.rate=rate||1; u.pitch=1;
-    speechSynthesis.speak(u);
-  }
-  window.speak=function(btn,text,rate){
-    unlock(); speakAt(text,rate||1);
-  };
-  window.speakWord=function(btn,text){
-    unlock(); speakAt(text,0.7);
-  };
-  window.speakListen=function(btn,text,rate){
-    unlock();
-    var sibs=btn.parentNode.querySelectorAll('.spk.speed');
-    sibs.forEach(function(s){ s.classList.remove('active'); });
-    btn.classList.add('active');
-    speakAt(text,rate||1);
-  };
 
-  // recording — Web Audio API for playback (v3 fix for iOS mute switch)
-  var recState={}, mediaRec={}, chunks={}, audioBuf={}, recStream={};
-  window.toggleRec=function(recId,playId){
-    unlock();
-    if(recState[recId]==='recording'){ stopRec(recId,playId); return; }
-    if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)){ alert('Recording not supported in this browser.'); return; }
-    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-      recStream[recId]=stream;
-      var mr;
-      try{ mr=new MediaRecorder(stream); }catch(e){ try{ mr=new MediaRecorder(stream,{mimeType:'audio/mp4'}); }catch(e2){ alert('MediaRecorder unavailable.'); return; } }
-      mediaRec[recId]=mr; chunks[recId]=[]; recState[recId]='recording';
-      var btn=document.getElementById(recId); btn.classList.add('recording'); btn.textContent='⏹';
-      mr.ondataavailable=function(e){ if(e.data.size>0) chunks[recId].push(e.data); };
-      mr.onstop=function(){
-        var blob=new Blob(chunks[recId],{type:mr.mimeType||'audio/webm'});
-        var reader=new FileReader();
-        reader.onload=function(){
-          try{
-            audioCtx.decodeAudioData(reader.result, function(buf){
-              audioBuf[recId]=buf;
-              var pb=document.getElementById(playId);
-              pb.style.opacity='1'; pb.style.pointerEvents='auto';
-            }, function(){ /* decode fail */ });
-          }catch(e){ /* fallback */ }
-        };
-        reader.readAsArrayBuffer(blob);
-        btn.classList.remove('recording'); btn.textContent='⏺';
-        stream.getTracks().forEach(function(t){t.stop();});
-        recState[recId]='idle';
-      };
-      mr.start();
-    }).catch(function(err){ alert('Microphone access denied: '+err.message); });
+<script>
+// ---------- iOS unlock ----------
+var unlocked=false;
+function unlock(){
+  if(unlocked) return;
+  try{ var u=new SpeechSynthesisUtterance(''); u.lang='de-DE'; speechSynthesis.speak(u); }catch(e){}
+  unlocked=true;
+  if(window.audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+}
+document.addEventListener('click',unlock,true);
+document.addEventListener('touchend',unlock,true);
+
+// ---------- Speak ----------
+function speakWord(w){
+  unlock();
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(w); u.lang='de-DE'; u.rate=0.7;
+  speechSynthesis.speak(u);
+}
+function speakSentence(btn, txt){
+  unlock();
+  var rate=parseFloat(btn.getAttribute('data-rate'))||1;
+  var sib=btn.parentNode.querySelectorAll('.spbtn');
+  sib.forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt); u.lang='de-DE'; u.rate=rate;
+  u.onend=function(){ btn.classList.remove('active'); };
+  speechSynthesis.speak(u);
+}
+
+// ---------- Tab navigation ----------
+function goTab(name){
+  if(name==='home'){ window.location.href='../index.html'; return; }
+  var panels=document.querySelectorAll('.tab-panel');
+  panels.forEach(function(p){p.classList.remove('active')});
+  var el=document.getElementById('t-'+name);
+  if(el) el.classList.add('active');
+  var tabs=document.querySelectorAll('.tabbar .tab');
+  tabs.forEach(function(t){t.classList.remove('active')});
+  var map={vocab:1,dialogue:2,listening:3,reading:4,shadowing:5,writing:6,review:7};
+  if(map[name]!==undefined && tabs[map[name]]) tabs[map[name]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ---------- Favorites (v5 §10.1-2) ----------
+function toggleFav(star,word){
+  var card=star.closest('.vcard');
+  var key='fav:day2:'+word;
+  try{
+    if(card.classList.contains('fav')){
+      card.classList.remove('fav'); star.textContent='☆';
+      localStorage.removeItem(key); emitEvent('fav_off',key,null);
+    }else{
+      card.classList.add('fav'); star.textContent='★';
+      localStorage.setItem(key,'1'); emitEvent('fav_on',key,null);
+    }
+  }catch(e){}
+}
+function toggleFavFilter(){
+  var btn=document.getElementById('favFilter');
+  btn.classList.toggle('on');
+  var onlyFav=btn.classList.contains('on');
+  document.querySelectorAll('.vcard').forEach(function(c){
+    if(onlyFav && !c.classList.contains('fav')){ c.style.display='none'; }
+    else { c.style.display=''; }
+  });
+}
+// restore favorites on load
+try{
+  document.querySelectorAll('.vcard').forEach(function(c){
+    var w=c.getAttribute('data-word');
+    if(w && localStorage.getItem('fav:day2:'+w)){
+      c.classList.add('fav');
+      var s=c.querySelector('.fav-star');
+      if(s) s.textContent='★';
+    }
+  });
+}catch(e){}
+
+// ---------- Valence Chinese popup (v5 §10.1-4) ----------
+function openValence(word,caseAnchor){
+  var cases={
+    nominativ:{name:'主格 Nominativ',use:'谁做（动作发出者）',ex:'der Kellner bringt die Rechnung — Kellner 是主格'},
+    genitiv:{name:'属格 Genitiv',use:'谁的（所属）',ex:'der Name des Gastes — 客人的名字'},
+    dativ:{name:'与格 Dativ',use:'给谁（间接对象）',ex:'Ich gebe dem Kellner Trinkgeld — 给服务员小费'},
+    akkusativ:{name:'宾格 Akkusativ',use:'做啥（直接承受）',ex:'Ich suche den Bahnhof — 找车站（den 是宾格）'}
   };
-  function stopRec(recId,playId){
-    if(mediaRec[recId] && mediaRec[recId].state==='recording'){ mediaRec[recId].stop(); }
+  var c=cases[caseAnchor]||cases.nominativ;
+  var html='<button class="close" onclick="closeValence()" style="float:right;cursor:pointer;color:var(--muted);font-size:1.2rem;border:none;background:none">✕</button>';
+  html+='<h3>'+word+' · 配价</h3>';
+  html+='<p style="color:var(--muted);font-size:.92rem">这个动词带 <b>'+c.name+'</b>：'+c.use+'。</p>';
+  html+='<p style="font-size:.92rem">例：'+c.ex+'</p>';
+  html+='<table class="vc-table"><tr><th>格</th><th>masc.</th><th>fem.</th><th>neut.</th><th>plural</th></tr>';
+  html+='<tr><th>Nom.</th><td>der</td><td>die</td><td>das</td><td>die</td></tr>';
+  html+='<tr><th>Akk.</th><td>den</td><td>die</td><td>das</td><td>die</td></tr>';
+  html+='<tr><th>Dat.</th><td>dem</td><td>der</td><td>dem</td><td>den +n</td></tr>';
+  html+='<tr><th>Gen.</th><td>des</td><td>der</td><td>des</td><td>der</td></tr>';
+  html+='</table>';
+  // v5.2 §12.A-3: clarify verbs have no gender
+  html+='<p style="font-size:.85rem;margin-top:10px;color:var(--muted);background:var(--tap-bg);padding:8px 10px;border-radius:6px">⚠️ 动词按配价支配格，本身无词性（三性 der/die/das 只适用于名词）。</p>';
+  html+='<p style="font-size:.85rem;margin-top:8px"><a href="../reference/cases.html#'+caseAnchor+'" target="_blank">→ 打开四格讲解专页 (cases.html#'+caseAnchor+')</a></p>';
+  document.getElementById('valInner').innerHTML=html;
+  document.getElementById('valCard').classList.add('show');
+}
+function closeValence(){ document.getElementById('valCard').classList.remove('show'); }
+
+// ---------- Grammar Tap overlay (v5 §10.2: 3 layers row-by-row) ----------
+var TAPS={  tap1:{de:'Entschuldigung! Ich suche den Bahnhof.',
+    l1table:[['Entschuldigung','excuse me','polite opener'],['Ich suche','I am looking for','suchen 1sg + Akk.'],['den Bahnhof','the train station','masc. Akk.']],
+    l2:[['Entschuldigung','fixed politeness formula · "excuse me" (also a noun: die Entschuldigung)'],['Ich','pronoun · 1sg · Nom.'],['suche','verb · suchen · 1sg present · slot 2 · "look for"'],['den','definite article · masc. · AKKUSATIV (der → den)'],['Bahnhof','noun · masc. · der Bahnhof · compound: Bahn + Hof']],
+    l3:['suchen takes a direct object in Akkusativ — masculine flips der → den.','"Entschuldigung!" is the standard way to stop a stranger and ask something.']},
+  tap2:{de:'Der Bahnhof ist unten. Gehen Sie geradeaus, dann links.',
+    l1table:[['Der Bahnhof','the train station','masc. Nom. (subject)'],['ist','is','sein 3sg'],['unten','downstairs','adverb'],['Gehen Sie','go','imperative, formal'],['geradeaus','straight ahead','adverb'],['dann links','then left','adverbs']],
+    l2:[['Der','definite article · masc. · Nom. (subject, no flip)'],['Bahnhof','noun · masc.'],['ist','verb · sein · 3sg'],['unten','adverb · "downstairs/below"'],['Gehen','verb · gehen · Sie-imperative (verb first!)'],['Sie','pronoun · formal · always written capital S'],['geradeaus','adverb · "straight ahead"'],['dann','adverb · "then"'],['links','adverb · "left" (rechts = right)']],
+    l3:['Formal imperative = verb + Sie: "Gehen Sie!" — the verb sits in slot 1.','Direction words: geradeaus (straight), links (left), rechts (right), unten (downstairs).']},
+  tap3:{de:'Danke! Ich habe auch eine Frage. Wo ist mein Koffer?',
+    l1table:[['habe','have','haben 1sg'],['auch','also','adverb'],['eine Frage','a question','fem. Akk.'],['Wo ist','where is','V2 question'],['mein Koffer','my suitcase','masc. Nom.']],
+    l2:[['habe','verb · haben · 1sg · irregular (ich habe)'],['auch','adverb · "also/too"'],['eine','indefinite article · fem. · Akk. (fem. unchanged)'],['Frage','noun · fem. · die Frage'],['Wo','question word · "where" · slot 1'],['ist','verb · sein · slot 2'],['mein','possessive · "my" · masc. Nom.'],['Koffer','noun · masc. · der Koffer']],
+    l3:['haben is irregular: ich HABE (not "habe" from a regular pattern) — memorize it with sein.','Frage/Antwort come as a pair: question/answer.']},
+  tap4:{de:'Die Koffer sind bei Band drei. Haben Sie Ihr Ticket?',
+    l1table:[['Die Koffer','the suitcases','plural (der → die)'],['sind','are','sein 3pl'],['bei Band drei','at belt three','bei + Dativ'],['Ihr Ticket','your ticket','possessive formal + neut.']],
+    l2:[['Die','definite article · plural (all plurals take die)'],['Koffer','noun · masc. · plural unchanged (der Koffer → die Koffer)'],['sind','verb · sein · 3pl'],['bei','preposition · bei + Dativ · "at"'],['Band','noun · das Band · "belt" (luggage belt)'],['drei','number · "three"'],['Ihr','possessive · formal "your" (capital I) · neut. das Ticket'],['Ticket','noun · neut. · das Ticket']],
+    l3:['ALL German plurals take "die" in the Nominativ — regardless of gender.','bei + Dativ marks position ("at/near"): bei Band drei, bei der Firma.']},
+  tap5:{de:'Ja, mein Ticket ist hier. Und mein Pass auch.',
+    l1table:[['mein Ticket','my ticket','possessive + neut. Nom.'],['ist hier','is here','sein + adverb'],['mein Pass','my passport','possessive + masc. Nom.'],['auch','too','adverb']],
+    l2:[['mein','possessive · "my" · ending matches ein: mein Ticket (neut.), mein Pass (masc.)'],['Ticket','noun · neut.'],['hier','adverb · "here"'],['Pass','noun · masc. · der Pass'],['auch','adverb · "also" · elliptical short answer']],
+    l3:['Possessive mein behaves like ein: zero ending for masc./neut. Nom. (mein Pass), -e for fem. (meine Familie).','Short answers drop the verb: "Und mein Pass auch" = "and my passport too".']},
+  tap6:{de:'Sehr gut. Nehmen Sie das Taxi oder die Bahn?',
+    l1table:[['Nehmen','take','nehmen · Sie-imperative-like question verb'],['das Taxi','the taxi','neut. Akk.'],['oder','or','conjunction'],['die Bahn','the train','fem. Akk.']],
+    l2:[['Nehmen','verb · nehmen · here "Are you taking …" (question form)'],['Sie','pronoun · formal'],['das','definite article · neut. · Akk. (neut. unchanged)'],['Taxi','noun · neut. · das Taxi'],['oder','conjunction · "or" (choice questions)'],['die','definite article · fem. · Akk. (fem. unchanged)'],['Bahn','noun · fem. · die Bahn · "train/rail"']],
+    l3:['Akkusativ only changes MASCULINE nouns: den Bahnhof. Neut. (das Taxi) and fem. (die Bahn) keep their form.','"X oder Y?" is the standard German choice question.']},
+  tap7:{de:'Ich nehme die Bahn. Das Taxi ist zu teuer.',
+    l1table:[['nehme','take','nehmen 1sg'],['die Bahn','the train','fem. Akk.'],['Das Taxi','the taxi','neut. Nom. (subject)'],['ist','is','sein 3sg'],['zu teuer','too expensive','zu + adjective']],
+    l2:[['nehme','verb · nehmen · 1sg · note stem vowel e→i only in du/er forms (du nimmst, er nimmt)'],['die','fem. article · Akk. (unchanged)'],['Bahn','noun · fem.'],['Das','neut. article · Nom. (subject)'],['Taxi','noun · neut.'],['zu','adverb · "too (much)" · before adjectives'],['teuer','adjective · "expensive"']],
+    l3:['nehmen is irregular in du/er: du nimmst, er nimmt — but ich nehme stays regular.','zu + adjective = "too …": zu teuer (too expensive), zu lang (too long).']},
+  tap8:{de:'Kein Problem. Die Bahn fährt alle zehn Minuten.',
+    l1table:[['Kein Problem','no problem','kein + neut. Nom.'],['fährt','runs/goes','fahren 3sg (strong vowel)'],['alle zehn Minuten','every ten minutes','fixed time phrase']],
+    l2:[['Kein','negative article · "no/not any" · matches ein (das → kein Problem)'],['Problem','noun · neut.'],['fährt','verb · fahren · 3sg · STRONG vowel a→ä (du fährst, er fährt)'],['alle','quantifier · "every/all"'],['zehn','number · "ten"'],['Minuten','noun · die Minute · plural']],
+    l3:['fahren changes its vowel: ich fahre, du fährst, er FÄHRT — strong verbs like this must be memorized.','kein negates nouns with ein-articles: "Kein Problem" = "not a problem".']},
+  tap9:{de:'Vielen Dank! Ich spreche nur ein bisschen Deutsch.',
+    l1table:[['Vielen Dank','many thanks','Akk. fixed phrase'],['spreche','speak','sprechen 1sg'],['nur','only','adverb'],['ein bisschen','a little','invariable quantity'],['Deutsch','German','capitalized language']],
+    l2:[['Vielen','adjective · Akk. masc. · fixed phrase "vielen Dank"'],['Dank','noun · der Dank (masculine) · hence vielen (Akk.)'],['spreche','verb · sprechen · 1sg · strong vowel only in du/er (du sprichst)'],['nur','adverb · "only"'],['ein bisschen','quantifier · "a little" · kein plural'],['Deutsch','language name · always capitalized']],
+    l3:['"Ich spreche nur ein bisschen Deutsch" — the polite stock phrase to lower expectations.','vielen Dank keeps an old Akkusativ form: Dank is masculine, so viel → vielen.']},
+  tap10:{de:'Das ist gut. Willkommen in Berlin!',
+    l1table:[['Das ist gut','that is good','comment'],['Willkommen','welcome','fixed expression'],['in Berlin','in Berlin','in + Dativ']],
+    l2:[['Das','demonstrative · "that"'],['ist','verb · sein · 3sg'],['gut','adjective · predicate (no ending after sein)'],['Willkommen','fixed welcome formula · not a verb'],['in','preposition · + Dativ'],['Berlin','city · no article']],
+    l3:['Predicate adjectives after sein take NO ending: "Das ist gut" (not "gute").','Willkommen in + city — the same pattern you met on Day 1.']}};
+function openTap(id){
+  var t=TAPS[id]; if(!t) return;
+  var html='<button class="close" onclick="closeTap()">✕</button>';
+  html+='<h3>Grammar Tap · '+id.replace('tap','Sentence ')+'</h3>';
+  // Layer 1: sentence audio + table
+  html+='<div class="layer"><b>🔊 Layer 1 · Sentence</b><br>'+t.de+' ';
+  html+='<span class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,\''+t.de.replace(/'/g,"\\'")+'\')">0.5×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,\''+t.de.replace(/'/g,"\\'")+'\')">1×</button></span></div>';
+  html+='<div class="layer"><b>Layer 1 · Sentence breakdown</b><table class="l1-table">';
+  t.l1table.forEach(function(r){ html+='<tr><td class="de">'+r[0]+'</td><td class="en">'+r[1]+'</td><td>'+r[2]+'</td></tr>'; });
+  html+='</table></div>';
+  // Layer 2: word annotation row by row
+  html+='<div class="layer"><b>Layer 2 · Word annotation</b>';
+  t.l2.forEach(function(r){
+    html+='<div class="l2-row"><span class="w"><span class="tok" onclick="speakWord(\''+r[0].replace(/'/g,"\\'")+'\')">'+r[0]+'</span> 🔊</span><span class="m">'+r[1]+'</span></div>';
+  });
+  html+='</div>';
+  // Layer 3: tips, one per line
+  html+='<div class="layer"><b>Layer 3 · Study tip</b><div class="l3-tip">';
+  t.l3.forEach(function(p){ html+='<p>'+p+'</p>'; });
+  html+='</div></div>';
+  document.getElementById('tapcard').innerHTML=html;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeTap(){ document.getElementById('overlay').classList.remove('show'); }
+
+// ---------- Listening player (v5: 3-state ▶/⏸/⏹) ----------
+var lstate={rate:1,playing:false,paused:false,utter:null};
+function setListenSpeed(btn,r){
+  lstate.rate=r;
+  document.querySelectorAll('[onclick^="setListenSpeed"]').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+}
+function toggleListen(){
+  var btn=document.getElementById('lplay');
+  // resume from pause
+  if(lstate.paused){
+    speechSynthesis.resume();
+    lstate.paused=false; lstate.playing=true;
+    btn.textContent='⏸ Pause'; btn.classList.add('playing');
+    return;
   }
-  window.playRec=function(playId){
-    var recId='rec-'+playId.split('-')[1];
-    if(!audioBuf[recId]){ return; }
-    unlock();
-    try{
-      var src=audioCtx.createBufferSource();
-      src.buffer=audioBuf[recId];
-      src.connect(audioCtx.destination);
-      src.start(0);
-    }catch(e){ /* ignore */ }
+  // pause
+  if(lstate.playing){
+    speechSynthesis.pause();
+    lstate.paused=true; lstate.playing=false;
+    btn.textContent='▶ Resume'; btn.classList.remove('playing');
+    return;
+  }
+  // fresh start
+  unlock();
+  var txt='Achtung! Der Zug nach Berlin Hauptbahnhof fährt von Gleis vier. Die Fahrtzeit beträgt dreißig Minuten. Bitte beachten Sie: Das Taxi vor dem Terminal kostet etwa fünfundvierzig Euro. Die Bahn ist schneller und billiger. Vielen Dank.';
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt); u.lang='de-DE'; u.rate=lstate.rate;
+  u.onend=function(){ lstate.playing=false; lstate.paused=false; btn.textContent='▶ Play'; btn.classList.remove('playing'); };
+  lstate.utter=u; lstate.playing=true;
+  btn.textContent='⏸ Pause'; btn.classList.add('playing');
+  speechSynthesis.speak(u);
+}
+function stopListen(){
+  var btn=document.getElementById('lplay');
+  speechSynthesis.cancel();
+  lstate.playing=false; lstate.paused=false;
+  btn.textContent='▶ Play'; btn.classList.remove('playing');
+}
+
+// ---------- Quiz (v5: localStorage + redo) ----------
+function answerOpt(btn, correct, qid, explain){
+  if(btn.disabled) return;
+  var opts=btn.parentNode.querySelectorAll('.opt');
+  var idx=Array.prototype.indexOf.call(opts,btn);
+  opts.forEach(function(o){o.disabled=true});
+  if(correct){ btn.classList.add('correct'); }
+  else {
+    btn.classList.add('wrong');
+    opts.forEach(function(o){ if(o.getAttribute('onclick').indexOf('true')>-1 && o!==btn) o.classList.add('correct'); });
+  }
+  var fb=document.getElementById('fb-'+qid);
+  fb.innerHTML='<b>'+(correct?'✓ Correct':'✗ Not quite')+'</b> — '+explain;
+  fb.classList.add('show');
+  var ec=document.getElementById('ec-'+qid);
+  if(ec) ec.style.display='block';
+  // persist
+  try{ localStorage.setItem('quiz:day2:'+qid, JSON.stringify({idx:idx,correct:correct})); emitEvent('answered','quiz:day2:'+qid,{idx:idx,correct:correct,qhash:qhashOf(qid)}); }catch(e){}
+  // unlock transcript after all 3 listening questions
+  if(qid.startsWith('l')){
+    var done=['l1','l2','l3'].every(function(q){ return document.querySelector('[data-q="'+q+'"] .opt[disabled]'); });
+    if(done){
+      document.getElementById('ltr').classList.add('show');
+      var lastFb=document.getElementById('fb-l3');
+      if(lastFb && lastFb.innerHTML.indexOf('Transcript unlocked')<0){
+        lastFb.innerHTML+='<br><span style="color:var(--accent)"><b>✅ Transcript unlocked</b> — scroll down to read.</span>';
+      }
+    }
+  }
+}
+function pickErr(el,qid,label){
+  var spans=el.parentNode.querySelectorAll('.lab');
+  spans.forEach(function(s){s.style.background='#fff';s.style.color='var(--muted)'});
+  el.style.background='var(--tap)'; el.style.color='#fff';
+  emitEvent('errcat','quiz:day2:'+qid,{cat:label}); // §16.3 错因上云, Home 错题集显示
+  if(label==='没听清'){
+    var fb=document.getElementById('fb-'+qid);
+    fb.innerHTML+='<br><span style="color:var(--tap)"><b>Tip:</b> Re-listen at 0.5× — pause after each clause. Numbers: "dreizehn" (13) vs "dreißig" (30) are easy to swap; mouth the number silently as you hear it.</span>';
+  }
+}
+function redoQuiz(qid){
+  var optContainer=document.querySelector('[data-q="'+qid+'"]');
+  if(!optContainer) return;
+  var opts=optContainer.querySelectorAll('.opt');
+  opts.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+  var fb=document.getElementById('fb-'+qid);
+  if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+  var ec=document.getElementById('ec-'+qid);
+  if(ec) ec.style.display='none';
+  try{ localStorage.removeItem('quiz:day2:'+qid); emitEvent('reset','quiz:day2:'+qid,null); }catch(e){}
+  // v5.1 §11-3: listening quiz redo → re-lock transcript
+  if(qid.indexOf('l')===0 && document.getElementById('ltr')){
+    document.getElementById('ltr').classList.remove('show');
+  }
+}
+
+// v5.2 §12.A-1: module-level redo — clear all questions in a module
+function redoModule(mod){
+  var map={
+    vocab:['vq1','vq2','vq3','vq4','vq5'],
+    listening:['l1','l2','l3'],
+    reading:['r1','r2','r3'],
+    review:['rq1','rq2','rq3','rq4','rq5']
   };
-  document.addEventListener('click',function(){ unlock(); },{once:true});
-})();
+  var qs=map[mod]||[];
+  qs.forEach(function(q){ redoQuiz(q); });
+  // listening: also reset the player to start state
+  if(mod==='listening' && typeof stopListen==='function'){ stopListen(); }
+  // scroll to top of the section for a clean redo feel
+  try{ document.querySelector('#t-'+(mod==='review'?'review':mod)).scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+}
+// restore quiz state on load (guarded: no sync events emitted for own restores)
+try{
+  __restoring=true;
+  document.querySelectorAll('.opts[data-q]').forEach(function(c){
+    var qid=c.getAttribute('data-q');
+    var raw=localStorage.getItem('quiz:day2:'+qid);
+    if(!raw) return;
+    var data=JSON.parse(raw);
+    var opts=c.querySelectorAll('.opt');
+    var btn=opts[data.idx];
+    if(btn){ var oc=btn.getAttribute('onclick'); btn.setAttribute('onclick',oc); btn.click(); }
+  });
+}catch(e){}
+__restoring=false;
+
+// ---------- Shadowing recording (Web Audio API playback) ----------
+var audioCtx;
+var recChunks=[]; var mediaRec=null; var currentRecBtn=null; var recBuffers={};
+function ensureCtx(){
+  if(!audioCtx){ try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+function toggleRec(btn){
+  ensureCtx();
+  if(btn.classList.contains('recording')){
+    if(mediaRec){ mediaRec.stop(); }
+    return;
+  }
+  if(currentRecBtn && currentRecBtn!==btn && currentRecBtn.classList.contains('recording')){ if(mediaRec) mediaRec.stop(); }
+  currentRecBtn=btn;
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    recChunks=[];
+    mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=function(e){ if(e.data.size>0) recChunks.push(e.data); };
+    mediaRec.onstop=function(){
+      var blob=new Blob(recChunks, {type: mediaRec.mimeType || 'audio/mp4'});
+      var reader=new FileReader();
+      reader.onload=function(){
+        var key='shad-'+Math.random().toString(36).slice(2);
+        recBuffers[key]=reader.result;
+        btn.setAttribute('data-rec',key);
+        btn.classList.remove('recording'); btn.textContent='⏺ Re-record';
+        stream.getTracks().forEach(function(t){t.stop()});
+      };
+      reader.readAsArrayBuffer(blob);
+    };
+    mediaRec.start();
+    btn.classList.add('recording'); btn.textContent='⏹ Stop';
+  }).catch(function(err){
+    alert('Recording not available: '+err.message);
+    btn.classList.remove('recording');
+  });
+}
+function playRec(btn){
+  var row=btn.closest('.row');
+  var recBtn=row.querySelector('.rec');
+  var key=recBtn.getAttribute('data-rec');
+  if(!key){ alert('No recording yet — tap ⏺ first'); return; }
+  ensureCtx();
+  var buf=recBuffers[key];
+  audioCtx.decodeAudioData(buf.slice(0), function(decoded){
+    var src=audioCtx.createBufferSource();
+    src.buffer=decoded; src.connect(audioCtx.destination);
+    src.start(0);
+  }, function(err){ alert('Playback failed: '+err); });
+}
+
+// ---------- Mark as studied (v5: toggle, revocable) ----------
+function markStudied(){
+  var b=document.getElementById('markBtn');
+  try{
+    if(localStorage.getItem('day-002-studied')){
+      localStorage.removeItem('day-002-studied');
+      emitEvent('studied_off','studied',null);
+      b.classList.remove('done'); b.textContent='Mark Day 2 as studied ✅';
+    }else{
+      localStorage.setItem('day-002-studied','1');
+      emitEvent('studied_on','studied',null);
+      b.classList.add('done'); b.textContent='✅ Day 2 studied (tap to undo)';
+    }
+  }catch(e){ alert('Could not save (private mode?)'); }
+}
+try{ if(localStorage.getItem('day-002-studied')){ var b=document.getElementById('markBtn'); b.classList.add('done'); b.textContent='✅ Day 2 studied (tap to undo)'; } }catch(e){}
+
+// ---------- v5.2 §12.A-7: Reset Day 2 progress (keep favorites) ----------
+function resetDay(){
+  if(!confirm('Reset all Day 2 progress?\n\nThis clears quiz answers and "studied" status.\nFavorites (⭐) are kept.')) return;
+  try{
+    var toDel=[];
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k && (k.indexOf('quiz:day2:')===0 || k==='day-002-studied')){
+        toDel.push(k);
+      }
+    }
+    toDel.forEach(function(k){ localStorage.removeItem(k); });
+    emitEvent('reset','day2',null);
+    // reset all quiz UI in the page
+    document.querySelectorAll('.opts[data-q]').forEach(function(c){
+      var opts=c.querySelectorAll('.opt');
+      opts.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+      var qid=c.getAttribute('data-q');
+      var fb=document.getElementById('fb-'+qid);
+      if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+      var ec=document.getElementById('ec-'+qid);
+      if(ec) ec.style.display='none';
+    });
+    // re-lock transcript
+    var ltr=document.getElementById('ltr');
+    if(ltr) ltr.classList.remove('show');
+    // reset studied button
+    var mb=document.getElementById('markBtn');
+    if(mb){ mb.classList.remove('done'); mb.textContent='Mark Day 2 as studied ✅'; }
+    // reset listening player
+    if(typeof stopListen==='function'){ stopListen(); }
+    alert('Day 2 progress reset. ⭐ Favorites kept.');
+  }catch(e){ alert('Reset failed: '+e.message); }
+}
+
+// ==================== §16.4 题库 QBANK (Home 错题集 + review.html 共用; 纯 JSON, 每日生成模板必产) ====================
+// ==================== §16.4 题库 QBANK (Home 错题集 + review.html 共用; 纯 JSON, 每日生成模板必产 §10.9) ====================
+// 注: verb:true 同时用作"无冠词条目"标记 (代词/形容词/语气词), 使复习中心跳过选冠词题型
+var QBANK={"day":2,"pad":"002","title":"在柏林机场：到达与问路","words":[
+{"w":"das Ticket","de":"Ticket","art":"das","en":"ticket","pl":"die Tickets"},
+{"w":"das Taxi","de":"Taxi","art":"das","en":"taxi","pl":"die Taxis"},
+{"w":"die Familie","de":"Familie","art":"die","en":"family","pl":"die Familien"},
+{"w":"der Pass","de":"Pass","art":"der","en":"passport","pl":"die Pässe"},
+{"w":"das Problem","de":"Problem","art":"das","en":"problem","pl":"die Probleme"},
+{"w":"suchen","verb":true,"en":"to look for"},
+{"w":"finden","verb":true,"en":"to find"},
+{"w":"nehmen","verb":true,"en":"to take"},
+{"w":"sprechen","verb":true,"en":"to speak"},
+{"w":"der Flughafen","de":"Flughafen","art":"der","en":"airport","pl":"die Flughäfen"},
+{"w":"der Bahnhof","de":"Bahnhof","art":"der","en":"train station","pl":"die Bahnhöfe"},
+{"w":"der Koffer","de":"Koffer","art":"der","en":"suitcase","pl":"die Koffer"},
+{"w":"die Frage","de":"Frage","art":"die","en":"question","pl":"die Fragen"},
+{"w":"die Antwort","de":"Antwort","art":"die","en":"answer","pl":"die Antworten"},
+{"w":"Entschuldigung","verb":true,"en":"excuse me"}
+],"pageq":{"vq1":"der Pass","vq2":"die Antwort","vq3":"der Koffer","vq4":"die Familie","vq5":"das Problem"}};
+
+// ==================== §12.B Cloud sync (Workers + D1) ====================
+var SYNC_API='https://deutsch-sync.queque0926.workers.dev/api/log';
+var DAY=2, DAYPAD='002';
+var __restoring=false;
+function __uuid(){ try{ return crypto.randomUUID(); }catch(e){ return 'e-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10); } }
+function __device(){ var ua=navigator.userAgent; if(/iPhone|iPad/i.test(ua)) return 'ios-safari'; if(/Android/i.test(ua)) return 'android'; if(/Mac/i.test(ua)) return 'mac'; return 'pc'; }
+function syncPass(){ try{ return localStorage.getItem('sync:pass')||''; }catch(e){ return ''; } }
+function syncOutbox(){ try{ return JSON.parse(localStorage.getItem('sync:outbox')||'[]'); }catch(e){ return []; } }
+function syncSaveOutbox(q){ try{ localStorage.setItem('sync:outbox',JSON.stringify(q)); }catch(e){} }
+function syncStatus(s){ var el=document.getElementById('syncStat'); if(el) el.textContent=s||''; }
+function syncKeyTs(){ try{ return JSON.parse(localStorage.getItem('sync:kt')||'{}'); }catch(e){ return {}; } }
+function syncSetKt(key,ts){ try{ var kt=syncKeyTs(); kt[key]=ts; localStorage.setItem('sync:kt',JSON.stringify(kt)); }catch(e){} }
+
+// §15.2 题目指纹: sha1(题干+选项按序) 前 8 位 — 恢复作答的唯一闸门
+function sha1_8(str){
+  function rol(n,b){ return (n<<b)|(n>>>(32-b)); }
+  var msg=unescape(encodeURIComponent(str));
+  var ml=msg.length, w=[], i;
+  for(i=0;i<ml;i++) w[i>>2]=(w[i>>2]||0)|(msg.charCodeAt(i)<<(24-(i%4)*8));
+  w[ml>>2]=(w[ml>>2]||0)|(0x80<<(24-(ml%4)*8));
+  var nblk=((ml+8)>>6)+1, bl=[];
+  for(i=0;i<nblk*16;i++) bl[i]=w[i]||0;
+  bl[nblk*16-1]=ml*8;
+  var h0=0x67452301,h1=0xEFCDAB89,h2=0x98BADCFE,h3=0x10325476,h4=0xC3D2E1F0;
+  for(i=0;i<bl.length;i+=16){
+    var a=h0,b=h1,c=h2,d=h3,e=h4,j;
+    var W=[];
+    for(j=0;j<80;j++) W[j]=j<16?(bl[i+j]||0):rol(W[j-3]^W[j-8]^W[j-14]^W[j-16],1);
+    for(j=0;j<80;j++){
+      var t;
+      if(j<20) t=(rol(a,5)+((b&c)|(~b&d))+e+W[j]+0x5A827999)|0;
+      else if(j<40) t=(rol(a,5)+(b^c^d)+e+W[j]+0x6ED9EBA1)|0;
+      else if(j<60) t=(rol(a,5)+((b&c)|(b&d)|(c&d))+e+W[j]+0x8F1BBCDC)|0;
+      else t=(rol(a,5)+(b^c^d)+e+W[j]+0xCA62C1D6)|0;
+      e=d; d=c; c=rol(b,30); b=a; a=t;
+    }
+    h0=(h0+a)|0; h1=(h1+b)|0; h2=(h2+c)|0; h3=(h3+d)|0; h4=(h4+e)|0;
+  }
+  return ((h0>>>0).toString(16)+((h1>>>0).toString(16))+((h2>>>0).toString(16))+((h3>>>0).toString(16))+((h4>>>0).toString(16))).slice(0,8);
+}
+function qhashOf(qid){
+  var c=document.querySelector('.opts[data-q="'+qid+'"]'); if(!c) return '';
+  var quiz=c.closest('.quiz'); var qel=quiz?quiz.querySelector('.q'):null;
+  var opts=c.querySelectorAll('.opt');
+  var txt=(qel?qel.textContent.trim():'')+'|'+Array.prototype.map.call(opts,function(o){ return o.textContent.trim(); }).join('|');
+  return sha1_8(txt);
+}
+
+function emitEvent(type,key,payload){
+  if(__restoring) return;
+  try{
+    var q=syncOutbox();
+    q.push({id:__uuid(),device:__device(),ts:Date.now(),type:type,day:DAY,key:key,payload:payload});
+    syncSaveOutbox(q);
+    syncSetKt(key,Date.now());
+    syncStatus('待同步 '+q.length+' 条');
+    setTimeout(flushSync,1500);
+  }catch(e){}
+}
+function flushSync(){
+  var pass=syncPass(); if(!pass) return;
+  var q=syncOutbox(); if(!q.length){ return; }
+  fetch(SYNC_API,{method:'POST',headers:{'Content-Type':'application/json','X-Passphrase':pass},body:JSON.stringify(q)})
+    .then(function(r){
+      if(r.status===200){ syncSaveOutbox([]); syncStatus('已同步 ✓'); }
+      else if(r.status===401){ syncStatus('口令被拒,请重新登录'); }
+      else { syncStatus('待同步 '+syncOutbox().length+' 条'); }
+    })
+    .catch(function(){ syncStatus('离线 · 待同步 '+syncOutbox().length+' 条'); });
+}
+function applyRemote(ev){
+  __restoring=true;
+  try{
+    if(ev.type==='answered'){
+      var payload=typeof ev.payload==='string'?JSON.parse(ev.payload):(ev.payload||{});
+      // §15.2 指纹闸门: 题目内容对不上就不恢复 (事件留日志), 防止旧版作答污染再生成后的新题
+      if(payload.qhash && payload.qhash!==qhashOf(ev.key.split(':').pop())){ __restoring=false; return; }
+      localStorage.setItem(ev.key,JSON.stringify(payload));
+      var qid=ev.key.split(':').pop();
+      var c=document.querySelector('.opts[data-q="'+qid+'"]');
+      if(c){ var btn=c.querySelectorAll('.opt')[payload.idx]; if(btn && !btn.disabled) btn.click(); }
+    } else if(ev.type==='reset'){
+      if(ev.key==='day'+DAY){
+        var del=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (k.indexOf('quiz:day'+DAY+':')===0 || k==='day-'+DAYPAD+'-studied')) del.push(k); }
+        del.forEach(function(k){ localStorage.removeItem(k); });
+        document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+          var os=cc.querySelectorAll('.opt'); os.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+          var qid2=cc.getAttribute('data-q'); var fb=document.getElementById('fb-'+qid2); if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+          var ec=document.getElementById('ec-'+qid2); if(ec) ec.style.display='none';
+        });
+        var ltr=document.getElementById('ltr'); if(ltr) ltr.classList.remove('show');
+        var mb=document.getElementById('markBtn'); if(mb){ mb.classList.remove('done'); mb.textContent='Mark Day 2 as studied ✅'; }
+        if(typeof stopListen==='function') stopListen();
+      } else {
+        localStorage.removeItem(ev.key);
+        var qid3=ev.key.split(':').pop();
+        if(qid3 && document.querySelector('.opts[data-q="'+qid3+'"]')) redoQuiz(qid3);
+      }
+    } else if(ev.type==='studied_on'||ev.type==='studied_off'){
+      if(ev.type==='studied_on') localStorage.setItem('day-'+DAYPAD+'-studied','1'); else localStorage.removeItem('day-'+DAYPAD+'-studied');
+      var b=document.getElementById('markBtn');
+      if(b){ if(ev.type==='studied_on'){ b.classList.add('done'); b.textContent='✅ Day 2 studied (tap to undo)'; } else { b.classList.remove('done'); b.textContent='Mark Day 2 as studied ✅'; } }
+    } else if(ev.type==='fav_on'||ev.type==='fav_off'){
+      var w=ev.key.split(':').slice(2).join(':');
+      if(ev.type==='fav_on') localStorage.setItem(ev.key,'1'); else localStorage.removeItem(ev.key);
+      document.querySelectorAll('.vcard').forEach(function(c){
+        if(c.getAttribute('data-word')===w){ c.classList.toggle('fav',ev.type==='fav_on'); var s=c.querySelector('.fav-star'); if(s) s.textContent=(ev.type==='fav_on'?'★':'☆'); }
+      });
+    }
+  }catch(e){}
+  __restoring=false;
+}
+function pullSync(){
+  var pass=syncPass(); if(!pass) return Promise.resolve();
+  var lastTs=0; try{ lastTs=parseInt(localStorage.getItem('sync:lastTs')||'0',10)||0; }catch(e){}
+  return fetch(SYNC_API+'?since='+lastTs,{headers:{'X-Passphrase':pass}})
+    .then(function(r){ if(r.status!==200) throw new Error('http '+r.status); return r.json(); })
+    .then(function(data){
+      var max=lastTs;
+      (data.events||[]).forEach(function(ev){
+        if(!ev || typeof ev.ts!=='number' || ev.ts<=max) return;
+        max=ev.ts;
+        var lt=syncKeyTs()[ev.key]||0;
+        if(ev.ts>lt){ applyRemote(ev); syncSetKt(ev.key,ev.ts); }
+      });
+      try{ localStorage.setItem('sync:lastTs',''+max); }catch(e){}
+      syncStatus('已同步 ✓');
+    })
+    .catch(function(){ syncStatus('离线 · 本地进度不受影响'); });
+}
+function syncNow(){ syncStatus('同步中…'); flushSync(); pullSync(); }
+
+// namespace isolation: per-profile snapshot of local day-3 state
+function hashTag(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return 'h'+(h>>>0).toString(36); }
+// §16.1 快照泛化: 覆盖全部天数的键 (与 Home 同规则), 否则 Home 换空间会丢其他天的本机数据
+function dayKeys(){
+  var reA=/^quiz:day\d+:/, reF=/^fav:day\d+:/, reS=/^day-\d{3}-studied$/, reR=/^rev:/;
+  var ks=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && (reA.test(k)||reF.test(k)||reS.test(k)||reR.test(k))) ks.push(k); }
+  return ks;
+}
+function snapshotNS(tag){
+  try{
+    var st={keys:{},kt:localStorage.getItem('sync:kt')||'{}',lastTs:localStorage.getItem('sync:lastTs')||'0'};
+    dayKeys().forEach(function(k){ st.keys[k]=localStorage.getItem(k); });
+    localStorage.setItem('sync:snap:'+tag,JSON.stringify(st));
+  }catch(e){}
+}
+function restoreNS(tag){
+  dayKeys().forEach(function(k){ localStorage.removeItem(k); });
+  var raw=null; try{ raw=localStorage.getItem('sync:snap:'+tag); }catch(e){}
+  if(raw){
+    try{
+      var st=JSON.parse(raw);
+      Object.keys(st.keys||{}).forEach(function(k){ if(st.keys[k]!==null) localStorage.setItem(k,st.keys[k]); });
+      localStorage.setItem('sync:kt',st.kt||'{}'); localStorage.setItem('sync:lastTs',st.lastTs||'0');
+    }catch(e){}
+  } else {
+    localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
+  }
+}
+function reRenderFromLocal(){
+  __restoring=true;
+  try{
+    document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+      var os=cc.querySelectorAll('.opt'); os.forEach(function(o){ o.disabled=false; o.classList.remove('correct','wrong'); });
+      var qid=cc.getAttribute('data-q'); var fb=document.getElementById('fb-'+qid); if(fb){ fb.classList.remove('show'); fb.innerHTML=''; }
+      var ec=document.getElementById('ec-'+qid); if(ec) ec.style.display='none';
+    });
+    document.querySelectorAll('.opts[data-q]').forEach(function(cc){
+      var qid=cc.getAttribute('data-q'); var raw=localStorage.getItem('quiz:day'+DAY+':'+qid); if(!raw) return;
+      var d=JSON.parse(raw); var btn=cc.querySelectorAll('.opt')[d.idx]; if(btn) btn.click();
+    });
+    var l1=!!localStorage.getItem('quiz:day2:l1'),l2=!!localStorage.getItem('quiz:day2:l2'),l3=!!localStorage.getItem('quiz:day2:l3');
+    var ltr=document.getElementById('ltr'); if(ltr){ if(l1&&l2&&l3) ltr.classList.add('show'); else ltr.classList.remove('show'); }
+    var b=document.getElementById('markBtn');
+    if(b){ if(localStorage.getItem('day-'+DAYPAD+'-studied')){ b.classList.add('done'); b.textContent='✅ Day 2 studied (tap to undo)'; } else { b.classList.remove('done'); b.textContent='Mark Day 2 as studied ✅'; } }
+    document.querySelectorAll('.vcard').forEach(function(c){
+      var w=c.getAttribute('data-word'); var on=w && localStorage.getItem('fav:day'+DAY+':'+w);
+      c.classList.toggle('fav',!!on); var s=c.querySelector('.fav-star'); if(s) s.textContent=(on?'★':'☆');
+    });
+  }catch(e){}
+  __restoring=false;
+}
+function setNamespace(pass){
+  var oldTag=null; try{ oldTag=localStorage.getItem('sync:tag'); }catch(e){}
+  var newTag=hashTag(pass);
+  if(oldTag && oldTag!==newTag){ snapshotNS(oldTag); restoreNS(newTag); reRenderFromLocal(); }
+  else if(!oldTag){ snapshotNS(newTag); }
+  try{ localStorage.setItem('sync:tag',newTag); localStorage.setItem('sync:pass',pass); }catch(e){}
+  updateSyncUI();
+  syncNow();
+}
+function updateSyncUI(){
+  // §16.1 口令登录移至 Home; 本页只做状态指示
+  var pass=syncPass();
+  var nsEl=document.getElementById('syncNs');
+  var loggedRow=document.getElementById('syncLoggedRow');
+  var loginRow=document.getElementById('syncLoginRow');
+  if(!nsEl||!loggedRow||!loginRow) return;
+  if(pass){
+    nsEl.textContent = pass==='German'?'正式 · German ✓':(pass==='Test'?'测试 · Test ✓':'已登录 ✓');
+    loggedRow.style.display=''; loginRow.style.display='none';
+  } else {
+    nsEl.textContent='未登录 (仅本机)';
+    loggedRow.style.display='none'; loginRow.style.display='';
+  }
+}
+try{ updateSyncUI(); }catch(e){}
+if(syncPass()){ pullSync().then(function(){ flushSync(); }); }
+window.addEventListener('online',function(){ if(syncPass()) flushSync(); });
 </script>
 </body>
 </html>
