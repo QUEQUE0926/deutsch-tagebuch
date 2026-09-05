@@ -40,6 +40,9 @@
   .vcard.art-der{border-left-color:var(--der)}
   .vcard.art-die{border-left-color:var(--die)}
   .vcard.art-das{border-left-color:var(--das)}
+  /* v5.3 §13-1: Group A/C noun cards get beige background (noun visual identity);
+     gender color bar + l1 capsule tint preserved; Group B verb cards keep white */
+  .vcard.art-der,.vcard.art-die,.vcard.art-das{background:#FFF8DC}
   .vcard.fav{box-shadow:0 0 0 2px var(--tap) inset}
   .vcard .fav-star{position:absolute;top:10px;right:14px;cursor:pointer;font-size:1.15rem;color:var(--line);user-select:none}
   .vcard.fav .fav-star{color:#eab308}
@@ -139,6 +142,22 @@
   .quiz .redo{margin-top:8px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.82rem;color:var(--muted);min-height:36px}
   .quiz .redo:hover{background:var(--panel)}
   .quiz-header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  /* v5.3 §13-2: Full translation details + Grammar in context */
+  details.full-trans{border:1px solid var(--line);border-radius:10px;background:#fff;margin:14px 0}
+  details.full-trans summary{cursor:pointer;font-weight:700;color:var(--accent);padding:11px 14px;min-height:44px;display:flex;align-items:center;list-style:none}
+  details.full-trans summary::-webkit-details-marker{display:none}
+  details.full-trans summary::before{content:"▸ ";color:var(--tap)}
+  details.full-trans[open] summary::before{content:"▾ "}
+  details.full-trans .ft-body{padding:0 14px 12px;font-size:.95rem;line-height:1.7}
+  details.full-trans .ft-body p{margin:6px 0}
+  .gctx{border:1px solid var(--line);border-radius:10px;background:#fff;margin:14px 0;padding:12px 14px}
+  .gctx h3{margin:0 0 4px;font-size:1rem;color:var(--accent)}
+  .gctx .gctx-item{border-top:1px dashed var(--line);padding:10px 0}
+  .gctx .gctx-item:first-of-type{border-top:none}
+  .gctx .quote{background:var(--panel);border-left:3px solid var(--tap);border-radius:0 8px 8px 0;padding:8px 10px;margin:6px 0;font-size:1.02rem}
+  .gctx .expl{font-size:.93rem;line-height:1.7;margin:6px 0 0;color:var(--ink)}
+  .gctx .expl b{color:var(--tap)}
+  .wspk{border-bottom:1.5px dotted var(--tap);cursor:pointer}
   /* Shadowing */
   .shad{display:grid;gap:10px}
   .shad .row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -582,7 +601,7 @@
     <div class="opts" data-q="r1" data-page-node-id="8RKyy4IF8bL7XlHCJQo1Z6">
       <button class="opt" onclick="answerOpt(this,true,'r1','原文: &quot;der Salat war kalt&quot; + &quot;Der Salat ist nicht so gut&quot;. 对: 沙拉又冷又不好. 考点: war (过去时) + nicht so gut 评价.')" data-page-node-id="2MeNhqcDZakvMdoptsJxZA">It was cold and not very good</button>
       <button class="opt" onclick="answerOpt(this,false,'r1','原文说 &quot;der Salat war kalt&quot; - 沙拉是冷的不好吃. 好吃的是披萨 (schmeckte mir sehr). 考点: 区分不同食物的评价.')" data-page-node-id="7t9x1bWjbyjyRmd0eFVIQl">It was tasty</button>
-      <button class="opt" onclick="answerOpt(this,false,'r1','Anna didn't send it back — she just complained.')" data-page-node-id="fbHRU6AnIAFhgHSukuYObK">She sent it back to the kitchen</button>
+      <button class="opt" onclick="answerOpt(this,false,'r1','Anna did not send it back — she just complained.')" data-page-node-id="fbHRU6AnIAFhgHSukuYObK">She sent it back to the kitchen</button>
     </div>
     <div class="fb" id="fb-r1" data-page-node-id="wkXHuUoojGx8HIAEIXhAZ1"></div>
     <div class="errcat" id="ec-r1" style="display:none" data-page-node-id="UFlICh5Qs6gUwnmP3OLnqJ">If wrong, why? <span class="lab" onclick="pickErr(this,'r1','单词不认识')" data-page-node-id="aQoK7yFqE3lSEzTaavb6zl">单词不认识</span><span class="lab" onclick="pickErr(this,'r1','语法没懂')" data-page-node-id="y8d6YTsLE5iM3zUd4OUdfJ">语法没懂</span><span class="lab" onclick="pickErr(this,'r1','理解偏了')" data-page-node-id="AjPnJq24Co31lDSGsBQzT1">理解偏了</span><span class="lab" onclick="pickErr(this,'r1','粗心')" data-page-node-id="JXkrntuNASS9o2jKopp0YO">粗心</span></div>
@@ -610,6 +629,37 @@
   </div>
 
   <button class="module-redo" onclick="redoModule('reading')">↻ Redo this module · 3 questions</button>
+
+  <!-- v5.3 §13-2: Full translation (default folded) -->
+  <details class="full-trans">
+    <summary>📖 Full translation · English (translate it yourself first, then check)</summary>
+    <div class="ft-body">
+      <p><b>¶1</b> — This evening I was at a restaurant in Berlin with Anna. The restaurant is called "Bei Luigi" and it is very small, but cozy. The waiter was very friendly.</p>
+      <p><b>¶2</b> — I was hungry and ordered a pizza with tomatoes. Anna took the soup and a salad. I drank a coffee with it. The coffee was strong, but very good. I really enjoyed the pizza — it was hot and delicious!</p>
+      <p><b>¶3</b> — Anna liked the soup, but the salad was cold. She said: "The salad is not so good." I gave her some of my pizza. We laughed.</p>
+      <p><b>¶4</b> — In the end we got the bill. The meal cost 28 euros altogether. I paid and gave the waiter three euros as a tip. It was a lovely evening in Berlin.</p>
+    </div>
+  </details>
+
+  <!-- v5.3 §13-2: Grammar in context (real sentences from today's text) -->
+  <div class="gctx">
+    <h3>🧩 Grammar in context · 3 points from today's text</h3>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Heute Abend <b>war</b> ich mit Anna in einem <span class="g-das">Restaurant</span> in Berlin." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Heute Abend war ich mit Anna in einem Restaurant in Berlin.')">🔊</button></div>
+      <p class="expl"><b>1 · Präteritum of <i>sein</i> and <i>haben</i></b> — In diaries and stories, <span class="wspk" onclick="speakWord('war')">war</span> (was) and <span class="wspk" onclick="speakWord('hatte')">hatte</span> (had) are the normal past forms of sein and haben: ich war, ich hatte. German almost never says "bin gewesen" or "habe gehabt" — one short word does the whole job, and you will meet these two forms in nearly every past-tense sentence you ever read.</p>
+    </div>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Das <span class="g-das">Essen</span> <b>kostete</b> zusammen 28 <span class="g-das">Euro</span>." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Das Essen kostete zusammen 28 Euro.')">🔊</button></div>
+      <p class="expl"><b>2 · Simple past: regular <i>-te</i> vs. strong verbs</b> — Most verbs build the past with <i>-te</i>: bestellen → <span class="wspk" onclick="speakWord('bestellte')">bestellte</span>, bezahlen → <span class="wspk" onclick="speakWord('bezahlte')">bezahlte</span>, schmecken → schmeckte. A few very common verbs are <b>strong</b> — they change their vowel instead: nehmen → <span class="wspk" onclick="speakWord('nahm')">nahm</span>, geben → <span class="wspk" onclick="speakWord('gab')">gab</span>, trinken → trank. Both types are Präteritum, the tense this diary is written in.</p>
+    </div>
+
+    <div class="gctx-item">
+      <div class="quote de-text">"Ich bezahlte und <b>gab</b> <span class="g-der">dem Kellner</span> drei <span class="g-das">Euro</span> <span class="g-der">Trinkgeld</span>." <button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bezahlte und gab dem Kellner drei Euro Trinkgeld.')">🔊</button></div>
+      <p class="expl"><b>3 · Dativ person + Akkusativ thing</b> — <i>geben</i> takes two objects: the receiver (a person) is <b>Dativ</b> — <span class="wspk" onclick="speakWord('dem Kellner')">dem Kellner</span>; the thing given is <b>Akkusativ</b> — drei Euro Trinkgeld (人三物四). The same pattern appears earlier: <i>ich gab ihr etwas</i> — <span class="wspk" onclick="speakWord('ihr')">ihr</span> is the Dativ of <i>sie</i>. Bonus: <i>schmecken</i> works the same way — <i>die Pizza schmeckte mir sehr</i> (<span class="wspk" onclick="speakWord('mir')">mir</span> = to me, Dativ).</p>
+    </div>
+  </div>
 
   <div class="step-row" data-page-node-id="K89l81NB1UXaBEjNrV9yfO">
     <button onclick="goTab('listening')" data-page-node-id="cp2uaWf9TsK7R4xw3BR3fP">← Listening</button>
@@ -862,6 +912,7 @@ Mit freundlichen Grüßen
     <li data-page-node-id="edIfWNlDOYomobc35QnZdA">☑ Spoken text = displayed text (verbatim)</li>
     <li data-page-node-id="A5oFqvf3ZZDVNLBHnsCqBy">☑ Article color coding (der blue / die red / das green) + noun gender text color (g-der/g-die/g-das)</li>
     <li data-page-node-id="nPFnL4WvzMlHDAdJM1FWlk">☑ v5: ⭐ favorites, vocab quiz, 3-state listening, Quiz localStorage + redo, Stress rows, toggle mark-studied, straight quotes only</li>
+    <li>☑ v5.3: noun cards beige #FFF8DC (Group A/C), Reading full translation + Grammar in context (3 points)</li>
   </ul>
 </footer>
 
