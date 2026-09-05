@@ -6,15 +6,15 @@
 <title>Day 3 · A1 · 在柏林餐厅点餐 · DeutschBrücke</title>
 <style>
   :root{
-    --der:#2563eb;--der-bg:#dbeafe;
-    --die:#dc2626;--die-bg:#fee2e2;
-    --das:#16a34a;--das-bg:#dcfce7;
-    --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;
-    --bg:#ffffff;--panel:#f8fafc;--accent:#0f172a;
-    --tap:#7c3aed;--tap-bg:#f3e8ff;
-    --ok:#16a34a;--ok-bg:#dcfce7;
-    --bad:#dc2626;--bad-bg:#fee2e2;
-    --neutral:#64748b;
+    --der:#5c7a99;--der-bg:#e8eef3;
+    --die:#a06b7a;--die-bg:#f3ebee;
+    --das:#7a9178;--das-bg:#edf1ec;
+    --ink:#292524;--muted:#78716c;--line:#e7e5e4;
+    --bg:#fafaf9;--panel:#f5f5f4;--accent:#44403c;
+    --tap:#546a7b;--tap-bg:#e8eef3;
+    --ok:#6b9080;--ok-bg:#eaf1ed;
+    --bad:#b0716a;--bad-bg:#f5ecea;
+    --neutral:#78716c;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -465,70 +465,70 @@
 
     <div class="bubble">
       <div class="who">Kellner</div>
-      <div class="de-text" id="d1">Guten Abend! Haben Sie <span class="tok" onclick="speakWord('eine')">eine</span> <span class="tok" onclick="speakWord('Reservierung')">Reservierung</span>? <span class="tap-btn" onclick="openTap('tap1')">💡</span></div>
+      <div class="de-text" id="d1"><span class="tok" onclick="speakWord('Guten')">Guten</span> <span class="tok" onclick="speakWord('Abend')">Abend</span>! <span class="tok" onclick="speakWord('Haben')">Haben</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('eine')">eine</span> <span class="tok" onclick="speakWord('Reservierung')">Reservierung</span>? <span class="tap-btn" onclick="openTap('tap1')">💡</span></div>
       <div class="en">Good evening! Do you have a reservation?</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Guten Abend! Haben Sie eine Reservierung?')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Tom</div>
-      <div class="de-text">Ja, auf den Namen <span class="tok" onclick="speakWord('Tom')">Tom</span>. Ein <span class="tok" onclick="speakWord('Tisch')">Tisch</span> für zwei Personen. <span class="tap-btn" onclick="openTap('tap2')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Ja')">Ja</span>, <span class="tok" onclick="speakWord('auf')">auf</span> <span class="tok" onclick="speakWord('den')">den</span> <span class="tok" onclick="speakWord('Namen')">Namen</span> <span class="tok" onclick="speakWord('Tom')">Tom</span>. <span class="tok" onclick="speakWord('Ein')">Ein</span> <span class="tok" onclick="speakWord('Tisch')">Tisch</span> <span class="tok" onclick="speakWord('für')">für</span> <span class="tok" onclick="speakWord('zwei')">zwei</span> <span class="tok" onclick="speakWord('Personen')">Personen</span>. <span class="tap-btn" onclick="openTap('tap2')">💡</span></div>
       <div class="en">Yes, under the name Tom. A table for two people.</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ja, auf den Namen Tom. Ein Tisch für zwei Personen.')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Kellner</div>
-      <div class="de-text">Hier ist die <span class="tok" onclick="speakWord('Speisekarte')">Speisekarte</span>. Was möchten Sie <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap3')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Hier')">Hier</span> <span class="tok" onclick="speakWord('ist')">ist</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok" onclick="speakWord('Speisekarte')">Speisekarte</span>. <span class="tok" onclick="speakWord('Was')">Was</span> <span class="tok" onclick="speakWord('möchten')">möchten</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap3')">💡</span></div>
       <div class="en">Here is the menu. What would you like to drink?</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Hier ist die Speisekarte. Was möchten Sie trinken?')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Anna</div>
-      <div class="de-text">Ich nehme einen <span class="tok" onclick="speakWord('Kaffee')">Kaffee</span>, bitte. <span class="tap-btn" onclick="openTap('tap4')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('nehme')">nehme</span> <span class="tok" onclick="speakWord('einen')">einen</span> <span class="tok" onclick="speakWord('Kaffee')">Kaffee</span>, <span class="tok" onclick="speakWord('bitte')">bitte</span>. <span class="tap-btn" onclick="openTap('tap4')">💡</span></div>
       <div class="en">I'll take a coffee, please.</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich nehme einen Kaffee, bitte.')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Kellner</div>
-      <div class="de-text">Sehr gern. Und zum <span class="tok" onclick="speakWord('Essen')">Essen</span>? <span class="tap-btn" onclick="openTap('tap5')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Sehr')">Sehr</span> <span class="tok" onclick="speakWord('gern')">gern</span>. <span class="tok" onclick="speakWord('Und')">Und</span> <span class="tok" onclick="speakWord('zum')">zum</span> <span class="tok" onclick="speakWord('Essen')">Essen</span>? <span class="tap-btn" onclick="openTap('tap5')">💡</span></div>
       <div class="en">Very gladly. And for the food (to eat)?</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Sehr gern. Und zum Essen?')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Tom</div>
-      <div class="de-text">Ich bestelle die <span class="tok" onclick="speakWord('Pizza')">Pizza</span> mit <span class="tok" onclick="speakWord('Tomaten')">Tomaten</span>. <span class="tap-btn" onclick="openTap('tap6')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Ich')">Ich</span> <span class="tok" onclick="speakWord('bestelle')">bestelle</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok" onclick="speakWord('Pizza')">Pizza</span> <span class="tok" onclick="speakWord('mit')">mit</span> <span class="tok" onclick="speakWord('Tomaten')">Tomaten</span>. <span class="tap-btn" onclick="openTap('tap6')">💡</span></div>
       <div class="en">I'll order the pizza with tomatoes.</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Ich bestelle die Pizza mit Tomaten.')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Anna</div>
-      <div class="de-text">Für mich die <span class="tok" onclick="speakWord('Suppe')">Suppe</span> und einen <span class="tok" onclick="speakWord('Salat')">Salat</span>. <span class="tap-btn" onclick="openTap('tap7')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Für')">Für</span> <span class="tok" onclick="speakWord('mich')">mich</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok" onclick="speakWord('Suppe')">Suppe</span> <span class="tok" onclick="speakWord('und')">und</span> <span class="tok" onclick="speakWord('einen')">einen</span> <span class="tok" onclick="speakWord('Salat')">Salat</span>. <span class="tap-btn" onclick="openTap('tap7')">💡</span></div>
       <div class="en">For me the soup and a salad.</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Für mich die Suppe und einen Salat.')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Kellner</div>
-      <div class="de-text">Alles klar. Möchten Sie noch etwas zu <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap8')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Alles')">Alles</span> <span class="tok" onclick="speakWord('klar')">klar</span>. <span class="tok" onclick="speakWord('Möchten')">Möchten</span> <span class="tok" onclick="speakWord('Sie')">Sie</span> <span class="tok" onclick="speakWord('noch')">noch</span> <span class="tok" onclick="speakWord('etwas')">etwas</span> <span class="tok" onclick="speakWord('zu')">zu</span> <span class="tok" onclick="speakWord('trinken')">trinken</span>? <span class="tap-btn" onclick="openTap('tap8')">💡</span></div>
       <div class="en">All clear. Would you like anything else to drink?</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Alles klar. Möchten Sie noch etwas zu trinken?')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Tom</div>
-      <div class="de-text">Nein, danke. Können wir bitte die <span class="tok" onclick="speakWord('Rechnung')">Rechnung</span> bekommen? <span class="tap-btn" onclick="openTap('tap9')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Nein')">Nein</span>, <span class="tok" onclick="speakWord('danke')">danke</span>. <span class="tok" onclick="speakWord('Können')">Können</span> <span class="tok" onclick="speakWord('wir')">wir</span> <span class="tok" onclick="speakWord('bitte')">bitte</span> <span class="tok" onclick="speakWord('die')">die</span> <span class="tok" onclick="speakWord('Rechnung')">Rechnung</span> <span class="tok" onclick="speakWord('bekommen')">bekommen</span>? <span class="tap-btn" onclick="openTap('tap9')">💡</span></div>
       <div class="en">No, thanks. Could we please have the bill?</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Nein, danke. Können wir bitte die Rechnung bekommen?')">1.25×</button></div>
     </div>
 
     <div class="bubble">
       <div class="who">Kellner</div>
-      <div class="de-text">Natürlich. Das macht 28 Euro. <span class="tap-btn" onclick="openTap('tap10')">💡</span></div>
+      <div class="de-text"><span class="tok" onclick="speakWord('Natürlich')">Natürlich</span>. <span class="tok" onclick="speakWord('Das')">Das</span> <span class="tok" onclick="speakWord('macht')">macht</span> <span class="tok" onclick="speakWord('28')">28</span> <span class="tok" onclick="speakWord('Euro')">Euro</span>. <span class="tap-btn" onclick="openTap('tap10')">💡</span></div>
       <div class="en">Of course. That makes 28 euros.</div>
       <div class="spk-sentence"><button class="spbtn" data-rate="0.5" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">0.5×</button><button class="spbtn" data-rate="0.75" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">0.75×</button><button class="spbtn" data-rate="1" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">1×</button><button class="spbtn" data-rate="1.25" onclick="speakSentence(this,'Natürlich. Das macht 28 Euro.')">1.25×</button></div>
     </div>
