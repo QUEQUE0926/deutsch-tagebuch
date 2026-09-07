@@ -230,6 +230,8 @@ function snapshotNS(tag){
 }
 function restoreNS(tag){
   allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
+  // 待上传事件属于旧空间，切换口令时不能带入新空间
+  localStorage.removeItem('sync:outbox');
   var raw=null; try{ raw=localStorage.getItem('sync:snap:'+tag); }catch(e){}
   if(raw){
     try{
