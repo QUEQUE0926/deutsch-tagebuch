@@ -135,9 +135,9 @@
   <!-- Today's lesson -->
   <div class="today">
     <span class="tag">今天学这篇 · Today's lesson</span>
-    <h2>Day 3 · 在柏林餐厅点餐</h2>
-    <p class="desc">A1 上 · 餐厅场景（写作日 N%3==0）。15 个新词（Pizza/Kaffee/bestellen/nehmen/möchten/schmecken...）、餐厅对话 10 句、不定冠词 Akkusativ ein→einen、schmecken + Dativ、餐厅点餐听力、ü/ö 发音自查、餐厅预订邮件写作。点开即可四档变速点读、跟读录音、页签导航、做题即时反馈。</p>
-    <a class="go" href="days/day-003.html">开始今天的学习 →</a>
+    <h2 id="todayTitle">Day 1 · 自我介绍</h2>
+    <p class="desc" id="todayDesc">从 Day 1 开始你的德语学习。</p>
+    <a class="go" id="todayLink" href="days/day-001.html">开始今天的学习 →</a>
   </div>
 
   <!-- Reference -->
@@ -158,30 +158,8 @@
   <p class="note">每格四态：🔒 未解锁（天数 &gt; 已生成天数）· 浅色 已解锁未学 · 绿色 ✓ 已学（本设备标记）。点已解锁的格子直达当日课。</p>
 
   <!-- Course list -->
-  <h2 class="sec">课程目录 · Course list</h2>
-  <ul class="list">
-    <li>
-      <div class="info">
-        <span class="day">Day 3</span><span class="lvl">A1 上</span>
-        <div class="title">在柏林餐厅点餐 · Ordering food at a Berlin restaurant</div>
-      </div>
-      <a class="open" href="days/day-003.html">打开 →</a>
-    </li>
-    <li>
-      <div class="info">
-        <span class="day">Day 2</span><span class="lvl">A1 上</span>
-        <div class="title">在柏林机场：到达与问路 · At Berlin airport: arrival & asking the way</div>
-      </div>
-      <a class="open" href="days/day-002.html">打开 →</a>
-    </li>
-    <li>
-      <div class="info">
-        <span class="day">Day 1</span><span class="lvl">A1 上</span>
-        <div class="title">自我介绍：初次见面 · Self-introduction at a Berlin language meetup</div>
-      </div>
-      <a class="open" href="days/day-001.html">打开 →</a>
-    </li>
-  </ul>
+  <h2 class="sec">课程目录 · Course list <button id="sortToggle" class="sync button" type="button" onclick="toggleCourseSort()">从小到大 ↑</button></h2>
+  <ul class="list" id="courseList"></ul>
   <p class="note">后续每日课程将在推送后自动追加到列表顶部，网格同步着色。</p>
 
   <!-- §16.3 Favorites view -->
@@ -208,6 +186,26 @@ var TOTAL=180;
 var SYNC_API='https://deutsch-sync.queque0926.workers.dev/api/log';
 var CLOUD_EV=[];       // §16.3 云端事件 (每次 since=0 全量, 事件量小)
 var QBANKS={};         // day -> QBANK (从各天页面提取)
+var COURSE_DATA=[
+  {day:3,level:'A1 上',title:'在柏林餐厅点餐 · Ordering food at a Berlin restaurant'},
+  {day:2,level:'A1 上',title:'在柏林机场：到达与问路 · At Berlin airport: arrival & asking the way'},
+  {day:1,level:'A1 上',title:'自我介绍：初次见面 · Self-introduction at a Berlin language meetup'}
+];
+var courseAsc=false;
+function renderCourses(){
+  var rows=COURSE_DATA.slice().sort(function(a,b){ return courseAsc?a.day-b.day:b.day-a.day; });
+  document.getElementById('courseList').innerHTML=rows.map(function(c){ return '<li><div class="info"><span class="day">Day '+c.day+'</span><span class="lvl">'+c.level+'</span><div class="title">'+c.title+'</div></div><a class="open" href="days/day-'+String(c.day).padStart(3,'0')+'.html">打开 →</a></li>'; }).join('');
+  document.getElementById('sortToggle').textContent=courseAsc?'从大到小 ↓':'从小到大 ↑';
+}
+function toggleCourseSort(){ courseAsc=!courseAsc; renderCourses(); }
+function renderToday(){
+  var sm=studiedMap(), last=0;
+  Object.keys(sm).forEach(function(d){ if(sm[d] && +d>last) last=+d; });
+  var next=Math.min(last+1,GENERATED), c=COURSE_DATA.filter(function(x){return x.day===next;})[0]||COURSE_DATA[COURSE_DATA.length-1];
+  document.getElementById('todayTitle').textContent='Day '+c.day+' · '+c.title.split(' · ')[0];
+  document.getElementById('todayDesc').textContent=last?'接着学习下一课，巩固你的学习进度。':'从 Day 1 开始你的德语学习。';
+  document.getElementById('todayLink').href='days/day-'+String(c.day).padStart(3,'0')+'.html';
+}
 
 // ---------- basic sync core (§16.1) ----------
 function syncPass(){ try{ return localStorage.getItem('sync:pass')||''; }catch(e){ return ''; } }
@@ -450,7 +448,7 @@ function renderMistakes(){
   });
   el.innerHTML=html;
 }
-function refreshAll(){ renderGrid(); renderFavs(); renderMistakes(); }
+function refreshAll(){ renderGrid(); renderFavs(); renderMistakes(); renderToday(); renderCourses(); }
 // ---------- progress + boot ----------
 var pct=(GENERATED/TOTAL*100).toFixed(1);
 document.getElementById('pnum').textContent=GENERATED;
