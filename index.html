@@ -287,21 +287,22 @@ function clearCloud(){
   v=(v||'').trim();
   if(v!==pass){ alert('口令不一致，已取消'); return; }
   var wipe=document.getElementById('syncWipeLocal') && document.getElementById('syncWipeLocal').checked;
+  if(wipe){
+    allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
+    try{ localStorage.removeItem('sync:snap:'+hashTag(pass)); }catch(e){}
+    localStorage.removeItem('sync:outbox');
+    localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
+    CLOUD_EV=[];
+    refreshAll();
+  }
   fetch(SYNC_API.replace('/api/log','/api/clear'),{method:'POST',headers:{'X-Passphrase':pass}})
     .then(function(r){ if(r.status!==200) throw new Error('HTTP '+r.status); return r.json(); })
     .then(function(d){
-      if(wipe){
-        allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
-        try{ localStorage.removeItem('sync:snap:'+hashTag(pass)); }catch(e){}
-        localStorage.removeItem('sync:outbox');
-        localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
-        CLOUD_EV=[];
-      }
       syncStatus('云端已清除 '+(d.deleted||0)+' 条');
       refreshAll();
       alert('云端已清除 '+(d.deleted||0)+' 条数据'+(wipe?'，本机数据也已清除':'（本机数据未动）'));
     })
-    .catch(function(e){ alert('清除失败: '+e.message); });
+    .catch(function(e){ alert('云端清除失败: '+e.message+(wipe?'；本机数据已清除':'。本机数据未修改')); });
 }
 // ---------- data loading & fold ----------
 function outboxEv(){ try{ return JSON.parse(localStorage.getItem('sync:outbox')||'[]'); }catch(e){ return []; } }
@@ -337,6 +338,13 @@ function studiedMap(){
     if(ev && (ev.type==='studied_on'||ev.type==='studied_off') && ev.day>=1 && ev.day<=GENERATED){ m[ev.day]=(ev.type==='studied_on'); }
   });
   return m;
+}
+function renderProgress(){
+  var sm=studiedMap(), count=Object.keys(sm).filter(function(d){ return sm[d]; }).length;
+  var pct=(count/TOTAL*100).toFixed(1);
+  document.getElementById('pnum').textContent=count;
+  document.getElementById('ppct').textContent=pct+'%';
+  document.getElementById('pfill').style.width=pct+'%';
 }
 function renderGrid(){
   var sm=studiedMap();
@@ -454,7 +462,7 @@ function renderMistakes(){
   });
   el.innerHTML=html;
 }
-function refreshAll(){ renderGrid(); renderFavs(); renderMistakes(); renderToday(); renderCourses(); }
+function refreshAll(){ renderProgress(); renderGrid(); renderFavs(); renderMistakes(); renderToday(); renderCourses(); }
 // ---------- progress + boot ----------
 var pct=(GENERATED/TOTAL*100).toFixed(1);
 document.getElementById('pnum').textContent=GENERATED;
