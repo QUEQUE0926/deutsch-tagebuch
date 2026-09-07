@@ -291,7 +291,9 @@ function clearCloud(){
       if(wipe){
         allDayKeys().forEach(function(k){ localStorage.removeItem(k); });
         try{ localStorage.removeItem('sync:snap:'+hashTag(pass)); }catch(e){}
+        localStorage.removeItem('sync:outbox');
         localStorage.removeItem('sync:kt'); localStorage.setItem('sync:lastTs','0');
+        CLOUD_EV=[];
       }
       syncStatus('云端已清除 '+(d.deleted||0)+' 条');
       refreshAll();
